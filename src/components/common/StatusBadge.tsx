@@ -21,7 +21,11 @@ const STATUS_MAP: Record<string, { tone: Tone; label: string }> = {
   reserved: { tone: "primary", label: "Reserved" },
   dirty: { tone: "warning", label: "Dirty" },
   cleaning: { tone: "warning", label: "Cleaning" },
+  inspected: { tone: "info", label: "Inspected" },
+  maintenance: { tone: "warning", label: "Maintenance" },
   out_of_order: { tone: "destructive", label: "Out of Order" },
+  out_of_service: { tone: "destructive", label: "Out of Service" },
+  blocked: { tone: "destructive", label: "Blocked" },
   // reservations
   pending: { tone: "warning", label: "Pending" },
   confirmed: { tone: "info", label: "Confirmed" },
@@ -29,6 +33,8 @@ const STATUS_MAP: Record<string, { tone: Tone; label: string }> = {
   checked_out: { tone: "neutral", label: "Checked Out" },
   cancelled: { tone: "destructive", label: "Cancelled" },
   no_show: { tone: "destructive", label: "No Show" },
+  draft: { tone: "neutral", label: "Draft" },
+  waitlist: { tone: "primary", label: "Waitlist" },
   // payments
   paid: { tone: "success", label: "Paid" },
   partial: { tone: "warning", label: "Partial" },

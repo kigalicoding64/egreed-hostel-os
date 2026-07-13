@@ -239,40 +239,64 @@ export type Database = {
           address: string | null
           created_at: string
           email: string | null
+          emergency_contact: string | null
           full_name: string
           hotel_id: string | null
           id: string
           id_document: string | null
+          loyalty_points: number
+          national_id: string | null
           nationality: string | null
           notes: string | null
+          passport: string | null
           phone: string | null
+          photo_url: string | null
+          preferences: string | null
           updated_at: string
+          vehicle_info: string | null
+          vip_status: boolean
         }
         Insert: {
           address?: string | null
           created_at?: string
           email?: string | null
+          emergency_contact?: string | null
           full_name: string
           hotel_id?: string | null
           id?: string
           id_document?: string | null
+          loyalty_points?: number
+          national_id?: string | null
           nationality?: string | null
           notes?: string | null
+          passport?: string | null
           phone?: string | null
+          photo_url?: string | null
+          preferences?: string | null
           updated_at?: string
+          vehicle_info?: string | null
+          vip_status?: boolean
         }
         Update: {
           address?: string | null
           created_at?: string
           email?: string | null
+          emergency_contact?: string | null
           full_name?: string
           hotel_id?: string | null
           id?: string
           id_document?: string | null
+          loyalty_points?: number
+          national_id?: string | null
           nationality?: string | null
           notes?: string | null
+          passport?: string | null
           phone?: string | null
+          photo_url?: string | null
+          preferences?: string | null
           updated_at?: string
+          vehicle_info?: string | null
+          vip_status?: boolean
         }
         Relationships: [
           {
@@ -538,52 +562,123 @@ export type Database = {
         }
         Relationships: []
       }
+      rate_plans: {
+        Row: {
+          adjustment_type: string
+          adjustment_value: number
+          created_at: string
+          description: string | null
+          hotel_id: string
+          id: string
+          is_active: boolean
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          adjustment_type?: string
+          adjustment_value?: number
+          created_at?: string
+          description?: string | null
+          hotel_id: string
+          id?: string
+          is_active?: boolean
+          name: string
+          updated_at?: string
+        }
+        Update: {
+          adjustment_type?: string
+          adjustment_value?: number
+          created_at?: string
+          description?: string | null
+          hotel_id?: string
+          id?: string
+          is_active?: boolean
+          name?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "rate_plans_hotel_id_fkey"
+            columns: ["hotel_id"]
+            isOneToOne: false
+            referencedRelation: "hotels"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       reservations: {
         Row: {
+          adults: number
           check_in: string
           check_out: string
+          children: number
+          confirmation_number: string | null
           created_at: string
           created_by: string | null
+          deposit: number
+          discount: number
           guest_id: string | null
           hotel_id: string
           id: string
           notes: string | null
           num_guests: number
+          rate_plan_id: string | null
           reference: string
           room_id: string | null
+          source: Database["public"]["Enums"]["reservation_source"]
+          special_requests: string | null
           status: Database["public"]["Enums"]["reservation_status"]
+          tax: number
           total_amount: number
           updated_at: string
         }
         Insert: {
+          adults?: number
           check_in: string
           check_out: string
+          children?: number
+          confirmation_number?: string | null
           created_at?: string
           created_by?: string | null
+          deposit?: number
+          discount?: number
           guest_id?: string | null
           hotel_id: string
           id?: string
           notes?: string | null
           num_guests?: number
+          rate_plan_id?: string | null
           reference?: string
           room_id?: string | null
+          source?: Database["public"]["Enums"]["reservation_source"]
+          special_requests?: string | null
           status?: Database["public"]["Enums"]["reservation_status"]
+          tax?: number
           total_amount?: number
           updated_at?: string
         }
         Update: {
+          adults?: number
           check_in?: string
           check_out?: string
+          children?: number
+          confirmation_number?: string | null
           created_at?: string
           created_by?: string | null
+          deposit?: number
+          discount?: number
           guest_id?: string | null
           hotel_id?: string
           id?: string
           notes?: string | null
           num_guests?: number
+          rate_plan_id?: string | null
           reference?: string
           room_id?: string | null
+          source?: Database["public"]["Enums"]["reservation_source"]
+          special_requests?: string | null
           status?: Database["public"]["Enums"]["reservation_status"]
+          tax?: number
           total_amount?: number
           updated_at?: string
         }
@@ -684,37 +779,82 @@ export type Database = {
       }
       rooms: {
         Row: {
+          base_price: number | null
+          bed_types: string[]
+          capacity: number
+          cleaning_status: string
           created_at: string
+          description: string | null
           floor_id: string | null
           hotel_id: string
           id: string
+          images: string[]
+          internal_notes: string | null
+          maintenance_status: string
+          max_guests: number
           notes: string | null
+          num_beds: number
+          qr_code: string | null
+          room_name: string | null
           room_number: string
+          room_size: number | null
           room_type_id: string | null
+          seasonal_price: number | null
           status: Database["public"]["Enums"]["room_status"]
           updated_at: string
+          weekend_price: number | null
         }
         Insert: {
+          base_price?: number | null
+          bed_types?: string[]
+          capacity?: number
+          cleaning_status?: string
           created_at?: string
+          description?: string | null
           floor_id?: string | null
           hotel_id: string
           id?: string
+          images?: string[]
+          internal_notes?: string | null
+          maintenance_status?: string
+          max_guests?: number
           notes?: string | null
+          num_beds?: number
+          qr_code?: string | null
+          room_name?: string | null
           room_number: string
+          room_size?: number | null
           room_type_id?: string | null
+          seasonal_price?: number | null
           status?: Database["public"]["Enums"]["room_status"]
           updated_at?: string
+          weekend_price?: number | null
         }
         Update: {
+          base_price?: number | null
+          bed_types?: string[]
+          capacity?: number
+          cleaning_status?: string
           created_at?: string
+          description?: string | null
           floor_id?: string | null
           hotel_id?: string
           id?: string
+          images?: string[]
+          internal_notes?: string | null
+          maintenance_status?: string
+          max_guests?: number
           notes?: string | null
+          num_beds?: number
+          qr_code?: string | null
+          room_name?: string | null
           room_number?: string
+          room_size?: number | null
           room_type_id?: string | null
+          seasonal_price?: number | null
           status?: Database["public"]["Enums"]["room_status"]
           updated_at?: string
+          weekend_price?: number | null
         }
         Relationships: [
           {
@@ -838,7 +978,18 @@ export type Database = {
         | "mobile_money"
         | "bank_transfer"
         | "other"
+        | "mtn_momo"
+        | "airtel_money"
       payment_status: "pending" | "partial" | "paid" | "refunded" | "failed"
+      reservation_source:
+        | "walk_in"
+        | "phone"
+        | "email"
+        | "website"
+        | "corporate"
+        | "group"
+        | "travel_agent"
+        | "ota"
       reservation_status:
         | "pending"
         | "confirmed"
@@ -846,6 +997,8 @@ export type Database = {
         | "checked_out"
         | "cancelled"
         | "no_show"
+        | "draft"
+        | "waitlist"
       room_status:
         | "available"
         | "occupied"
@@ -853,6 +1006,10 @@ export type Database = {
         | "dirty"
         | "out_of_order"
         | "cleaning"
+        | "inspected"
+        | "maintenance"
+        | "out_of_service"
+        | "blocked"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -1004,8 +1161,20 @@ export const Constants = {
         "mobile_money",
         "bank_transfer",
         "other",
+        "mtn_momo",
+        "airtel_money",
       ],
       payment_status: ["pending", "partial", "paid", "refunded", "failed"],
+      reservation_source: [
+        "walk_in",
+        "phone",
+        "email",
+        "website",
+        "corporate",
+        "group",
+        "travel_agent",
+        "ota",
+      ],
       reservation_status: [
         "pending",
         "confirmed",
@@ -1013,6 +1182,8 @@ export const Constants = {
         "checked_out",
         "cancelled",
         "no_show",
+        "draft",
+        "waitlist",
       ],
       room_status: [
         "available",
@@ -1021,6 +1192,10 @@ export const Constants = {
         "dirty",
         "out_of_order",
         "cleaning",
+        "inspected",
+        "maintenance",
+        "out_of_service",
+        "blocked",
       ],
     },
   },
