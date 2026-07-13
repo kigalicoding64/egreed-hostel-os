@@ -29,7 +29,7 @@ import {
 } from "@/components/ui/select";
 import { StatusBadge } from "@/components/common/StatusBadge";
 import { formatCurrency } from "@/lib/format";
-import { ROOM_STATUSES, ROOM_STATUS_LABELS } from "@/lib/hotel-constants";
+import { ROOM_STATUSES, ROOM_STATUS_LABELS, type RoomStatus } from "@/lib/hotel-constants";
 import type { RoomRecord } from "./RoomFormDialog";
 
 export interface RoomWithRefs extends RoomRecord {
@@ -57,7 +57,7 @@ export function RoomDetailSheet({
       if (!room) return;
       const { error } = await supabase
         .from("rooms")
-        .update({ status: status as RoomRecord["status"] })
+        .update({ status: status as RoomStatus })
         .eq("id", room.id);
       if (error) throw error;
     },
