@@ -26,6 +26,7 @@ import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import {
   ROOM_STATUSES,
+  type RoomStatus,
   ROOM_STATUS_LABELS,
   BED_TYPES,
   CLEANING_STATUSES,
