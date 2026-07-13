@@ -12,6 +12,9 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRoomsRouteImport } from './routes/_authenticated/rooms'
+import { Route as AuthenticatedReservationsRouteImport } from './routes/_authenticated/reservations'
+import { Route as AuthenticatedGuestsRouteImport } from './routes/_authenticated/guests'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 
 const AuthRoute = AuthRouteImport.update({
@@ -28,6 +31,22 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedRoomsRoute = AuthenticatedRoomsRouteImport.update({
+  id: '/rooms',
+  path: '/rooms',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedReservationsRoute =
+  AuthenticatedReservationsRouteImport.update({
+    id: '/reservations',
+    path: '/reservations',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedGuestsRoute = AuthenticatedGuestsRouteImport.update({
+  id: '/guests',
+  path: '/guests',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -38,11 +57,17 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/guests': typeof AuthenticatedGuestsRoute
+  '/reservations': typeof AuthenticatedReservationsRoute
+  '/rooms': typeof AuthenticatedRoomsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/guests': typeof AuthenticatedGuestsRoute
+  '/reservations': typeof AuthenticatedReservationsRoute
+  '/rooms': typeof AuthenticatedRoomsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -50,18 +75,30 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/guests': typeof AuthenticatedGuestsRoute
+  '/_authenticated/reservations': typeof AuthenticatedReservationsRoute
+  '/_authenticated/rooms': typeof AuthenticatedRoomsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/dashboard'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/dashboard'
+    | '/guests'
+    | '/reservations'
+    | '/rooms'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/dashboard'
+  to: '/' | '/auth' | '/dashboard' | '/guests' | '/reservations' | '/rooms'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/auth'
     | '/_authenticated/dashboard'
+    | '/_authenticated/guests'
+    | '/_authenticated/reservations'
+    | '/_authenticated/rooms'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -93,6 +130,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/rooms': {
+      id: '/_authenticated/rooms'
+      path: '/rooms'
+      fullPath: '/rooms'
+      preLoaderRoute: typeof AuthenticatedRoomsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/reservations': {
+      id: '/_authenticated/reservations'
+      path: '/reservations'
+      fullPath: '/reservations'
+      preLoaderRoute: typeof AuthenticatedReservationsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/guests': {
+      id: '/_authenticated/guests'
+      path: '/guests'
+      fullPath: '/guests'
+      preLoaderRoute: typeof AuthenticatedGuestsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/dashboard': {
       id: '/_authenticated/dashboard'
       path: '/dashboard'
@@ -105,10 +163,16 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedGuestsRoute: typeof AuthenticatedGuestsRoute
+  AuthenticatedReservationsRoute: typeof AuthenticatedReservationsRoute
+  AuthenticatedRoomsRoute: typeof AuthenticatedRoomsRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedGuestsRoute: AuthenticatedGuestsRoute,
+  AuthenticatedReservationsRoute: AuthenticatedReservationsRoute,
+  AuthenticatedRoomsRoute: AuthenticatedRoomsRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
