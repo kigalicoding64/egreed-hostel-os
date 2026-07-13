@@ -113,7 +113,7 @@ export function RoomFormDialog({
         room_name: form.room_name || null,
         floor_id: form.floor_id,
         room_type_id: form.room_type_id,
-        status: form.status as RoomRecord["status"],
+        status: form.status as RoomStatus,
         capacity: form.capacity,
         num_beds: form.num_beds,
         max_guests: form.max_guests,
