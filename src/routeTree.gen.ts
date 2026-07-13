@@ -13,9 +13,11 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedStaffRouteImport } from './routes/_authenticated/staff'
+import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
 import { Route as AuthenticatedRoomsRouteImport } from './routes/_authenticated/rooms'
 import { Route as AuthenticatedReservationsRouteImport } from './routes/_authenticated/reservations'
 import { Route as AuthenticatedPropertiesRouteImport } from './routes/_authenticated/properties'
+import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
 import { Route as AuthenticatedPaymentsRouteImport } from './routes/_authenticated/payments'
 import { Route as AuthenticatedInvoicesRouteImport } from './routes/_authenticated/invoices'
 import { Route as AuthenticatedGuestsRouteImport } from './routes/_authenticated/guests'
@@ -41,6 +43,11 @@ const AuthenticatedStaffRoute = AuthenticatedStaffRouteImport.update({
   path: '/staff',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedRoomsRoute = AuthenticatedRoomsRouteImport.update({
   id: '/rooms',
   path: '/rooms',
@@ -55,6 +62,11 @@ const AuthenticatedReservationsRoute =
 const AuthenticatedPropertiesRoute = AuthenticatedPropertiesRouteImport.update({
   id: '/properties',
   path: '/properties',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedPaymentsRoute = AuthenticatedPaymentsRouteImport.update({
@@ -91,9 +103,11 @@ export interface FileRoutesByFullPath {
   '/guests': typeof AuthenticatedGuestsRoute
   '/invoices': typeof AuthenticatedInvoicesRoute
   '/payments': typeof AuthenticatedPaymentsRoute
+  '/profile': typeof AuthenticatedProfileRoute
   '/properties': typeof AuthenticatedPropertiesRoute
   '/reservations': typeof AuthenticatedReservationsRoute
   '/rooms': typeof AuthenticatedRoomsRoute
+  '/settings': typeof AuthenticatedSettingsRoute
   '/staff': typeof AuthenticatedStaffRoute
 }
 export interface FileRoutesByTo {
@@ -104,9 +118,11 @@ export interface FileRoutesByTo {
   '/guests': typeof AuthenticatedGuestsRoute
   '/invoices': typeof AuthenticatedInvoicesRoute
   '/payments': typeof AuthenticatedPaymentsRoute
+  '/profile': typeof AuthenticatedProfileRoute
   '/properties': typeof AuthenticatedPropertiesRoute
   '/reservations': typeof AuthenticatedReservationsRoute
   '/rooms': typeof AuthenticatedRoomsRoute
+  '/settings': typeof AuthenticatedSettingsRoute
   '/staff': typeof AuthenticatedStaffRoute
 }
 export interface FileRoutesById {
@@ -119,9 +135,11 @@ export interface FileRoutesById {
   '/_authenticated/guests': typeof AuthenticatedGuestsRoute
   '/_authenticated/invoices': typeof AuthenticatedInvoicesRoute
   '/_authenticated/payments': typeof AuthenticatedPaymentsRoute
+  '/_authenticated/profile': typeof AuthenticatedProfileRoute
   '/_authenticated/properties': typeof AuthenticatedPropertiesRoute
   '/_authenticated/reservations': typeof AuthenticatedReservationsRoute
   '/_authenticated/rooms': typeof AuthenticatedRoomsRoute
+  '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/_authenticated/staff': typeof AuthenticatedStaffRoute
 }
 export interface FileRouteTypes {
@@ -134,9 +152,11 @@ export interface FileRouteTypes {
     | '/guests'
     | '/invoices'
     | '/payments'
+    | '/profile'
     | '/properties'
     | '/reservations'
     | '/rooms'
+    | '/settings'
     | '/staff'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -147,9 +167,11 @@ export interface FileRouteTypes {
     | '/guests'
     | '/invoices'
     | '/payments'
+    | '/profile'
     | '/properties'
     | '/reservations'
     | '/rooms'
+    | '/settings'
     | '/staff'
   id:
     | '__root__'
@@ -161,9 +183,11 @@ export interface FileRouteTypes {
     | '/_authenticated/guests'
     | '/_authenticated/invoices'
     | '/_authenticated/payments'
+    | '/_authenticated/profile'
     | '/_authenticated/properties'
     | '/_authenticated/reservations'
     | '/_authenticated/rooms'
+    | '/_authenticated/settings'
     | '/_authenticated/staff'
   fileRoutesById: FileRoutesById
 }
@@ -203,6 +227,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedStaffRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/settings': {
+      id: '/_authenticated/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AuthenticatedSettingsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/rooms': {
       id: '/_authenticated/rooms'
       path: '/rooms'
@@ -222,6 +253,13 @@ declare module '@tanstack/react-router' {
       path: '/properties'
       fullPath: '/properties'
       preLoaderRoute: typeof AuthenticatedPropertiesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/profile': {
+      id: '/_authenticated/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof AuthenticatedProfileRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/payments': {
@@ -268,9 +306,11 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedGuestsRoute: typeof AuthenticatedGuestsRoute
   AuthenticatedInvoicesRoute: typeof AuthenticatedInvoicesRoute
   AuthenticatedPaymentsRoute: typeof AuthenticatedPaymentsRoute
+  AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
   AuthenticatedPropertiesRoute: typeof AuthenticatedPropertiesRoute
   AuthenticatedReservationsRoute: typeof AuthenticatedReservationsRoute
   AuthenticatedRoomsRoute: typeof AuthenticatedRoomsRoute
+  AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
   AuthenticatedStaffRoute: typeof AuthenticatedStaffRoute
 }
 
@@ -280,9 +320,11 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedGuestsRoute: AuthenticatedGuestsRoute,
   AuthenticatedInvoicesRoute: AuthenticatedInvoicesRoute,
   AuthenticatedPaymentsRoute: AuthenticatedPaymentsRoute,
+  AuthenticatedProfileRoute: AuthenticatedProfileRoute,
   AuthenticatedPropertiesRoute: AuthenticatedPropertiesRoute,
   AuthenticatedReservationsRoute: AuthenticatedReservationsRoute,
   AuthenticatedRoomsRoute: AuthenticatedRoomsRoute,
+  AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
   AuthenticatedStaffRoute: AuthenticatedStaffRoute,
 }
 

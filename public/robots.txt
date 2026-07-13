@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /$
+Disallow: /dashboard
+Disallow: /reservations
+Disallow: /rooms
+Disallow: /guests
+Disallow: /invoices
+Disallow: /payments
+Disallow: /staff
+Disallow: /properties
+Disallow: /activity
+Disallow: /settings
+Disallow: /profile
