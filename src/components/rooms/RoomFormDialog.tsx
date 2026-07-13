@@ -6,7 +6,7 @@ import { useHotelRef } from "@/hooks/use-hotel";
 import {
   Dialog,
   DialogContent,
-  Dialogdescription,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -156,9 +156,9 @@ export function RoomFormDialog({
       <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-2xl">
         <DialogHeader>
           <DialogTitle>{room ? "Edit Room" : "New Room"}</DialogTitle>
-          <Dialogdescription>
+          <DialogDescription>
             Configure the room details, capacity and pricing.
-          </Dialogdescription>
+          </DialogDescription>
         </DialogHeader>
 
         <div className="grid gap-4 py-2">
