@@ -139,9 +139,9 @@ function LostFoundPage() {
         <StatCardsSkeleton count={4} />
       ) : (
         <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
-          <StatCard label="In Storage" value={stats.stored} icon={Archive} tone="info" />
-          <StatCard label="Claimed" value={stats.claimed} icon={PackageCheck} tone="warning" />
-          <StatCard label="Returned" value={stats.returned} icon={PackageCheck} tone="success" />
+          <StatCard label="In Storage" value={stats.stored} icon={Archive} accent="info" />
+          <StatCard label="Claimed" value={stats.claimed} icon={PackageCheck} accent="warning" />
+          <StatCard label="Returned" value={stats.returned} icon={PackageCheck} accent="success" />
           <StatCard label="Disposed" value={stats.disposed} icon={Trash2} />
         </div>
       )}
@@ -251,7 +251,7 @@ function LFFormDialog({
         };
         if (status === "returned" && !item.returned_at) patch.returned_at = new Date().toISOString();
         if (status === "claimed") patch.claimed_at = new Date().toISOString();
-        const { error } = await supabase.from("lost_found").update(patch).eq("id", item.id);
+        const { error } = await supabase.from("lost_found").update(patch as never).eq("id", item.id);
         if (error) throw error;
       } else {
         const { error } = await supabase.from("lost_found").insert({

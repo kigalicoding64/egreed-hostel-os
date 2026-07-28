@@ -118,7 +118,7 @@ function HousekeepingPage() {
       const patch: Record<string, unknown> = { status };
       if (status === "in_progress") patch.started_at = new Date().toISOString();
       if (status === "completed") patch.completed_at = new Date().toISOString();
-      const { error } = await supabase.from("housekeeping_tasks").update(patch).eq("id", id);
+      const { error } = await supabase.from("housekeeping_tasks").update(patch as never).eq("id", id);
       if (error) throw error;
     },
     onSuccess: () => {
@@ -165,9 +165,9 @@ function HousekeepingPage() {
       ) : (
         <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
           <StatCard label="Total Today" value={stats.total} icon={ClipboardCheck} />
-          <StatCard label="Pending" value={stats.pending} icon={Timer} tone="warning" />
-          <StatCard label="In Progress" value={stats.in_progress} icon={Play} tone="info" />
-          <StatCard label="Completed" value={stats.completed} icon={CheckCircle2} tone="success" />
+          <StatCard label="Pending" value={stats.pending} icon={Timer} accent="warning" />
+          <StatCard label="In Progress" value={stats.in_progress} icon={Play} accent="info" />
+          <StatCard label="Completed" value={stats.completed} icon={CheckCircle2} accent="success" />
         </div>
       )}
 

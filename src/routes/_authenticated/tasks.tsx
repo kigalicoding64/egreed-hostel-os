@@ -95,7 +95,7 @@ function TasksPage() {
     mutationFn: async ({ id, status }: { id: string; status: string }) => {
       const patch: Record<string, unknown> = { status };
       if (status === "done") patch.completed_at = new Date().toISOString();
-      const { error } = await supabase.from("tasks").update(patch).eq("id", id);
+      const { error } = await supabase.from("tasks").update(patch as never).eq("id", id);
       if (error) throw error;
     },
     onSuccess: () => qc.invalidateQueries({ queryKey: ["tasks"] }),
@@ -261,7 +261,7 @@ function TaskFormDialog({
           due_date: dueDate || null, assigned_to: assignedTo || null,
         };
         if (status === "done") patch.completed_at = new Date().toISOString();
-        const { error } = await supabase.from("tasks").update(patch).eq("id", task.id);
+        const { error } = await supabase.from("tasks").update(patch as never).eq("id", task.id);
         if (error) throw error;
       } else {
         const { error } = await supabase.from("tasks").insert({

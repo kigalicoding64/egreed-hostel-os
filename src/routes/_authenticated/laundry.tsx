@@ -133,7 +133,7 @@ function LaundryPage() {
       if (!next) return;
       const patch: Record<string, unknown> = { status: next };
       if (next === "delivered") patch.delivered_at = new Date().toISOString();
-      const { error } = await supabase.from("laundry_orders").update(patch).eq("id", o.id);
+      const { error } = await supabase.from("laundry_orders").update(patch as never).eq("id", o.id);
       if (error) throw error;
     },
     onSuccess: () => {
@@ -176,10 +176,10 @@ function LaundryPage() {
         <StatCardsSkeleton count={4} />
       ) : (
         <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
-          <StatCard label="Active Cycles" value={stats.active} icon={Shirt} tone="info" />
-          <StatCard label="Delivered" value={stats.delivered} icon={ArrowRight} tone="success" />
-          <StatCard label="Damaged Items" value={stats.damaged} icon={Shirt} tone="warning" />
-          <StatCard label="Replacement Cost" value={formatCurrency(stats.replacement)} icon={Shirt} tone="destructive" />
+          <StatCard label="Active Cycles" value={stats.active} icon={Shirt} accent="info" />
+          <StatCard label="Delivered" value={stats.delivered} icon={ArrowRight} accent="success" />
+          <StatCard label="Damaged Items" value={stats.damaged} icon={Shirt} accent="warning" />
+          <StatCard label="Replacement Cost" value={formatCurrency(stats.replacement)} icon={Shirt} accent="destructive" />
         </div>
       )}
 

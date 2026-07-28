@@ -154,9 +154,9 @@ function AssetsPage() {
       ) : (
         <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
           <StatCard label="Total Assets" value={stats.total} icon={Package} />
-          <StatCard label="Total Value" value={formatCurrency(stats.value)} icon={ShieldCheck} tone="success" />
-          <StatCard label="Out of Service" value={stats.oos} icon={AlertTriangle} tone="destructive" />
-          <StatCard label="Warranty Expiring" value={stats.warrantyExpiring} icon={AlertTriangle} tone="warning" />
+          <StatCard label="Total Value" value={formatCurrency(stats.value)} icon={ShieldCheck} accent="success" />
+          <StatCard label="Out of Service" value={stats.oos} icon={AlertTriangle} accent="destructive" />
+          <StatCard label="Warranty Expiring" value={stats.warrantyExpiring} icon={AlertTriangle} accent="warning" />
         </div>
       )}
 

@@ -123,7 +123,7 @@ function MaintenancePage() {
 
   const update = useMutation({
     mutationFn: async ({ id, patch }: { id: string; patch: Record<string, unknown> }) => {
-      const { error } = await supabase.from("maintenance_tickets").update(patch).eq("id", id);
+      const { error } = await supabase.from("maintenance_tickets").update(patch as never).eq("id", id);
       if (error) throw error;
     },
     onSuccess: () => {
@@ -168,10 +168,10 @@ function MaintenancePage() {
         <StatCardsSkeleton count={4} />
       ) : (
         <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
-          <StatCard label="Open Tickets" value={stats.open} icon={AlertTriangle} tone="warning" />
-          <StatCard label="In Progress" value={stats.inProgress} icon={Clock} tone="info" />
-          <StatCard label="Resolved" value={stats.resolved} icon={CheckCircle2} tone="success" />
-          <StatCard label="Critical" value={stats.critical} icon={TrendingUp} tone="destructive" />
+          <StatCard label="Open Tickets" value={stats.open} icon={AlertTriangle} accent="warning" />
+          <StatCard label="In Progress" value={stats.inProgress} icon={Clock} accent="info" />
+          <StatCard label="Resolved" value={stats.resolved} icon={CheckCircle2} accent="success" />
+          <StatCard label="Critical" value={stats.critical} icon={TrendingUp} accent="destructive" />
         </div>
       )}
 
@@ -333,7 +333,7 @@ function TicketFormDialog({
         };
         if (status === "resolved" && !ticket.resolved_at) patch.resolved_at = new Date().toISOString();
         if (resolution) patch.resolution = resolution;
-        const { error } = await supabase.from("maintenance_tickets").update(patch).eq("id", ticket.id);
+        const { error } = await supabase.from("maintenance_tickets").update(patch as never).eq("id", ticket.id);
         if (error) throw error;
       } else {
         const { error } = await supabase.from("maintenance_tickets").insert({
