@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedTasksRouteImport } from './routes/_authenticated/tasks'
 import { Route as AuthenticatedSupportRouteImport } from './routes/_authenticated/support'
 import { Route as AuthenticatedStaffRouteImport } from './routes/_authenticated/staff'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
@@ -24,10 +25,13 @@ import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedPaymentsRouteImport } from './routes/_authenticated/payments'
 import { Route as AuthenticatedMarketingRouteImport } from './routes/_authenticated/marketing'
 import { Route as AuthenticatedMaintenanceRouteImport } from './routes/_authenticated/maintenance'
+import { Route as AuthenticatedLostFoundRouteImport } from './routes/_authenticated/lost-found'
+import { Route as AuthenticatedLaundryRouteImport } from './routes/_authenticated/laundry'
 import { Route as AuthenticatedInvoicesRouteImport } from './routes/_authenticated/invoices'
 import { Route as AuthenticatedHousekeepingRouteImport } from './routes/_authenticated/housekeeping'
 import { Route as AuthenticatedGuestsRouteImport } from './routes/_authenticated/guests'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedAssetsRouteImport } from './routes/_authenticated/assets'
 import { Route as AuthenticatedActivityRouteImport } from './routes/_authenticated/activity'
 
 const AuthRoute = AuthRouteImport.update({
@@ -43,6 +47,11 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedTasksRoute = AuthenticatedTasksRouteImport.update({
+  id: '/tasks',
+  path: '/tasks',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedSupportRoute = AuthenticatedSupportRouteImport.update({
   id: '/support',
@@ -106,6 +115,16 @@ const AuthenticatedMaintenanceRoute =
     path: '/maintenance',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedLostFoundRoute = AuthenticatedLostFoundRouteImport.update({
+  id: '/lost-found',
+  path: '/lost-found',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedLaundryRoute = AuthenticatedLaundryRouteImport.update({
+  id: '/laundry',
+  path: '/laundry',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedInvoicesRoute = AuthenticatedInvoicesRouteImport.update({
   id: '/invoices',
   path: '/invoices',
@@ -127,6 +146,11 @@ const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAssetsRoute = AuthenticatedAssetsRouteImport.update({
+  id: '/assets',
+  path: '/assets',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedActivityRoute = AuthenticatedActivityRouteImport.update({
   id: '/activity',
   path: '/activity',
@@ -137,10 +161,13 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/activity': typeof AuthenticatedActivityRoute
+  '/assets': typeof AuthenticatedAssetsRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/guests': typeof AuthenticatedGuestsRoute
   '/housekeeping': typeof AuthenticatedHousekeepingRoute
   '/invoices': typeof AuthenticatedInvoicesRoute
+  '/laundry': typeof AuthenticatedLaundryRoute
+  '/lost-found': typeof AuthenticatedLostFoundRoute
   '/maintenance': typeof AuthenticatedMaintenanceRoute
   '/marketing': typeof AuthenticatedMarketingRoute
   '/payments': typeof AuthenticatedPaymentsRoute
@@ -153,15 +180,19 @@ export interface FileRoutesByFullPath {
   '/settings': typeof AuthenticatedSettingsRoute
   '/staff': typeof AuthenticatedStaffRoute
   '/support': typeof AuthenticatedSupportRoute
+  '/tasks': typeof AuthenticatedTasksRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/activity': typeof AuthenticatedActivityRoute
+  '/assets': typeof AuthenticatedAssetsRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/guests': typeof AuthenticatedGuestsRoute
   '/housekeeping': typeof AuthenticatedHousekeepingRoute
   '/invoices': typeof AuthenticatedInvoicesRoute
+  '/laundry': typeof AuthenticatedLaundryRoute
+  '/lost-found': typeof AuthenticatedLostFoundRoute
   '/maintenance': typeof AuthenticatedMaintenanceRoute
   '/marketing': typeof AuthenticatedMarketingRoute
   '/payments': typeof AuthenticatedPaymentsRoute
@@ -174,6 +205,7 @@ export interface FileRoutesByTo {
   '/settings': typeof AuthenticatedSettingsRoute
   '/staff': typeof AuthenticatedStaffRoute
   '/support': typeof AuthenticatedSupportRoute
+  '/tasks': typeof AuthenticatedTasksRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -181,10 +213,13 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/_authenticated/activity': typeof AuthenticatedActivityRoute
+  '/_authenticated/assets': typeof AuthenticatedAssetsRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/guests': typeof AuthenticatedGuestsRoute
   '/_authenticated/housekeeping': typeof AuthenticatedHousekeepingRoute
   '/_authenticated/invoices': typeof AuthenticatedInvoicesRoute
+  '/_authenticated/laundry': typeof AuthenticatedLaundryRoute
+  '/_authenticated/lost-found': typeof AuthenticatedLostFoundRoute
   '/_authenticated/maintenance': typeof AuthenticatedMaintenanceRoute
   '/_authenticated/marketing': typeof AuthenticatedMarketingRoute
   '/_authenticated/payments': typeof AuthenticatedPaymentsRoute
@@ -197,6 +232,7 @@ export interface FileRoutesById {
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/_authenticated/staff': typeof AuthenticatedStaffRoute
   '/_authenticated/support': typeof AuthenticatedSupportRoute
+  '/_authenticated/tasks': typeof AuthenticatedTasksRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -204,10 +240,13 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/activity'
+    | '/assets'
     | '/dashboard'
     | '/guests'
     | '/housekeeping'
     | '/invoices'
+    | '/laundry'
+    | '/lost-found'
     | '/maintenance'
     | '/marketing'
     | '/payments'
@@ -220,15 +259,19 @@ export interface FileRouteTypes {
     | '/settings'
     | '/staff'
     | '/support'
+    | '/tasks'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/auth'
     | '/activity'
+    | '/assets'
     | '/dashboard'
     | '/guests'
     | '/housekeeping'
     | '/invoices'
+    | '/laundry'
+    | '/lost-found'
     | '/maintenance'
     | '/marketing'
     | '/payments'
@@ -241,16 +284,20 @@ export interface FileRouteTypes {
     | '/settings'
     | '/staff'
     | '/support'
+    | '/tasks'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/auth'
     | '/_authenticated/activity'
+    | '/_authenticated/assets'
     | '/_authenticated/dashboard'
     | '/_authenticated/guests'
     | '/_authenticated/housekeeping'
     | '/_authenticated/invoices'
+    | '/_authenticated/laundry'
+    | '/_authenticated/lost-found'
     | '/_authenticated/maintenance'
     | '/_authenticated/marketing'
     | '/_authenticated/payments'
@@ -263,6 +310,7 @@ export interface FileRouteTypes {
     | '/_authenticated/settings'
     | '/_authenticated/staff'
     | '/_authenticated/support'
+    | '/_authenticated/tasks'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -293,6 +341,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/tasks': {
+      id: '/_authenticated/tasks'
+      path: '/tasks'
+      fullPath: '/tasks'
+      preLoaderRoute: typeof AuthenticatedTasksRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/support': {
       id: '/_authenticated/support'
@@ -378,6 +433,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedMaintenanceRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/lost-found': {
+      id: '/_authenticated/lost-found'
+      path: '/lost-found'
+      fullPath: '/lost-found'
+      preLoaderRoute: typeof AuthenticatedLostFoundRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/laundry': {
+      id: '/_authenticated/laundry'
+      path: '/laundry'
+      fullPath: '/laundry'
+      preLoaderRoute: typeof AuthenticatedLaundryRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/invoices': {
       id: '/_authenticated/invoices'
       path: '/invoices'
@@ -406,6 +475,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/assets': {
+      id: '/_authenticated/assets'
+      path: '/assets'
+      fullPath: '/assets'
+      preLoaderRoute: typeof AuthenticatedAssetsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/activity': {
       id: '/_authenticated/activity'
       path: '/activity'
@@ -418,10 +494,13 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedActivityRoute: typeof AuthenticatedActivityRoute
+  AuthenticatedAssetsRoute: typeof AuthenticatedAssetsRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedGuestsRoute: typeof AuthenticatedGuestsRoute
   AuthenticatedHousekeepingRoute: typeof AuthenticatedHousekeepingRoute
   AuthenticatedInvoicesRoute: typeof AuthenticatedInvoicesRoute
+  AuthenticatedLaundryRoute: typeof AuthenticatedLaundryRoute
+  AuthenticatedLostFoundRoute: typeof AuthenticatedLostFoundRoute
   AuthenticatedMaintenanceRoute: typeof AuthenticatedMaintenanceRoute
   AuthenticatedMarketingRoute: typeof AuthenticatedMarketingRoute
   AuthenticatedPaymentsRoute: typeof AuthenticatedPaymentsRoute
@@ -434,14 +513,18 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
   AuthenticatedStaffRoute: typeof AuthenticatedStaffRoute
   AuthenticatedSupportRoute: typeof AuthenticatedSupportRoute
+  AuthenticatedTasksRoute: typeof AuthenticatedTasksRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedActivityRoute: AuthenticatedActivityRoute,
+  AuthenticatedAssetsRoute: AuthenticatedAssetsRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedGuestsRoute: AuthenticatedGuestsRoute,
   AuthenticatedHousekeepingRoute: AuthenticatedHousekeepingRoute,
   AuthenticatedInvoicesRoute: AuthenticatedInvoicesRoute,
+  AuthenticatedLaundryRoute: AuthenticatedLaundryRoute,
+  AuthenticatedLostFoundRoute: AuthenticatedLostFoundRoute,
   AuthenticatedMaintenanceRoute: AuthenticatedMaintenanceRoute,
   AuthenticatedMarketingRoute: AuthenticatedMarketingRoute,
   AuthenticatedPaymentsRoute: AuthenticatedPaymentsRoute,
@@ -454,6 +537,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
   AuthenticatedStaffRoute: AuthenticatedStaffRoute,
   AuthenticatedSupportRoute: AuthenticatedSupportRoute,
+  AuthenticatedTasksRoute: AuthenticatedTasksRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
