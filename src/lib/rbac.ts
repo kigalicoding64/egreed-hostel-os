@@ -16,7 +16,12 @@ import {
   Building2,
   ScrollText,
   Settings,
+  Shirt,
+  Search,
+  ListTodo,
+  Package,
 } from "lucide-react";
+
 
 /** All roles supported by EGREED Hospitality Enterprise. Mirrors the DB app_role enum. */
 export type AppRole =
@@ -118,8 +123,26 @@ export const NAV_GROUPS: NavGroup[] = [
         title: "Housekeeping",
         to: "/housekeeping",
         icon: Sparkles,
-        roles: [...MANAGEMENT_ROLES, "housekeeping_manager", "housekeeping_staff"],
-        soon: true,
+        roles: [...MANAGEMENT_ROLES, "housekeeping_manager", "housekeeping_staff", "receptionist"],
+      },
+      {
+        title: "Laundry",
+        to: "/laundry",
+        icon: Shirt,
+        roles: [...MANAGEMENT_ROLES, "housekeeping_manager", "housekeeping_staff", "receptionist"],
+      },
+      {
+        title: "Lost & Found",
+        to: "/lost-found",
+        icon: Search,
+        roles: [
+          ...MANAGEMENT_ROLES,
+          "housekeeping_manager",
+          "housekeeping_staff",
+          "receptionist",
+          "security_officer",
+          "customer_support",
+        ],
       },
       {
         title: "Restaurant POS",
@@ -132,8 +155,18 @@ export const NAV_GROUPS: NavGroup[] = [
         title: "Maintenance",
         to: "/maintenance",
         icon: Wrench,
-        roles: [...MANAGEMENT_ROLES, "maintenance_manager", "maintenance_staff"],
-        soon: true,
+        roles: [...MANAGEMENT_ROLES, "maintenance_manager", "maintenance_staff", "receptionist", "housekeeping_manager"],
+      },
+      {
+        title: "Assets",
+        to: "/assets",
+        icon: Package,
+        roles: [...MANAGEMENT_ROLES, "maintenance_manager"],
+      },
+      {
+        title: "Tasks",
+        to: "/tasks",
+        icon: ListTodo,
       },
       {
         title: "Security",
@@ -144,6 +177,7 @@ export const NAV_GROUPS: NavGroup[] = [
       },
     ],
   },
+
   {
     label: "Finance",
     items: [

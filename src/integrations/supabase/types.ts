@@ -35,6 +35,78 @@ export type Database = {
         }
         Relationships: []
       }
+      assets: {
+        Row: {
+          category: string
+          code: string
+          condition: Database["public"]["Enums"]["asset_condition"]
+          created_at: string
+          depreciation_years: number
+          hotel_id: string
+          id: string
+          location: string | null
+          name: string
+          notes: string | null
+          purchase_date: string | null
+          purchase_price: number
+          room_id: string | null
+          serial_number: string | null
+          updated_at: string
+          warranty_until: string | null
+        }
+        Insert: {
+          category?: string
+          code?: string
+          condition?: Database["public"]["Enums"]["asset_condition"]
+          created_at?: string
+          depreciation_years?: number
+          hotel_id: string
+          id?: string
+          location?: string | null
+          name: string
+          notes?: string | null
+          purchase_date?: string | null
+          purchase_price?: number
+          room_id?: string | null
+          serial_number?: string | null
+          updated_at?: string
+          warranty_until?: string | null
+        }
+        Update: {
+          category?: string
+          code?: string
+          condition?: Database["public"]["Enums"]["asset_condition"]
+          created_at?: string
+          depreciation_years?: number
+          hotel_id?: string
+          id?: string
+          location?: string | null
+          name?: string
+          notes?: string | null
+          purchase_date?: string | null
+          purchase_price?: number
+          room_id?: string | null
+          serial_number?: string | null
+          updated_at?: string
+          warranty_until?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "assets_hotel_id_fkey"
+            columns: ["hotel_id"]
+            isOneToOne: false
+            referencedRelation: "hotels"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "assets_room_id_fkey"
+            columns: ["room_id"]
+            isOneToOne: false
+            referencedRelation: "rooms"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       audit_logs: {
         Row: {
           action: string
@@ -359,6 +431,75 @@ export type Database = {
         }
         Relationships: []
       }
+      housekeeping_tasks: {
+        Row: {
+          assigned_to: string | null
+          completed_at: string | null
+          created_at: string
+          created_by: string | null
+          duration_minutes: number | null
+          hotel_id: string
+          id: string
+          notes: string | null
+          priority: Database["public"]["Enums"]["hk_priority"]
+          room_id: string
+          scheduled_for: string
+          started_at: string | null
+          status: Database["public"]["Enums"]["hk_task_status"]
+          task_type: string
+          updated_at: string
+        }
+        Insert: {
+          assigned_to?: string | null
+          completed_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          duration_minutes?: number | null
+          hotel_id: string
+          id?: string
+          notes?: string | null
+          priority?: Database["public"]["Enums"]["hk_priority"]
+          room_id: string
+          scheduled_for?: string
+          started_at?: string | null
+          status?: Database["public"]["Enums"]["hk_task_status"]
+          task_type?: string
+          updated_at?: string
+        }
+        Update: {
+          assigned_to?: string | null
+          completed_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          duration_minutes?: number | null
+          hotel_id?: string
+          id?: string
+          notes?: string | null
+          priority?: Database["public"]["Enums"]["hk_priority"]
+          room_id?: string
+          scheduled_for?: string
+          started_at?: string | null
+          status?: Database["public"]["Enums"]["hk_task_status"]
+          task_type?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "housekeeping_tasks_hotel_id_fkey"
+            columns: ["hotel_id"]
+            isOneToOne: false
+            referencedRelation: "hotels"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "housekeeping_tasks_room_id_fkey"
+            columns: ["room_id"]
+            isOneToOne: false
+            referencedRelation: "rooms"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       invoices: {
         Row: {
           amount: number
@@ -425,6 +566,310 @@ export type Database = {
             columns: ["reservation_id"]
             isOneToOne: false
             referencedRelation: "reservations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      laundry_items: {
+        Row: {
+          created_at: string
+          hotel_id: string
+          id: string
+          kind: Database["public"]["Enums"]["laundry_kind"]
+          name: string
+          reorder_level: number
+          stock_on_hand: number
+          unit_cost: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          hotel_id: string
+          id?: string
+          kind?: Database["public"]["Enums"]["laundry_kind"]
+          name: string
+          reorder_level?: number
+          stock_on_hand?: number
+          unit_cost?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          hotel_id?: string
+          id?: string
+          kind?: Database["public"]["Enums"]["laundry_kind"]
+          name?: string
+          reorder_level?: number
+          stock_on_hand?: number
+          unit_cost?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "laundry_items_hotel_id_fkey"
+            columns: ["hotel_id"]
+            isOneToOne: false
+            referencedRelation: "hotels"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      laundry_orders: {
+        Row: {
+          collected_at: string
+          created_at: string
+          created_by: string | null
+          damaged_count: number
+          delivered_at: string | null
+          guest_id: string | null
+          hotel_id: string
+          id: string
+          kind: Database["public"]["Enums"]["laundry_kind"]
+          lines: Json
+          notes: string | null
+          reference: string
+          replacement_cost: number
+          room_id: string | null
+          status: Database["public"]["Enums"]["laundry_status"]
+          updated_at: string
+        }
+        Insert: {
+          collected_at?: string
+          created_at?: string
+          created_by?: string | null
+          damaged_count?: number
+          delivered_at?: string | null
+          guest_id?: string | null
+          hotel_id: string
+          id?: string
+          kind?: Database["public"]["Enums"]["laundry_kind"]
+          lines?: Json
+          notes?: string | null
+          reference?: string
+          replacement_cost?: number
+          room_id?: string | null
+          status?: Database["public"]["Enums"]["laundry_status"]
+          updated_at?: string
+        }
+        Update: {
+          collected_at?: string
+          created_at?: string
+          created_by?: string | null
+          damaged_count?: number
+          delivered_at?: string | null
+          guest_id?: string | null
+          hotel_id?: string
+          id?: string
+          kind?: Database["public"]["Enums"]["laundry_kind"]
+          lines?: Json
+          notes?: string | null
+          reference?: string
+          replacement_cost?: number
+          room_id?: string | null
+          status?: Database["public"]["Enums"]["laundry_status"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "laundry_orders_guest_id_fkey"
+            columns: ["guest_id"]
+            isOneToOne: false
+            referencedRelation: "guests"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "laundry_orders_hotel_id_fkey"
+            columns: ["hotel_id"]
+            isOneToOne: false
+            referencedRelation: "hotels"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "laundry_orders_room_id_fkey"
+            columns: ["room_id"]
+            isOneToOne: false
+            referencedRelation: "rooms"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      lost_found: {
+        Row: {
+          claimed_at: string | null
+          created_at: string
+          description: string | null
+          found_at: string
+          found_by: string | null
+          guest_id: string | null
+          hotel_id: string
+          id: string
+          item: string
+          location_found: string | null
+          owner_contact: string | null
+          owner_name: string | null
+          photo_url: string | null
+          reference: string
+          return_notes: string | null
+          returned_at: string | null
+          status: Database["public"]["Enums"]["lost_found_status"]
+          storage_location: string | null
+          updated_at: string
+        }
+        Insert: {
+          claimed_at?: string | null
+          created_at?: string
+          description?: string | null
+          found_at?: string
+          found_by?: string | null
+          guest_id?: string | null
+          hotel_id: string
+          id?: string
+          item: string
+          location_found?: string | null
+          owner_contact?: string | null
+          owner_name?: string | null
+          photo_url?: string | null
+          reference?: string
+          return_notes?: string | null
+          returned_at?: string | null
+          status?: Database["public"]["Enums"]["lost_found_status"]
+          storage_location?: string | null
+          updated_at?: string
+        }
+        Update: {
+          claimed_at?: string | null
+          created_at?: string
+          description?: string | null
+          found_at?: string
+          found_by?: string | null
+          guest_id?: string | null
+          hotel_id?: string
+          id?: string
+          item?: string
+          location_found?: string | null
+          owner_contact?: string | null
+          owner_name?: string | null
+          photo_url?: string | null
+          reference?: string
+          return_notes?: string | null
+          returned_at?: string | null
+          status?: Database["public"]["Enums"]["lost_found_status"]
+          storage_location?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lost_found_guest_id_fkey"
+            columns: ["guest_id"]
+            isOneToOne: false
+            referencedRelation: "guests"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lost_found_hotel_id_fkey"
+            columns: ["hotel_id"]
+            isOneToOne: false
+            referencedRelation: "hotels"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      maintenance_tickets: {
+        Row: {
+          actual_minutes: number | null
+          asset_id: string | null
+          assigned_to: string | null
+          category: Database["public"]["Enums"]["maint_category"]
+          cost: number
+          created_at: string
+          description: string | null
+          estimated_minutes: number | null
+          hotel_id: string
+          id: string
+          location: string | null
+          photos: string[]
+          priority: Database["public"]["Enums"]["maint_priority"]
+          reference: string
+          reported_at: string
+          reported_by: string | null
+          resolution: string | null
+          resolved_at: string | null
+          room_id: string | null
+          started_at: string | null
+          status: Database["public"]["Enums"]["maint_status"]
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          actual_minutes?: number | null
+          asset_id?: string | null
+          assigned_to?: string | null
+          category?: Database["public"]["Enums"]["maint_category"]
+          cost?: number
+          created_at?: string
+          description?: string | null
+          estimated_minutes?: number | null
+          hotel_id: string
+          id?: string
+          location?: string | null
+          photos?: string[]
+          priority?: Database["public"]["Enums"]["maint_priority"]
+          reference?: string
+          reported_at?: string
+          reported_by?: string | null
+          resolution?: string | null
+          resolved_at?: string | null
+          room_id?: string | null
+          started_at?: string | null
+          status?: Database["public"]["Enums"]["maint_status"]
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          actual_minutes?: number | null
+          asset_id?: string | null
+          assigned_to?: string | null
+          category?: Database["public"]["Enums"]["maint_category"]
+          cost?: number
+          created_at?: string
+          description?: string | null
+          estimated_minutes?: number | null
+          hotel_id?: string
+          id?: string
+          location?: string | null
+          photos?: string[]
+          priority?: Database["public"]["Enums"]["maint_priority"]
+          reference?: string
+          reported_at?: string
+          reported_by?: string | null
+          resolution?: string | null
+          resolved_at?: string | null
+          room_id?: string | null
+          started_at?: string | null
+          status?: Database["public"]["Enums"]["maint_status"]
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "maintenance_tickets_asset_id_fkey"
+            columns: ["asset_id"]
+            isOneToOne: false
+            referencedRelation: "assets"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "maintenance_tickets_hotel_id_fkey"
+            columns: ["hotel_id"]
+            isOneToOne: false
+            referencedRelation: "hotels"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "maintenance_tickets_room_id_fkey"
+            columns: ["room_id"]
+            isOneToOne: false
+            referencedRelation: "rooms"
             referencedColumns: ["id"]
           },
         ]
@@ -522,6 +967,69 @@ export type Database = {
             columns: ["reservation_id"]
             isOneToOne: false
             referencedRelation: "reservations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pm_schedules: {
+        Row: {
+          asset_id: string | null
+          assigned_to: string | null
+          category: Database["public"]["Enums"]["maint_category"]
+          created_at: string
+          description: string | null
+          hotel_id: string
+          id: string
+          interval_days: number
+          is_active: boolean
+          last_performed: string | null
+          name: string
+          next_due: string
+          updated_at: string
+        }
+        Insert: {
+          asset_id?: string | null
+          assigned_to?: string | null
+          category?: Database["public"]["Enums"]["maint_category"]
+          created_at?: string
+          description?: string | null
+          hotel_id: string
+          id?: string
+          interval_days?: number
+          is_active?: boolean
+          last_performed?: string | null
+          name: string
+          next_due?: string
+          updated_at?: string
+        }
+        Update: {
+          asset_id?: string | null
+          assigned_to?: string | null
+          category?: Database["public"]["Enums"]["maint_category"]
+          created_at?: string
+          description?: string | null
+          hotel_id?: string
+          id?: string
+          interval_days?: number
+          is_active?: boolean
+          last_performed?: string | null
+          name?: string
+          next_due?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pm_schedules_asset_id_fkey"
+            columns: ["asset_id"]
+            isOneToOne: false
+            referencedRelation: "assets"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pm_schedules_hotel_id_fkey"
+            columns: ["hotel_id"]
+            isOneToOne: false
+            referencedRelation: "hotels"
             referencedColumns: ["id"]
           },
         ]
@@ -736,6 +1244,73 @@ export type Database = {
           },
         ]
       }
+      room_inspections: {
+        Row: {
+          checklist: Json
+          created_at: string
+          hotel_id: string
+          housekeeping_task_id: string | null
+          id: string
+          inspected_at: string
+          inspector_id: string | null
+          notes: string | null
+          photos: string[]
+          result: Database["public"]["Enums"]["inspection_result"]
+          room_id: string
+          signature: string | null
+        }
+        Insert: {
+          checklist?: Json
+          created_at?: string
+          hotel_id: string
+          housekeeping_task_id?: string | null
+          id?: string
+          inspected_at?: string
+          inspector_id?: string | null
+          notes?: string | null
+          photos?: string[]
+          result?: Database["public"]["Enums"]["inspection_result"]
+          room_id: string
+          signature?: string | null
+        }
+        Update: {
+          checklist?: Json
+          created_at?: string
+          hotel_id?: string
+          housekeeping_task_id?: string | null
+          id?: string
+          inspected_at?: string
+          inspector_id?: string | null
+          notes?: string | null
+          photos?: string[]
+          result?: Database["public"]["Enums"]["inspection_result"]
+          room_id?: string
+          signature?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "room_inspections_hotel_id_fkey"
+            columns: ["hotel_id"]
+            isOneToOne: false
+            referencedRelation: "hotels"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "room_inspections_housekeeping_task_id_fkey"
+            columns: ["housekeeping_task_id"]
+            isOneToOne: false
+            referencedRelation: "housekeeping_tasks"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "room_inspections_room_id_fkey"
+            columns: ["room_id"]
+            isOneToOne: false
+            referencedRelation: "rooms"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       room_types: {
         Row: {
           base_rate: number
@@ -912,6 +1487,104 @@ export type Database = {
           },
         ]
       }
+      task_comments: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          task_id: string
+          user_id: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          id?: string
+          task_id: string
+          user_id: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          task_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "task_comments_task_id_fkey"
+            columns: ["task_id"]
+            isOneToOne: false
+            referencedRelation: "tasks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tasks: {
+        Row: {
+          assigned_to: string | null
+          attachments: string[]
+          completed_at: string | null
+          created_at: string
+          created_by: string | null
+          department_id: string | null
+          description: string | null
+          due_date: string | null
+          hotel_id: string | null
+          id: string
+          priority: Database["public"]["Enums"]["task_priority"]
+          status: Database["public"]["Enums"]["task_status"]
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          assigned_to?: string | null
+          attachments?: string[]
+          completed_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          department_id?: string | null
+          description?: string | null
+          due_date?: string | null
+          hotel_id?: string | null
+          id?: string
+          priority?: Database["public"]["Enums"]["task_priority"]
+          status?: Database["public"]["Enums"]["task_status"]
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          assigned_to?: string | null
+          attachments?: string[]
+          completed_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          department_id?: string | null
+          description?: string | null
+          due_date?: string | null
+          hotel_id?: string | null
+          id?: string
+          priority?: Database["public"]["Enums"]["task_priority"]
+          status?: Database["public"]["Enums"]["task_status"]
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tasks_department_id_fkey"
+            columns: ["department_id"]
+            isOneToOne: false
+            referencedRelation: "departments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tasks_hotel_id_fkey"
+            columns: ["hotel_id"]
+            isOneToOne: false
+            referencedRelation: "hotels"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_roles: {
         Row: {
           created_at: string
@@ -972,6 +1645,45 @@ export type Database = {
         | "marketing_manager"
         | "customer_support"
         | "guest_portal"
+      asset_condition: "excellent" | "good" | "fair" | "poor" | "out_of_service"
+      hk_priority: "low" | "normal" | "high" | "urgent"
+      hk_task_status:
+        | "pending"
+        | "in_progress"
+        | "waiting_inspection"
+        | "completed"
+        | "skipped"
+      inspection_result: "pass" | "fail" | "pending"
+      laundry_kind: "linen" | "uniform" | "guest"
+      laundry_status:
+        | "collected"
+        | "washing"
+        | "drying"
+        | "ironing"
+        | "delivered"
+        | "completed"
+      lost_found_status: "stored" | "claimed" | "returned" | "disposed"
+      maint_category:
+        | "electrical"
+        | "plumbing"
+        | "internet"
+        | "furniture"
+        | "doors"
+        | "windows"
+        | "hvac"
+        | "water"
+        | "lighting"
+        | "painting"
+        | "general"
+      maint_priority: "low" | "normal" | "high" | "critical"
+      maint_status:
+        | "open"
+        | "assigned"
+        | "in_progress"
+        | "on_hold"
+        | "resolved"
+        | "closed"
+        | "cancelled"
       payment_method:
         | "cash"
         | "card"
@@ -1010,6 +1722,8 @@ export type Database = {
         | "maintenance"
         | "out_of_service"
         | "blocked"
+      task_priority: "low" | "normal" | "high" | "urgent"
+      task_status: "todo" | "in_progress" | "blocked" | "done" | "cancelled"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -1155,6 +1869,49 @@ export const Constants = {
         "customer_support",
         "guest_portal",
       ],
+      asset_condition: ["excellent", "good", "fair", "poor", "out_of_service"],
+      hk_priority: ["low", "normal", "high", "urgent"],
+      hk_task_status: [
+        "pending",
+        "in_progress",
+        "waiting_inspection",
+        "completed",
+        "skipped",
+      ],
+      inspection_result: ["pass", "fail", "pending"],
+      laundry_kind: ["linen", "uniform", "guest"],
+      laundry_status: [
+        "collected",
+        "washing",
+        "drying",
+        "ironing",
+        "delivered",
+        "completed",
+      ],
+      lost_found_status: ["stored", "claimed", "returned", "disposed"],
+      maint_category: [
+        "electrical",
+        "plumbing",
+        "internet",
+        "furniture",
+        "doors",
+        "windows",
+        "hvac",
+        "water",
+        "lighting",
+        "painting",
+        "general",
+      ],
+      maint_priority: ["low", "normal", "high", "critical"],
+      maint_status: [
+        "open",
+        "assigned",
+        "in_progress",
+        "on_hold",
+        "resolved",
+        "closed",
+        "cancelled",
+      ],
       payment_method: [
         "cash",
         "card",
@@ -1197,6 +1954,8 @@ export const Constants = {
         "out_of_service",
         "blocked",
       ],
+      task_priority: ["low", "normal", "high", "urgent"],
+      task_status: ["todo", "in_progress", "blocked", "done", "cancelled"],
     },
   },
 } as const
