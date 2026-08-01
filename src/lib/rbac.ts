@@ -20,6 +20,8 @@ import {
   Search,
   ListTodo,
   Package,
+  ChefHat,
+
 } from "lucide-react";
 
 
@@ -34,6 +36,9 @@ export type AppRole =
   | "housekeeping_staff"
   | "restaurant_manager"
   | "cashier"
+  | "waiter"
+  | "chef"
+  | "bar_staff"
   | "kitchen_staff"
   | "maintenance_manager"
   | "maintenance_staff"
@@ -52,6 +57,9 @@ export const ROLE_LABELS: Record<AppRole, string> = {
   housekeeping_staff: "Housekeeping Staff",
   restaurant_manager: "Restaurant Manager",
   cashier: "Cashier",
+  waiter: "Waiter",
+  chef: "Chef",
+  bar_staff: "Bar Staff",
   kitchen_staff: "Kitchen Staff",
   maintenance_manager: "Maintenance Manager",
   maintenance_staff: "Maintenance Staff",
@@ -60,6 +68,7 @@ export const ROLE_LABELS: Record<AppRole, string> = {
   customer_support: "Customer Support",
   guest_portal: "Guest Portal",
 };
+
 
 export const ALL_ROLES = Object.keys(ROLE_LABELS) as AppRole[];
 
@@ -145,12 +154,27 @@ export const NAV_GROUPS: NavGroup[] = [
         ],
       },
       {
-        title: "Restaurant POS",
+        title: "Restaurant & POS",
         to: "/restaurant",
         icon: UtensilsCrossed,
-        roles: [...MANAGEMENT_ROLES, "restaurant_manager", "cashier", "kitchen_staff"],
-        soon: true,
+        roles: [
+          ...MANAGEMENT_ROLES,
+          "restaurant_manager",
+          "cashier",
+          "waiter",
+          "bar_staff",
+          "chef",
+          "kitchen_staff",
+          "receptionist",
+        ],
       },
+      {
+        title: "Kitchen Display",
+        to: "/restaurant/kitchen",
+        icon: ChefHat,
+        roles: [...MANAGEMENT_ROLES, "restaurant_manager", "chef", "kitchen_staff", "waiter"],
+      },
+
       {
         title: "Maintenance",
         to: "/maintenance",
