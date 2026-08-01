@@ -33,6 +33,7 @@ import { Route as AuthenticatedGuestsRouteImport } from './routes/_authenticated
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedAssetsRouteImport } from './routes/_authenticated/assets'
 import { Route as AuthenticatedActivityRouteImport } from './routes/_authenticated/activity'
+import { Route as AuthenticatedRestaurantIndexRouteImport } from './routes/_authenticated/restaurant.index'
 
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
@@ -156,6 +157,12 @@ const AuthenticatedActivityRoute = AuthenticatedActivityRouteImport.update({
   path: '/activity',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedRestaurantIndexRoute =
+  AuthenticatedRestaurantIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedRestaurantRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -174,13 +181,14 @@ export interface FileRoutesByFullPath {
   '/profile': typeof AuthenticatedProfileRoute
   '/properties': typeof AuthenticatedPropertiesRoute
   '/reservations': typeof AuthenticatedReservationsRoute
-  '/restaurant': typeof AuthenticatedRestaurantRoute
+  '/restaurant': typeof AuthenticatedRestaurantRouteWithChildren
   '/rooms': typeof AuthenticatedRoomsRoute
   '/security': typeof AuthenticatedSecurityRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/staff': typeof AuthenticatedStaffRoute
   '/support': typeof AuthenticatedSupportRoute
   '/tasks': typeof AuthenticatedTasksRoute
+  '/restaurant/': typeof AuthenticatedRestaurantIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -199,13 +207,13 @@ export interface FileRoutesByTo {
   '/profile': typeof AuthenticatedProfileRoute
   '/properties': typeof AuthenticatedPropertiesRoute
   '/reservations': typeof AuthenticatedReservationsRoute
-  '/restaurant': typeof AuthenticatedRestaurantRoute
   '/rooms': typeof AuthenticatedRoomsRoute
   '/security': typeof AuthenticatedSecurityRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/staff': typeof AuthenticatedStaffRoute
   '/support': typeof AuthenticatedSupportRoute
   '/tasks': typeof AuthenticatedTasksRoute
+  '/restaurant': typeof AuthenticatedRestaurantIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -226,13 +234,14 @@ export interface FileRoutesById {
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
   '/_authenticated/properties': typeof AuthenticatedPropertiesRoute
   '/_authenticated/reservations': typeof AuthenticatedReservationsRoute
-  '/_authenticated/restaurant': typeof AuthenticatedRestaurantRoute
+  '/_authenticated/restaurant': typeof AuthenticatedRestaurantRouteWithChildren
   '/_authenticated/rooms': typeof AuthenticatedRoomsRoute
   '/_authenticated/security': typeof AuthenticatedSecurityRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/_authenticated/staff': typeof AuthenticatedStaffRoute
   '/_authenticated/support': typeof AuthenticatedSupportRoute
   '/_authenticated/tasks': typeof AuthenticatedTasksRoute
+  '/_authenticated/restaurant/': typeof AuthenticatedRestaurantIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -260,6 +269,7 @@ export interface FileRouteTypes {
     | '/staff'
     | '/support'
     | '/tasks'
+    | '/restaurant/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -278,13 +288,13 @@ export interface FileRouteTypes {
     | '/profile'
     | '/properties'
     | '/reservations'
-    | '/restaurant'
     | '/rooms'
     | '/security'
     | '/settings'
     | '/staff'
     | '/support'
     | '/tasks'
+    | '/restaurant'
   id:
     | '__root__'
     | '/'
@@ -311,6 +321,7 @@ export interface FileRouteTypes {
     | '/_authenticated/staff'
     | '/_authenticated/support'
     | '/_authenticated/tasks'
+    | '/_authenticated/restaurant/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -489,8 +500,29 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedActivityRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/restaurant/': {
+      id: '/_authenticated/restaurant/'
+      path: '/'
+      fullPath: '/restaurant/'
+      preLoaderRoute: typeof AuthenticatedRestaurantIndexRouteImport
+      parentRoute: typeof AuthenticatedRestaurantRoute
+    }
   }
 }
+
+interface AuthenticatedRestaurantRouteChildren {
+  AuthenticatedRestaurantIndexRoute: typeof AuthenticatedRestaurantIndexRoute
+}
+
+const AuthenticatedRestaurantRouteChildren: AuthenticatedRestaurantRouteChildren =
+  {
+    AuthenticatedRestaurantIndexRoute: AuthenticatedRestaurantIndexRoute,
+  }
+
+const AuthenticatedRestaurantRouteWithChildren =
+  AuthenticatedRestaurantRoute._addFileChildren(
+    AuthenticatedRestaurantRouteChildren,
+  )
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedActivityRoute: typeof AuthenticatedActivityRoute
@@ -507,7 +539,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
   AuthenticatedPropertiesRoute: typeof AuthenticatedPropertiesRoute
   AuthenticatedReservationsRoute: typeof AuthenticatedReservationsRoute
-  AuthenticatedRestaurantRoute: typeof AuthenticatedRestaurantRoute
+  AuthenticatedRestaurantRoute: typeof AuthenticatedRestaurantRouteWithChildren
   AuthenticatedRoomsRoute: typeof AuthenticatedRoomsRoute
   AuthenticatedSecurityRoute: typeof AuthenticatedSecurityRoute
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
@@ -531,7 +563,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedProfileRoute: AuthenticatedProfileRoute,
   AuthenticatedPropertiesRoute: AuthenticatedPropertiesRoute,
   AuthenticatedReservationsRoute: AuthenticatedReservationsRoute,
-  AuthenticatedRestaurantRoute: AuthenticatedRestaurantRoute,
+  AuthenticatedRestaurantRoute: AuthenticatedRestaurantRouteWithChildren,
   AuthenticatedRoomsRoute: AuthenticatedRoomsRoute,
   AuthenticatedSecurityRoute: AuthenticatedSecurityRoute,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
