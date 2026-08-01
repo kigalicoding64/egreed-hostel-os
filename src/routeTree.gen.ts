@@ -34,6 +34,7 @@ import { Route as AuthenticatedDashboardRouteImport } from './routes/_authentica
 import { Route as AuthenticatedAssetsRouteImport } from './routes/_authenticated/assets'
 import { Route as AuthenticatedActivityRouteImport } from './routes/_authenticated/activity'
 import { Route as AuthenticatedRestaurantIndexRouteImport } from './routes/_authenticated/restaurant.index'
+import { Route as AuthenticatedRestaurantPosRouteImport } from './routes/_authenticated/restaurant.pos'
 
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
@@ -163,6 +164,12 @@ const AuthenticatedRestaurantIndexRoute =
     path: '/',
     getParentRoute: () => AuthenticatedRestaurantRoute,
   } as any)
+const AuthenticatedRestaurantPosRoute =
+  AuthenticatedRestaurantPosRouteImport.update({
+    id: '/pos',
+    path: '/pos',
+    getParentRoute: () => AuthenticatedRestaurantRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -188,6 +195,7 @@ export interface FileRoutesByFullPath {
   '/staff': typeof AuthenticatedStaffRoute
   '/support': typeof AuthenticatedSupportRoute
   '/tasks': typeof AuthenticatedTasksRoute
+  '/restaurant/pos': typeof AuthenticatedRestaurantPosRoute
   '/restaurant/': typeof AuthenticatedRestaurantIndexRoute
 }
 export interface FileRoutesByTo {
@@ -213,6 +221,7 @@ export interface FileRoutesByTo {
   '/staff': typeof AuthenticatedStaffRoute
   '/support': typeof AuthenticatedSupportRoute
   '/tasks': typeof AuthenticatedTasksRoute
+  '/restaurant/pos': typeof AuthenticatedRestaurantPosRoute
   '/restaurant': typeof AuthenticatedRestaurantIndexRoute
 }
 export interface FileRoutesById {
@@ -241,6 +250,7 @@ export interface FileRoutesById {
   '/_authenticated/staff': typeof AuthenticatedStaffRoute
   '/_authenticated/support': typeof AuthenticatedSupportRoute
   '/_authenticated/tasks': typeof AuthenticatedTasksRoute
+  '/_authenticated/restaurant/pos': typeof AuthenticatedRestaurantPosRoute
   '/_authenticated/restaurant/': typeof AuthenticatedRestaurantIndexRoute
 }
 export interface FileRouteTypes {
@@ -269,6 +279,7 @@ export interface FileRouteTypes {
     | '/staff'
     | '/support'
     | '/tasks'
+    | '/restaurant/pos'
     | '/restaurant/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -294,6 +305,7 @@ export interface FileRouteTypes {
     | '/staff'
     | '/support'
     | '/tasks'
+    | '/restaurant/pos'
     | '/restaurant'
   id:
     | '__root__'
@@ -321,6 +333,7 @@ export interface FileRouteTypes {
     | '/_authenticated/staff'
     | '/_authenticated/support'
     | '/_authenticated/tasks'
+    | '/_authenticated/restaurant/pos'
     | '/_authenticated/restaurant/'
   fileRoutesById: FileRoutesById
 }
@@ -507,15 +520,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRestaurantIndexRouteImport
       parentRoute: typeof AuthenticatedRestaurantRoute
     }
+    '/_authenticated/restaurant/pos': {
+      id: '/_authenticated/restaurant/pos'
+      path: '/pos'
+      fullPath: '/restaurant/pos'
+      preLoaderRoute: typeof AuthenticatedRestaurantPosRouteImport
+      parentRoute: typeof AuthenticatedRestaurantRoute
+    }
   }
 }
 
 interface AuthenticatedRestaurantRouteChildren {
+  AuthenticatedRestaurantPosRoute: typeof AuthenticatedRestaurantPosRoute
   AuthenticatedRestaurantIndexRoute: typeof AuthenticatedRestaurantIndexRoute
 }
 
 const AuthenticatedRestaurantRouteChildren: AuthenticatedRestaurantRouteChildren =
   {
+    AuthenticatedRestaurantPosRoute: AuthenticatedRestaurantPosRoute,
     AuthenticatedRestaurantIndexRoute: AuthenticatedRestaurantIndexRoute,
   }
 
