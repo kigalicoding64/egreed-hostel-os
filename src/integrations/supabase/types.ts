@@ -137,6 +137,94 @@ export type Database = {
         }
         Relationships: []
       }
+      banquet_events: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          end_time: string | null
+          event_date: string
+          event_type: string
+          guest_count: number
+          guest_id: string | null
+          hotel_id: string
+          id: string
+          menu_notes: string | null
+          name: string
+          outlet_id: string | null
+          package_name: string | null
+          package_price: number
+          special_requests: string | null
+          start_time: string | null
+          status: Database["public"]["Enums"]["banquet_status"]
+          total_amount: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          end_time?: string | null
+          event_date: string
+          event_type?: string
+          guest_count?: number
+          guest_id?: string | null
+          hotel_id: string
+          id?: string
+          menu_notes?: string | null
+          name: string
+          outlet_id?: string | null
+          package_name?: string | null
+          package_price?: number
+          special_requests?: string | null
+          start_time?: string | null
+          status?: Database["public"]["Enums"]["banquet_status"]
+          total_amount?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          end_time?: string | null
+          event_date?: string
+          event_type?: string
+          guest_count?: number
+          guest_id?: string | null
+          hotel_id?: string
+          id?: string
+          menu_notes?: string | null
+          name?: string
+          outlet_id?: string | null
+          package_name?: string | null
+          package_price?: number
+          special_requests?: string | null
+          start_time?: string | null
+          status?: Database["public"]["Enums"]["banquet_status"]
+          total_amount?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "banquet_events_guest_id_fkey"
+            columns: ["guest_id"]
+            isOneToOne: false
+            referencedRelation: "guests"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "banquet_events_hotel_id_fkey"
+            columns: ["hotel_id"]
+            isOneToOne: false
+            referencedRelation: "hotels"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "banquet_events_outlet_id_fkey"
+            columns: ["outlet_id"]
+            isOneToOne: false
+            referencedRelation: "outlets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       buildings: {
         Row: {
           created_at: string
@@ -496,6 +584,120 @@ export type Database = {
             columns: ["room_id"]
             isOneToOne: false
             referencedRelation: "rooms"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      inventory_items: {
+        Row: {
+          category: string
+          created_at: string
+          hotel_id: string
+          id: string
+          name: string
+          outlet_id: string | null
+          reorder_level: number
+          stock_on_hand: number
+          supplier: string | null
+          unit: string
+          unit_cost: number
+          updated_at: string
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          hotel_id: string
+          id?: string
+          name: string
+          outlet_id?: string | null
+          reorder_level?: number
+          stock_on_hand?: number
+          supplier?: string | null
+          unit?: string
+          unit_cost?: number
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          hotel_id?: string
+          id?: string
+          name?: string
+          outlet_id?: string | null
+          reorder_level?: number
+          stock_on_hand?: number
+          supplier?: string | null
+          unit?: string
+          unit_cost?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "inventory_items_hotel_id_fkey"
+            columns: ["hotel_id"]
+            isOneToOne: false
+            referencedRelation: "hotels"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "inventory_items_outlet_id_fkey"
+            columns: ["outlet_id"]
+            isOneToOne: false
+            referencedRelation: "outlets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      inventory_movements: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          hotel_id: string
+          id: string
+          inventory_item_id: string
+          quantity: number
+          reason: string | null
+          reference: string | null
+          type: Database["public"]["Enums"]["stock_move_type"]
+          unit_cost: number
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          hotel_id: string
+          id?: string
+          inventory_item_id: string
+          quantity: number
+          reason?: string | null
+          reference?: string | null
+          type: Database["public"]["Enums"]["stock_move_type"]
+          unit_cost?: number
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          hotel_id?: string
+          id?: string
+          inventory_item_id?: string
+          quantity?: number
+          reason?: string | null
+          reference?: string | null
+          type?: Database["public"]["Enums"]["stock_move_type"]
+          unit_cost?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "inventory_movements_hotel_id_fkey"
+            columns: ["hotel_id"]
+            isOneToOne: false
+            referencedRelation: "hotels"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "inventory_movements_inventory_item_id_fkey"
+            columns: ["inventory_item_id"]
+            isOneToOne: false
+            referencedRelation: "inventory_items"
             referencedColumns: ["id"]
           },
         ]
@@ -874,6 +1076,196 @@ export type Database = {
           },
         ]
       }
+      menu_categories: {
+        Row: {
+          created_at: string
+          description: string | null
+          hotel_id: string
+          id: string
+          is_active: boolean
+          kind: Database["public"]["Enums"]["menu_kind"]
+          name: string
+          outlet_id: string | null
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          hotel_id: string
+          id?: string
+          is_active?: boolean
+          kind?: Database["public"]["Enums"]["menu_kind"]
+          name: string
+          outlet_id?: string | null
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          hotel_id?: string
+          id?: string
+          is_active?: boolean
+          kind?: Database["public"]["Enums"]["menu_kind"]
+          name?: string
+          outlet_id?: string | null
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "menu_categories_hotel_id_fkey"
+            columns: ["hotel_id"]
+            isOneToOne: false
+            referencedRelation: "hotels"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "menu_categories_outlet_id_fkey"
+            columns: ["outlet_id"]
+            isOneToOne: false
+            referencedRelation: "outlets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      menu_item_ingredients: {
+        Row: {
+          created_at: string
+          id: string
+          inventory_item_id: string
+          menu_item_id: string
+          quantity: number
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          inventory_item_id: string
+          menu_item_id: string
+          quantity?: number
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          inventory_item_id?: string
+          menu_item_id?: string
+          quantity?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "menu_item_ingredients_inventory_item_id_fkey"
+            columns: ["inventory_item_id"]
+            isOneToOne: false
+            referencedRelation: "inventory_items"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "menu_item_ingredients_menu_item_id_fkey"
+            columns: ["menu_item_id"]
+            isOneToOne: false
+            referencedRelation: "menu_items"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      menu_items: {
+        Row: {
+          age_restricted: boolean
+          allergens: string[]
+          barcode: string | null
+          calories: number | null
+          category_id: string | null
+          cost_price: number
+          created_at: string
+          description: string | null
+          hotel_id: string
+          id: string
+          image_url: string | null
+          ingredients: string[]
+          is_alcoholic: boolean
+          is_available: boolean
+          name: string
+          outlet_id: string | null
+          prep_minutes: number
+          price: number
+          sku: string | null
+          sort_order: number
+          tax_category: string
+          updated_at: string
+        }
+        Insert: {
+          age_restricted?: boolean
+          allergens?: string[]
+          barcode?: string | null
+          calories?: number | null
+          category_id?: string | null
+          cost_price?: number
+          created_at?: string
+          description?: string | null
+          hotel_id: string
+          id?: string
+          image_url?: string | null
+          ingredients?: string[]
+          is_alcoholic?: boolean
+          is_available?: boolean
+          name: string
+          outlet_id?: string | null
+          prep_minutes?: number
+          price?: number
+          sku?: string | null
+          sort_order?: number
+          tax_category?: string
+          updated_at?: string
+        }
+        Update: {
+          age_restricted?: boolean
+          allergens?: string[]
+          barcode?: string | null
+          calories?: number | null
+          category_id?: string | null
+          cost_price?: number
+          created_at?: string
+          description?: string | null
+          hotel_id?: string
+          id?: string
+          image_url?: string | null
+          ingredients?: string[]
+          is_alcoholic?: boolean
+          is_available?: boolean
+          name?: string
+          outlet_id?: string | null
+          prep_minutes?: number
+          price?: number
+          sku?: string | null
+          sort_order?: number
+          tax_category?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "menu_items_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "menu_categories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "menu_items_hotel_id_fkey"
+            columns: ["hotel_id"]
+            isOneToOne: false
+            referencedRelation: "hotels"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "menu_items_outlet_id_fkey"
+            columns: ["outlet_id"]
+            isOneToOne: false
+            referencedRelation: "outlets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       notifications: {
         Row: {
           created_at: string
@@ -906,6 +1298,117 @@ export type Database = {
           user_id?: string | null
         }
         Relationships: []
+      }
+      order_feedback: {
+        Row: {
+          comment: string | null
+          created_at: string
+          guest_id: string | null
+          hotel_id: string
+          id: string
+          order_id: string | null
+          rating: number
+        }
+        Insert: {
+          comment?: string | null
+          created_at?: string
+          guest_id?: string | null
+          hotel_id: string
+          id?: string
+          order_id?: string | null
+          rating?: number
+        }
+        Update: {
+          comment?: string | null
+          created_at?: string
+          guest_id?: string | null
+          hotel_id?: string
+          id?: string
+          order_id?: string | null
+          rating?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_feedback_guest_id_fkey"
+            columns: ["guest_id"]
+            isOneToOne: false
+            referencedRelation: "guests"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_feedback_hotel_id_fkey"
+            columns: ["hotel_id"]
+            isOneToOne: false
+            referencedRelation: "hotels"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_feedback_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "pos_orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      outlets: {
+        Row: {
+          closes_at: string
+          created_at: string
+          currency: string
+          description: string | null
+          hotel_id: string
+          id: string
+          is_active: boolean
+          location: string | null
+          name: string
+          opens_at: string
+          service_charge_rate: number
+          tax_rate: number
+          type: Database["public"]["Enums"]["outlet_type"]
+          updated_at: string
+        }
+        Insert: {
+          closes_at?: string
+          created_at?: string
+          currency?: string
+          description?: string | null
+          hotel_id: string
+          id?: string
+          is_active?: boolean
+          location?: string | null
+          name: string
+          opens_at?: string
+          service_charge_rate?: number
+          tax_rate?: number
+          type?: Database["public"]["Enums"]["outlet_type"]
+          updated_at?: string
+        }
+        Update: {
+          closes_at?: string
+          created_at?: string
+          currency?: string
+          description?: string | null
+          hotel_id?: string
+          id?: string
+          is_active?: boolean
+          location?: string | null
+          name?: string
+          opens_at?: string
+          service_charge_rate?: number
+          tax_rate?: number
+          type?: Database["public"]["Enums"]["outlet_type"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "outlets_hotel_id_fkey"
+            columns: ["hotel_id"]
+            isOneToOne: false
+            referencedRelation: "hotels"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       payments: {
         Row: {
@@ -1030,6 +1533,299 @@ export type Database = {
             columns: ["hotel_id"]
             isOneToOne: false
             referencedRelation: "hotels"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pos_order_items: {
+        Row: {
+          cost_price: number
+          created_at: string
+          discount: number
+          id: string
+          kitchen_status: Database["public"]["Enums"]["kitchen_status"]
+          line_total: number
+          menu_item_id: string | null
+          modifiers: string[]
+          name: string
+          notes: string | null
+          order_id: string
+          quantity: number
+          ready_at: string | null
+          started_at: string | null
+          unit_price: number
+          updated_at: string
+          void_reason: string | null
+          voided: boolean
+        }
+        Insert: {
+          cost_price?: number
+          created_at?: string
+          discount?: number
+          id?: string
+          kitchen_status?: Database["public"]["Enums"]["kitchen_status"]
+          line_total?: number
+          menu_item_id?: string | null
+          modifiers?: string[]
+          name: string
+          notes?: string | null
+          order_id: string
+          quantity?: number
+          ready_at?: string | null
+          started_at?: string | null
+          unit_price?: number
+          updated_at?: string
+          void_reason?: string | null
+          voided?: boolean
+        }
+        Update: {
+          cost_price?: number
+          created_at?: string
+          discount?: number
+          id?: string
+          kitchen_status?: Database["public"]["Enums"]["kitchen_status"]
+          line_total?: number
+          menu_item_id?: string | null
+          modifiers?: string[]
+          name?: string
+          notes?: string | null
+          order_id?: string
+          quantity?: number
+          ready_at?: string | null
+          started_at?: string | null
+          unit_price?: number
+          updated_at?: string
+          void_reason?: string | null
+          voided?: boolean
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pos_order_items_menu_item_id_fkey"
+            columns: ["menu_item_id"]
+            isOneToOne: false
+            referencedRelation: "menu_items"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pos_order_items_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "pos_orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pos_orders: {
+        Row: {
+          banquet_event_id: string | null
+          charged_to_room: boolean
+          closed_at: string | null
+          coupon_code: string | null
+          covers: number
+          created_at: string
+          created_by: string | null
+          delivered_at: string | null
+          discount: number
+          guest_id: string | null
+          hotel_id: string
+          id: string
+          kitchen_status: Database["public"]["Enums"]["kitchen_status"]
+          notes: string | null
+          opened_at: string
+          order_number: string
+          outlet_id: string
+          paid_amount: number
+          priority: Database["public"]["Enums"]["order_priority"]
+          reservation_id: string | null
+          room_id: string | null
+          service_charge: number
+          special_requests: string | null
+          status: Database["public"]["Enums"]["pos_order_status"]
+          subtotal: number
+          table_id: string | null
+          tax: number
+          tip: number
+          total: number
+          type: Database["public"]["Enums"]["pos_order_type"]
+          updated_at: string
+          waiter_id: string | null
+        }
+        Insert: {
+          banquet_event_id?: string | null
+          charged_to_room?: boolean
+          closed_at?: string | null
+          coupon_code?: string | null
+          covers?: number
+          created_at?: string
+          created_by?: string | null
+          delivered_at?: string | null
+          discount?: number
+          guest_id?: string | null
+          hotel_id: string
+          id?: string
+          kitchen_status?: Database["public"]["Enums"]["kitchen_status"]
+          notes?: string | null
+          opened_at?: string
+          order_number: string
+          outlet_id: string
+          paid_amount?: number
+          priority?: Database["public"]["Enums"]["order_priority"]
+          reservation_id?: string | null
+          room_id?: string | null
+          service_charge?: number
+          special_requests?: string | null
+          status?: Database["public"]["Enums"]["pos_order_status"]
+          subtotal?: number
+          table_id?: string | null
+          tax?: number
+          tip?: number
+          total?: number
+          type?: Database["public"]["Enums"]["pos_order_type"]
+          updated_at?: string
+          waiter_id?: string | null
+        }
+        Update: {
+          banquet_event_id?: string | null
+          charged_to_room?: boolean
+          closed_at?: string | null
+          coupon_code?: string | null
+          covers?: number
+          created_at?: string
+          created_by?: string | null
+          delivered_at?: string | null
+          discount?: number
+          guest_id?: string | null
+          hotel_id?: string
+          id?: string
+          kitchen_status?: Database["public"]["Enums"]["kitchen_status"]
+          notes?: string | null
+          opened_at?: string
+          order_number?: string
+          outlet_id?: string
+          paid_amount?: number
+          priority?: Database["public"]["Enums"]["order_priority"]
+          reservation_id?: string | null
+          room_id?: string | null
+          service_charge?: number
+          special_requests?: string | null
+          status?: Database["public"]["Enums"]["pos_order_status"]
+          subtotal?: number
+          table_id?: string | null
+          tax?: number
+          tip?: number
+          total?: number
+          type?: Database["public"]["Enums"]["pos_order_type"]
+          updated_at?: string
+          waiter_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pos_orders_banquet_event_id_fkey"
+            columns: ["banquet_event_id"]
+            isOneToOne: false
+            referencedRelation: "banquet_events"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pos_orders_guest_id_fkey"
+            columns: ["guest_id"]
+            isOneToOne: false
+            referencedRelation: "guests"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pos_orders_hotel_id_fkey"
+            columns: ["hotel_id"]
+            isOneToOne: false
+            referencedRelation: "hotels"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pos_orders_outlet_id_fkey"
+            columns: ["outlet_id"]
+            isOneToOne: false
+            referencedRelation: "outlets"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pos_orders_reservation_id_fkey"
+            columns: ["reservation_id"]
+            isOneToOne: false
+            referencedRelation: "reservations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pos_orders_room_id_fkey"
+            columns: ["room_id"]
+            isOneToOne: false
+            referencedRelation: "rooms"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pos_orders_table_id_fkey"
+            columns: ["table_id"]
+            isOneToOne: false
+            referencedRelation: "restaurant_tables"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pos_payments: {
+        Row: {
+          amount: number
+          created_at: string
+          created_by: string | null
+          hotel_id: string
+          id: string
+          is_refund: boolean
+          method: Database["public"]["Enums"]["payment_method"]
+          order_id: string
+          paid_at: string
+          reference: string | null
+          status: Database["public"]["Enums"]["payment_status"]
+          tip: number
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          created_by?: string | null
+          hotel_id: string
+          id?: string
+          is_refund?: boolean
+          method?: Database["public"]["Enums"]["payment_method"]
+          order_id: string
+          paid_at?: string
+          reference?: string | null
+          status?: Database["public"]["Enums"]["payment_status"]
+          tip?: number
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          created_by?: string | null
+          hotel_id?: string
+          id?: string
+          is_refund?: boolean
+          method?: Database["public"]["Enums"]["payment_method"]
+          order_id?: string
+          paid_at?: string
+          reference?: string | null
+          status?: Database["public"]["Enums"]["payment_status"]
+          tip?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pos_payments_hotel_id_fkey"
+            columns: ["hotel_id"]
+            isOneToOne: false
+            referencedRelation: "hotels"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pos_payments_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "pos_orders"
             referencedColumns: ["id"]
           },
         ]
@@ -1210,6 +2006,76 @@ export type Database = {
             columns: ["room_id"]
             isOneToOne: false
             referencedRelation: "rooms"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      restaurant_tables: {
+        Row: {
+          created_at: string
+          hotel_id: string
+          id: string
+          merged_into: string | null
+          name: string
+          notes: string | null
+          outlet_id: string
+          pos_x: number
+          pos_y: number
+          seats: number
+          shape: string
+          status: Database["public"]["Enums"]["rms_table_status"]
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          hotel_id: string
+          id?: string
+          merged_into?: string | null
+          name: string
+          notes?: string | null
+          outlet_id: string
+          pos_x?: number
+          pos_y?: number
+          seats?: number
+          shape?: string
+          status?: Database["public"]["Enums"]["rms_table_status"]
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          hotel_id?: string
+          id?: string
+          merged_into?: string | null
+          name?: string
+          notes?: string | null
+          outlet_id?: string
+          pos_x?: number
+          pos_y?: number
+          seats?: number
+          shape?: string
+          status?: Database["public"]["Enums"]["rms_table_status"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "restaurant_tables_hotel_id_fkey"
+            columns: ["hotel_id"]
+            isOneToOne: false
+            referencedRelation: "hotels"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "restaurant_tables_merged_into_fkey"
+            columns: ["merged_into"]
+            isOneToOne: false
+            referencedRelation: "restaurant_tables"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "restaurant_tables_outlet_id_fkey"
+            columns: ["outlet_id"]
+            isOneToOne: false
+            referencedRelation: "outlets"
             referencedColumns: ["id"]
           },
         ]
@@ -1645,7 +2511,16 @@ export type Database = {
         | "marketing_manager"
         | "customer_support"
         | "guest_portal"
+        | "waiter"
+        | "chef"
+        | "bar_staff"
       asset_condition: "excellent" | "good" | "fair" | "poor" | "out_of_service"
+      banquet_status:
+        | "inquiry"
+        | "confirmed"
+        | "in_progress"
+        | "completed"
+        | "cancelled"
       hk_priority: "low" | "normal" | "high" | "urgent"
       hk_task_status:
         | "pending"
@@ -1654,6 +2529,7 @@ export type Database = {
         | "completed"
         | "skipped"
       inspection_result: "pass" | "fail" | "pending"
+      kitchen_status: "new" | "preparing" | "ready" | "served" | "cancelled"
       laundry_kind: "linen" | "uniform" | "guest"
       laundry_status:
         | "collected"
@@ -1684,6 +2560,18 @@ export type Database = {
         | "resolved"
         | "closed"
         | "cancelled"
+      menu_kind: "food" | "drink"
+      order_priority: "normal" | "vip" | "urgent" | "late"
+      outlet_type:
+        | "restaurant"
+        | "bar"
+        | "coffee_shop"
+        | "room_service"
+        | "banquet"
+        | "conference"
+        | "pool_bar"
+        | "outdoor"
+        | "vip_lounge"
       payment_method:
         | "cash"
         | "card"
@@ -1693,6 +2581,20 @@ export type Database = {
         | "mtn_momo"
         | "airtel_money"
       payment_status: "pending" | "partial" | "paid" | "refunded" | "failed"
+      pos_order_status:
+        | "open"
+        | "sent"
+        | "partially_paid"
+        | "paid"
+        | "void"
+        | "refunded"
+      pos_order_type:
+        | "dine_in"
+        | "takeaway"
+        | "bar"
+        | "room_service"
+        | "banquet"
+        | "delivery"
       reservation_source:
         | "walk_in"
         | "phone"
@@ -1711,6 +2613,12 @@ export type Database = {
         | "no_show"
         | "draft"
         | "waitlist"
+      rms_table_status:
+        | "available"
+        | "reserved"
+        | "occupied"
+        | "cleaning"
+        | "out_of_service"
       room_status:
         | "available"
         | "occupied"
@@ -1722,6 +2630,7 @@ export type Database = {
         | "maintenance"
         | "out_of_service"
         | "blocked"
+      stock_move_type: "usage" | "waste" | "restock" | "adjustment"
       task_priority: "low" | "normal" | "high" | "urgent"
       task_status: "todo" | "in_progress" | "blocked" | "done" | "cancelled"
     }
@@ -1868,8 +2777,18 @@ export const Constants = {
         "marketing_manager",
         "customer_support",
         "guest_portal",
+        "waiter",
+        "chef",
+        "bar_staff",
       ],
       asset_condition: ["excellent", "good", "fair", "poor", "out_of_service"],
+      banquet_status: [
+        "inquiry",
+        "confirmed",
+        "in_progress",
+        "completed",
+        "cancelled",
+      ],
       hk_priority: ["low", "normal", "high", "urgent"],
       hk_task_status: [
         "pending",
@@ -1879,6 +2798,7 @@ export const Constants = {
         "skipped",
       ],
       inspection_result: ["pass", "fail", "pending"],
+      kitchen_status: ["new", "preparing", "ready", "served", "cancelled"],
       laundry_kind: ["linen", "uniform", "guest"],
       laundry_status: [
         "collected",
@@ -1912,6 +2832,19 @@ export const Constants = {
         "closed",
         "cancelled",
       ],
+      menu_kind: ["food", "drink"],
+      order_priority: ["normal", "vip", "urgent", "late"],
+      outlet_type: [
+        "restaurant",
+        "bar",
+        "coffee_shop",
+        "room_service",
+        "banquet",
+        "conference",
+        "pool_bar",
+        "outdoor",
+        "vip_lounge",
+      ],
       payment_method: [
         "cash",
         "card",
@@ -1922,6 +2855,22 @@ export const Constants = {
         "airtel_money",
       ],
       payment_status: ["pending", "partial", "paid", "refunded", "failed"],
+      pos_order_status: [
+        "open",
+        "sent",
+        "partially_paid",
+        "paid",
+        "void",
+        "refunded",
+      ],
+      pos_order_type: [
+        "dine_in",
+        "takeaway",
+        "bar",
+        "room_service",
+        "banquet",
+        "delivery",
+      ],
       reservation_source: [
         "walk_in",
         "phone",
@@ -1942,6 +2891,13 @@ export const Constants = {
         "draft",
         "waitlist",
       ],
+      rms_table_status: [
+        "available",
+        "reserved",
+        "occupied",
+        "cleaning",
+        "out_of_service",
+      ],
       room_status: [
         "available",
         "occupied",
@@ -1954,6 +2910,7 @@ export const Constants = {
         "out_of_service",
         "blocked",
       ],
+      stock_move_type: ["usage", "waste", "restock", "adjustment"],
       task_priority: ["low", "normal", "high", "urgent"],
       task_status: ["todo", "in_progress", "blocked", "done", "cancelled"],
     },
