@@ -42,7 +42,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { formatCurrency } from "@/lib/format";
-import { ORDER_TYPE_LABELS, PAYMENT_METHOD_LABELS } from "@/lib/restaurant-constants";
+import { ORDER_TYPE_LABELS } from "@/lib/restaurant-constants";
 import { useOrders, useOutlets } from "@/hooks/use-restaurant";
 
 export const Route = createFileRoute("/_authenticated/restaurant/reports")({
