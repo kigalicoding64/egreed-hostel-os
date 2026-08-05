@@ -36,6 +36,7 @@ import { Route as AuthenticatedActivityRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedRestaurantIndexRouteImport } from './routes/_authenticated/restaurant.index'
 import { Route as AuthenticatedRestaurantTablesRouteImport } from './routes/_authenticated/restaurant.tables'
 import { Route as AuthenticatedRestaurantPosRouteImport } from './routes/_authenticated/restaurant.pos'
+import { Route as AuthenticatedRestaurantOutletsRouteImport } from './routes/_authenticated/restaurant.outlets'
 import { Route as AuthenticatedRestaurantMenuRouteImport } from './routes/_authenticated/restaurant.menu'
 import { Route as AuthenticatedRestaurantKitchenRouteImport } from './routes/_authenticated/restaurant.kitchen'
 
@@ -179,6 +180,12 @@ const AuthenticatedRestaurantPosRoute =
     path: '/pos',
     getParentRoute: () => AuthenticatedRestaurantRoute,
   } as any)
+const AuthenticatedRestaurantOutletsRoute =
+  AuthenticatedRestaurantOutletsRouteImport.update({
+    id: '/outlets',
+    path: '/outlets',
+    getParentRoute: () => AuthenticatedRestaurantRoute,
+  } as any)
 const AuthenticatedRestaurantMenuRoute =
   AuthenticatedRestaurantMenuRouteImport.update({
     id: '/menu',
@@ -218,6 +225,7 @@ export interface FileRoutesByFullPath {
   '/tasks': typeof AuthenticatedTasksRoute
   '/restaurant/kitchen': typeof AuthenticatedRestaurantKitchenRoute
   '/restaurant/menu': typeof AuthenticatedRestaurantMenuRoute
+  '/restaurant/outlets': typeof AuthenticatedRestaurantOutletsRoute
   '/restaurant/pos': typeof AuthenticatedRestaurantPosRoute
   '/restaurant/tables': typeof AuthenticatedRestaurantTablesRoute
   '/restaurant/': typeof AuthenticatedRestaurantIndexRoute
@@ -247,6 +255,7 @@ export interface FileRoutesByTo {
   '/tasks': typeof AuthenticatedTasksRoute
   '/restaurant/kitchen': typeof AuthenticatedRestaurantKitchenRoute
   '/restaurant/menu': typeof AuthenticatedRestaurantMenuRoute
+  '/restaurant/outlets': typeof AuthenticatedRestaurantOutletsRoute
   '/restaurant/pos': typeof AuthenticatedRestaurantPosRoute
   '/restaurant/tables': typeof AuthenticatedRestaurantTablesRoute
   '/restaurant': typeof AuthenticatedRestaurantIndexRoute
@@ -279,6 +288,7 @@ export interface FileRoutesById {
   '/_authenticated/tasks': typeof AuthenticatedTasksRoute
   '/_authenticated/restaurant/kitchen': typeof AuthenticatedRestaurantKitchenRoute
   '/_authenticated/restaurant/menu': typeof AuthenticatedRestaurantMenuRoute
+  '/_authenticated/restaurant/outlets': typeof AuthenticatedRestaurantOutletsRoute
   '/_authenticated/restaurant/pos': typeof AuthenticatedRestaurantPosRoute
   '/_authenticated/restaurant/tables': typeof AuthenticatedRestaurantTablesRoute
   '/_authenticated/restaurant/': typeof AuthenticatedRestaurantIndexRoute
@@ -311,6 +321,7 @@ export interface FileRouteTypes {
     | '/tasks'
     | '/restaurant/kitchen'
     | '/restaurant/menu'
+    | '/restaurant/outlets'
     | '/restaurant/pos'
     | '/restaurant/tables'
     | '/restaurant/'
@@ -340,6 +351,7 @@ export interface FileRouteTypes {
     | '/tasks'
     | '/restaurant/kitchen'
     | '/restaurant/menu'
+    | '/restaurant/outlets'
     | '/restaurant/pos'
     | '/restaurant/tables'
     | '/restaurant'
@@ -371,6 +383,7 @@ export interface FileRouteTypes {
     | '/_authenticated/tasks'
     | '/_authenticated/restaurant/kitchen'
     | '/_authenticated/restaurant/menu'
+    | '/_authenticated/restaurant/outlets'
     | '/_authenticated/restaurant/pos'
     | '/_authenticated/restaurant/tables'
     | '/_authenticated/restaurant/'
@@ -573,6 +586,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRestaurantPosRouteImport
       parentRoute: typeof AuthenticatedRestaurantRoute
     }
+    '/_authenticated/restaurant/outlets': {
+      id: '/_authenticated/restaurant/outlets'
+      path: '/outlets'
+      fullPath: '/restaurant/outlets'
+      preLoaderRoute: typeof AuthenticatedRestaurantOutletsRouteImport
+      parentRoute: typeof AuthenticatedRestaurantRoute
+    }
     '/_authenticated/restaurant/menu': {
       id: '/_authenticated/restaurant/menu'
       path: '/menu'
@@ -593,6 +613,7 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedRestaurantRouteChildren {
   AuthenticatedRestaurantKitchenRoute: typeof AuthenticatedRestaurantKitchenRoute
   AuthenticatedRestaurantMenuRoute: typeof AuthenticatedRestaurantMenuRoute
+  AuthenticatedRestaurantOutletsRoute: typeof AuthenticatedRestaurantOutletsRoute
   AuthenticatedRestaurantPosRoute: typeof AuthenticatedRestaurantPosRoute
   AuthenticatedRestaurantTablesRoute: typeof AuthenticatedRestaurantTablesRoute
   AuthenticatedRestaurantIndexRoute: typeof AuthenticatedRestaurantIndexRoute
@@ -602,6 +623,7 @@ const AuthenticatedRestaurantRouteChildren: AuthenticatedRestaurantRouteChildren
   {
     AuthenticatedRestaurantKitchenRoute: AuthenticatedRestaurantKitchenRoute,
     AuthenticatedRestaurantMenuRoute: AuthenticatedRestaurantMenuRoute,
+    AuthenticatedRestaurantOutletsRoute: AuthenticatedRestaurantOutletsRoute,
     AuthenticatedRestaurantPosRoute: AuthenticatedRestaurantPosRoute,
     AuthenticatedRestaurantTablesRoute: AuthenticatedRestaurantTablesRoute,
     AuthenticatedRestaurantIndexRoute: AuthenticatedRestaurantIndexRoute,
