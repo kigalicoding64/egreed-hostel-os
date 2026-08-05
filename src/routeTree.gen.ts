@@ -34,7 +34,14 @@ import { Route as AuthenticatedDashboardRouteImport } from './routes/_authentica
 import { Route as AuthenticatedAssetsRouteImport } from './routes/_authenticated/assets'
 import { Route as AuthenticatedActivityRouteImport } from './routes/_authenticated/activity'
 import { Route as AuthenticatedRestaurantIndexRouteImport } from './routes/_authenticated/restaurant.index'
+import { Route as AuthenticatedRestaurantTablesRouteImport } from './routes/_authenticated/restaurant.tables'
+import { Route as AuthenticatedRestaurantReportsRouteImport } from './routes/_authenticated/restaurant.reports'
 import { Route as AuthenticatedRestaurantPosRouteImport } from './routes/_authenticated/restaurant.pos'
+import { Route as AuthenticatedRestaurantOutletsRouteImport } from './routes/_authenticated/restaurant.outlets'
+import { Route as AuthenticatedRestaurantMenuRouteImport } from './routes/_authenticated/restaurant.menu'
+import { Route as AuthenticatedRestaurantKitchenRouteImport } from './routes/_authenticated/restaurant.kitchen'
+import { Route as AuthenticatedRestaurantInventoryRouteImport } from './routes/_authenticated/restaurant.inventory'
+import { Route as AuthenticatedRestaurantBanquetsRouteImport } from './routes/_authenticated/restaurant.banquets'
 
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
@@ -164,10 +171,52 @@ const AuthenticatedRestaurantIndexRoute =
     path: '/',
     getParentRoute: () => AuthenticatedRestaurantRoute,
   } as any)
+const AuthenticatedRestaurantTablesRoute =
+  AuthenticatedRestaurantTablesRouteImport.update({
+    id: '/tables',
+    path: '/tables',
+    getParentRoute: () => AuthenticatedRestaurantRoute,
+  } as any)
+const AuthenticatedRestaurantReportsRoute =
+  AuthenticatedRestaurantReportsRouteImport.update({
+    id: '/reports',
+    path: '/reports',
+    getParentRoute: () => AuthenticatedRestaurantRoute,
+  } as any)
 const AuthenticatedRestaurantPosRoute =
   AuthenticatedRestaurantPosRouteImport.update({
     id: '/pos',
     path: '/pos',
+    getParentRoute: () => AuthenticatedRestaurantRoute,
+  } as any)
+const AuthenticatedRestaurantOutletsRoute =
+  AuthenticatedRestaurantOutletsRouteImport.update({
+    id: '/outlets',
+    path: '/outlets',
+    getParentRoute: () => AuthenticatedRestaurantRoute,
+  } as any)
+const AuthenticatedRestaurantMenuRoute =
+  AuthenticatedRestaurantMenuRouteImport.update({
+    id: '/menu',
+    path: '/menu',
+    getParentRoute: () => AuthenticatedRestaurantRoute,
+  } as any)
+const AuthenticatedRestaurantKitchenRoute =
+  AuthenticatedRestaurantKitchenRouteImport.update({
+    id: '/kitchen',
+    path: '/kitchen',
+    getParentRoute: () => AuthenticatedRestaurantRoute,
+  } as any)
+const AuthenticatedRestaurantInventoryRoute =
+  AuthenticatedRestaurantInventoryRouteImport.update({
+    id: '/inventory',
+    path: '/inventory',
+    getParentRoute: () => AuthenticatedRestaurantRoute,
+  } as any)
+const AuthenticatedRestaurantBanquetsRoute =
+  AuthenticatedRestaurantBanquetsRouteImport.update({
+    id: '/banquets',
+    path: '/banquets',
     getParentRoute: () => AuthenticatedRestaurantRoute,
   } as any)
 
@@ -195,7 +244,14 @@ export interface FileRoutesByFullPath {
   '/staff': typeof AuthenticatedStaffRoute
   '/support': typeof AuthenticatedSupportRoute
   '/tasks': typeof AuthenticatedTasksRoute
+  '/restaurant/banquets': typeof AuthenticatedRestaurantBanquetsRoute
+  '/restaurant/inventory': typeof AuthenticatedRestaurantInventoryRoute
+  '/restaurant/kitchen': typeof AuthenticatedRestaurantKitchenRoute
+  '/restaurant/menu': typeof AuthenticatedRestaurantMenuRoute
+  '/restaurant/outlets': typeof AuthenticatedRestaurantOutletsRoute
   '/restaurant/pos': typeof AuthenticatedRestaurantPosRoute
+  '/restaurant/reports': typeof AuthenticatedRestaurantReportsRoute
+  '/restaurant/tables': typeof AuthenticatedRestaurantTablesRoute
   '/restaurant/': typeof AuthenticatedRestaurantIndexRoute
 }
 export interface FileRoutesByTo {
@@ -221,7 +277,14 @@ export interface FileRoutesByTo {
   '/staff': typeof AuthenticatedStaffRoute
   '/support': typeof AuthenticatedSupportRoute
   '/tasks': typeof AuthenticatedTasksRoute
+  '/restaurant/banquets': typeof AuthenticatedRestaurantBanquetsRoute
+  '/restaurant/inventory': typeof AuthenticatedRestaurantInventoryRoute
+  '/restaurant/kitchen': typeof AuthenticatedRestaurantKitchenRoute
+  '/restaurant/menu': typeof AuthenticatedRestaurantMenuRoute
+  '/restaurant/outlets': typeof AuthenticatedRestaurantOutletsRoute
   '/restaurant/pos': typeof AuthenticatedRestaurantPosRoute
+  '/restaurant/reports': typeof AuthenticatedRestaurantReportsRoute
+  '/restaurant/tables': typeof AuthenticatedRestaurantTablesRoute
   '/restaurant': typeof AuthenticatedRestaurantIndexRoute
 }
 export interface FileRoutesById {
@@ -250,7 +313,14 @@ export interface FileRoutesById {
   '/_authenticated/staff': typeof AuthenticatedStaffRoute
   '/_authenticated/support': typeof AuthenticatedSupportRoute
   '/_authenticated/tasks': typeof AuthenticatedTasksRoute
+  '/_authenticated/restaurant/banquets': typeof AuthenticatedRestaurantBanquetsRoute
+  '/_authenticated/restaurant/inventory': typeof AuthenticatedRestaurantInventoryRoute
+  '/_authenticated/restaurant/kitchen': typeof AuthenticatedRestaurantKitchenRoute
+  '/_authenticated/restaurant/menu': typeof AuthenticatedRestaurantMenuRoute
+  '/_authenticated/restaurant/outlets': typeof AuthenticatedRestaurantOutletsRoute
   '/_authenticated/restaurant/pos': typeof AuthenticatedRestaurantPosRoute
+  '/_authenticated/restaurant/reports': typeof AuthenticatedRestaurantReportsRoute
+  '/_authenticated/restaurant/tables': typeof AuthenticatedRestaurantTablesRoute
   '/_authenticated/restaurant/': typeof AuthenticatedRestaurantIndexRoute
 }
 export interface FileRouteTypes {
@@ -279,7 +349,14 @@ export interface FileRouteTypes {
     | '/staff'
     | '/support'
     | '/tasks'
+    | '/restaurant/banquets'
+    | '/restaurant/inventory'
+    | '/restaurant/kitchen'
+    | '/restaurant/menu'
+    | '/restaurant/outlets'
     | '/restaurant/pos'
+    | '/restaurant/reports'
+    | '/restaurant/tables'
     | '/restaurant/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -305,7 +382,14 @@ export interface FileRouteTypes {
     | '/staff'
     | '/support'
     | '/tasks'
+    | '/restaurant/banquets'
+    | '/restaurant/inventory'
+    | '/restaurant/kitchen'
+    | '/restaurant/menu'
+    | '/restaurant/outlets'
     | '/restaurant/pos'
+    | '/restaurant/reports'
+    | '/restaurant/tables'
     | '/restaurant'
   id:
     | '__root__'
@@ -333,7 +417,14 @@ export interface FileRouteTypes {
     | '/_authenticated/staff'
     | '/_authenticated/support'
     | '/_authenticated/tasks'
+    | '/_authenticated/restaurant/banquets'
+    | '/_authenticated/restaurant/inventory'
+    | '/_authenticated/restaurant/kitchen'
+    | '/_authenticated/restaurant/menu'
+    | '/_authenticated/restaurant/outlets'
     | '/_authenticated/restaurant/pos'
+    | '/_authenticated/restaurant/reports'
+    | '/_authenticated/restaurant/tables'
     | '/_authenticated/restaurant/'
   fileRoutesById: FileRoutesById
 }
@@ -520,6 +611,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRestaurantIndexRouteImport
       parentRoute: typeof AuthenticatedRestaurantRoute
     }
+    '/_authenticated/restaurant/tables': {
+      id: '/_authenticated/restaurant/tables'
+      path: '/tables'
+      fullPath: '/restaurant/tables'
+      preLoaderRoute: typeof AuthenticatedRestaurantTablesRouteImport
+      parentRoute: typeof AuthenticatedRestaurantRoute
+    }
+    '/_authenticated/restaurant/reports': {
+      id: '/_authenticated/restaurant/reports'
+      path: '/reports'
+      fullPath: '/restaurant/reports'
+      preLoaderRoute: typeof AuthenticatedRestaurantReportsRouteImport
+      parentRoute: typeof AuthenticatedRestaurantRoute
+    }
     '/_authenticated/restaurant/pos': {
       id: '/_authenticated/restaurant/pos'
       path: '/pos'
@@ -527,17 +632,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRestaurantPosRouteImport
       parentRoute: typeof AuthenticatedRestaurantRoute
     }
+    '/_authenticated/restaurant/outlets': {
+      id: '/_authenticated/restaurant/outlets'
+      path: '/outlets'
+      fullPath: '/restaurant/outlets'
+      preLoaderRoute: typeof AuthenticatedRestaurantOutletsRouteImport
+      parentRoute: typeof AuthenticatedRestaurantRoute
+    }
+    '/_authenticated/restaurant/menu': {
+      id: '/_authenticated/restaurant/menu'
+      path: '/menu'
+      fullPath: '/restaurant/menu'
+      preLoaderRoute: typeof AuthenticatedRestaurantMenuRouteImport
+      parentRoute: typeof AuthenticatedRestaurantRoute
+    }
+    '/_authenticated/restaurant/kitchen': {
+      id: '/_authenticated/restaurant/kitchen'
+      path: '/kitchen'
+      fullPath: '/restaurant/kitchen'
+      preLoaderRoute: typeof AuthenticatedRestaurantKitchenRouteImport
+      parentRoute: typeof AuthenticatedRestaurantRoute
+    }
+    '/_authenticated/restaurant/inventory': {
+      id: '/_authenticated/restaurant/inventory'
+      path: '/inventory'
+      fullPath: '/restaurant/inventory'
+      preLoaderRoute: typeof AuthenticatedRestaurantInventoryRouteImport
+      parentRoute: typeof AuthenticatedRestaurantRoute
+    }
+    '/_authenticated/restaurant/banquets': {
+      id: '/_authenticated/restaurant/banquets'
+      path: '/banquets'
+      fullPath: '/restaurant/banquets'
+      preLoaderRoute: typeof AuthenticatedRestaurantBanquetsRouteImport
+      parentRoute: typeof AuthenticatedRestaurantRoute
+    }
   }
 }
 
 interface AuthenticatedRestaurantRouteChildren {
+  AuthenticatedRestaurantBanquetsRoute: typeof AuthenticatedRestaurantBanquetsRoute
+  AuthenticatedRestaurantInventoryRoute: typeof AuthenticatedRestaurantInventoryRoute
+  AuthenticatedRestaurantKitchenRoute: typeof AuthenticatedRestaurantKitchenRoute
+  AuthenticatedRestaurantMenuRoute: typeof AuthenticatedRestaurantMenuRoute
+  AuthenticatedRestaurantOutletsRoute: typeof AuthenticatedRestaurantOutletsRoute
   AuthenticatedRestaurantPosRoute: typeof AuthenticatedRestaurantPosRoute
+  AuthenticatedRestaurantReportsRoute: typeof AuthenticatedRestaurantReportsRoute
+  AuthenticatedRestaurantTablesRoute: typeof AuthenticatedRestaurantTablesRoute
   AuthenticatedRestaurantIndexRoute: typeof AuthenticatedRestaurantIndexRoute
 }
 
 const AuthenticatedRestaurantRouteChildren: AuthenticatedRestaurantRouteChildren =
   {
+    AuthenticatedRestaurantBanquetsRoute: AuthenticatedRestaurantBanquetsRoute,
+    AuthenticatedRestaurantInventoryRoute:
+      AuthenticatedRestaurantInventoryRoute,
+    AuthenticatedRestaurantKitchenRoute: AuthenticatedRestaurantKitchenRoute,
+    AuthenticatedRestaurantMenuRoute: AuthenticatedRestaurantMenuRoute,
+    AuthenticatedRestaurantOutletsRoute: AuthenticatedRestaurantOutletsRoute,
     AuthenticatedRestaurantPosRoute: AuthenticatedRestaurantPosRoute,
+    AuthenticatedRestaurantReportsRoute: AuthenticatedRestaurantReportsRoute,
+    AuthenticatedRestaurantTablesRoute: AuthenticatedRestaurantTablesRoute,
     AuthenticatedRestaurantIndexRoute: AuthenticatedRestaurantIndexRoute,
   }
 
