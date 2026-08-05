@@ -39,6 +39,7 @@ import { Route as AuthenticatedRestaurantPosRouteImport } from './routes/_authen
 import { Route as AuthenticatedRestaurantOutletsRouteImport } from './routes/_authenticated/restaurant.outlets'
 import { Route as AuthenticatedRestaurantMenuRouteImport } from './routes/_authenticated/restaurant.menu'
 import { Route as AuthenticatedRestaurantKitchenRouteImport } from './routes/_authenticated/restaurant.kitchen'
+import { Route as AuthenticatedRestaurantInventoryRouteImport } from './routes/_authenticated/restaurant.inventory'
 
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
@@ -198,6 +199,12 @@ const AuthenticatedRestaurantKitchenRoute =
     path: '/kitchen',
     getParentRoute: () => AuthenticatedRestaurantRoute,
   } as any)
+const AuthenticatedRestaurantInventoryRoute =
+  AuthenticatedRestaurantInventoryRouteImport.update({
+    id: '/inventory',
+    path: '/inventory',
+    getParentRoute: () => AuthenticatedRestaurantRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -223,6 +230,7 @@ export interface FileRoutesByFullPath {
   '/staff': typeof AuthenticatedStaffRoute
   '/support': typeof AuthenticatedSupportRoute
   '/tasks': typeof AuthenticatedTasksRoute
+  '/restaurant/inventory': typeof AuthenticatedRestaurantInventoryRoute
   '/restaurant/kitchen': typeof AuthenticatedRestaurantKitchenRoute
   '/restaurant/menu': typeof AuthenticatedRestaurantMenuRoute
   '/restaurant/outlets': typeof AuthenticatedRestaurantOutletsRoute
@@ -253,6 +261,7 @@ export interface FileRoutesByTo {
   '/staff': typeof AuthenticatedStaffRoute
   '/support': typeof AuthenticatedSupportRoute
   '/tasks': typeof AuthenticatedTasksRoute
+  '/restaurant/inventory': typeof AuthenticatedRestaurantInventoryRoute
   '/restaurant/kitchen': typeof AuthenticatedRestaurantKitchenRoute
   '/restaurant/menu': typeof AuthenticatedRestaurantMenuRoute
   '/restaurant/outlets': typeof AuthenticatedRestaurantOutletsRoute
@@ -286,6 +295,7 @@ export interface FileRoutesById {
   '/_authenticated/staff': typeof AuthenticatedStaffRoute
   '/_authenticated/support': typeof AuthenticatedSupportRoute
   '/_authenticated/tasks': typeof AuthenticatedTasksRoute
+  '/_authenticated/restaurant/inventory': typeof AuthenticatedRestaurantInventoryRoute
   '/_authenticated/restaurant/kitchen': typeof AuthenticatedRestaurantKitchenRoute
   '/_authenticated/restaurant/menu': typeof AuthenticatedRestaurantMenuRoute
   '/_authenticated/restaurant/outlets': typeof AuthenticatedRestaurantOutletsRoute
@@ -319,6 +329,7 @@ export interface FileRouteTypes {
     | '/staff'
     | '/support'
     | '/tasks'
+    | '/restaurant/inventory'
     | '/restaurant/kitchen'
     | '/restaurant/menu'
     | '/restaurant/outlets'
@@ -349,6 +360,7 @@ export interface FileRouteTypes {
     | '/staff'
     | '/support'
     | '/tasks'
+    | '/restaurant/inventory'
     | '/restaurant/kitchen'
     | '/restaurant/menu'
     | '/restaurant/outlets'
@@ -381,6 +393,7 @@ export interface FileRouteTypes {
     | '/_authenticated/staff'
     | '/_authenticated/support'
     | '/_authenticated/tasks'
+    | '/_authenticated/restaurant/inventory'
     | '/_authenticated/restaurant/kitchen'
     | '/_authenticated/restaurant/menu'
     | '/_authenticated/restaurant/outlets'
@@ -607,10 +620,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRestaurantKitchenRouteImport
       parentRoute: typeof AuthenticatedRestaurantRoute
     }
+    '/_authenticated/restaurant/inventory': {
+      id: '/_authenticated/restaurant/inventory'
+      path: '/inventory'
+      fullPath: '/restaurant/inventory'
+      preLoaderRoute: typeof AuthenticatedRestaurantInventoryRouteImport
+      parentRoute: typeof AuthenticatedRestaurantRoute
+    }
   }
 }
 
 interface AuthenticatedRestaurantRouteChildren {
+  AuthenticatedRestaurantInventoryRoute: typeof AuthenticatedRestaurantInventoryRoute
   AuthenticatedRestaurantKitchenRoute: typeof AuthenticatedRestaurantKitchenRoute
   AuthenticatedRestaurantMenuRoute: typeof AuthenticatedRestaurantMenuRoute
   AuthenticatedRestaurantOutletsRoute: typeof AuthenticatedRestaurantOutletsRoute
@@ -621,6 +642,8 @@ interface AuthenticatedRestaurantRouteChildren {
 
 const AuthenticatedRestaurantRouteChildren: AuthenticatedRestaurantRouteChildren =
   {
+    AuthenticatedRestaurantInventoryRoute:
+      AuthenticatedRestaurantInventoryRoute,
     AuthenticatedRestaurantKitchenRoute: AuthenticatedRestaurantKitchenRoute,
     AuthenticatedRestaurantMenuRoute: AuthenticatedRestaurantMenuRoute,
     AuthenticatedRestaurantOutletsRoute: AuthenticatedRestaurantOutletsRoute,
