@@ -1076,6 +1076,86 @@ export type Database = {
           },
         ]
       }
+      marketing_campaigns: {
+        Row: {
+          audience: string | null
+          audience_size: number
+          budget: number
+          channel: string
+          clicked_count: number
+          converted_count: number
+          created_at: string
+          created_by: string | null
+          end_date: string | null
+          hotel_id: string | null
+          id: string
+          name: string
+          notes: string | null
+          objective: string
+          opened_count: number
+          revenue: number
+          sent_count: number
+          spend: number
+          start_date: string | null
+          status: Database["public"]["Enums"]["campaign_status"]
+          updated_at: string
+        }
+        Insert: {
+          audience?: string | null
+          audience_size?: number
+          budget?: number
+          channel?: string
+          clicked_count?: number
+          converted_count?: number
+          created_at?: string
+          created_by?: string | null
+          end_date?: string | null
+          hotel_id?: string | null
+          id?: string
+          name: string
+          notes?: string | null
+          objective?: string
+          opened_count?: number
+          revenue?: number
+          sent_count?: number
+          spend?: number
+          start_date?: string | null
+          status?: Database["public"]["Enums"]["campaign_status"]
+          updated_at?: string
+        }
+        Update: {
+          audience?: string | null
+          audience_size?: number
+          budget?: number
+          channel?: string
+          clicked_count?: number
+          converted_count?: number
+          created_at?: string
+          created_by?: string | null
+          end_date?: string | null
+          hotel_id?: string | null
+          id?: string
+          name?: string
+          notes?: string | null
+          objective?: string
+          opened_count?: number
+          revenue?: number
+          sent_count?: number
+          spend?: number
+          start_date?: string | null
+          status?: Database["public"]["Enums"]["campaign_status"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "marketing_campaigns_hotel_id_fkey"
+            columns: ["hotel_id"]
+            isOneToOne: false
+            referencedRelation: "hotels"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       menu_categories: {
         Row: {
           created_at: string
@@ -2321,6 +2401,140 @@ export type Database = {
           },
         ]
       }
+      security_incidents: {
+        Row: {
+          action_taken: string | null
+          assigned_to: string | null
+          category: string
+          created_at: string
+          description: string | null
+          hotel_id: string | null
+          id: string
+          location: string | null
+          occurred_at: string
+          people_involved: string | null
+          police_reference: string | null
+          reference: string
+          reported_by: string | null
+          resolved_at: string | null
+          room_id: string | null
+          severity: Database["public"]["Enums"]["incident_severity"]
+          status: Database["public"]["Enums"]["incident_status"]
+          title: string
+          updated_at: string
+          witnesses: string | null
+        }
+        Insert: {
+          action_taken?: string | null
+          assigned_to?: string | null
+          category?: string
+          created_at?: string
+          description?: string | null
+          hotel_id?: string | null
+          id?: string
+          location?: string | null
+          occurred_at?: string
+          people_involved?: string | null
+          police_reference?: string | null
+          reference?: string
+          reported_by?: string | null
+          resolved_at?: string | null
+          room_id?: string | null
+          severity?: Database["public"]["Enums"]["incident_severity"]
+          status?: Database["public"]["Enums"]["incident_status"]
+          title: string
+          updated_at?: string
+          witnesses?: string | null
+        }
+        Update: {
+          action_taken?: string | null
+          assigned_to?: string | null
+          category?: string
+          created_at?: string
+          description?: string | null
+          hotel_id?: string | null
+          id?: string
+          location?: string | null
+          occurred_at?: string
+          people_involved?: string | null
+          police_reference?: string | null
+          reference?: string
+          reported_by?: string | null
+          resolved_at?: string | null
+          room_id?: string | null
+          severity?: Database["public"]["Enums"]["incident_severity"]
+          status?: Database["public"]["Enums"]["incident_status"]
+          title?: string
+          updated_at?: string
+          witnesses?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "security_incidents_hotel_id_fkey"
+            columns: ["hotel_id"]
+            isOneToOne: false
+            referencedRelation: "hotels"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "security_incidents_room_id_fkey"
+            columns: ["room_id"]
+            isOneToOne: false
+            referencedRelation: "rooms"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      security_patrols: {
+        Row: {
+          area: string
+          checkpoint: string
+          completed_at: string | null
+          created_at: string
+          findings: string | null
+          hotel_id: string | null
+          id: string
+          officer_id: string | null
+          scheduled_at: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          area: string
+          checkpoint: string
+          completed_at?: string | null
+          created_at?: string
+          findings?: string | null
+          hotel_id?: string | null
+          id?: string
+          officer_id?: string | null
+          scheduled_at?: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          area?: string
+          checkpoint?: string
+          completed_at?: string | null
+          created_at?: string
+          findings?: string | null
+          hotel_id?: string | null
+          id?: string
+          officer_id?: string | null
+          scheduled_at?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "security_patrols_hotel_id_fkey"
+            columns: ["hotel_id"]
+            isOneToOne: false
+            referencedRelation: "hotels"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       settings: {
         Row: {
           hotel_id: string | null
@@ -2349,6 +2563,135 @@ export type Database = {
             columns: ["hotel_id"]
             isOneToOne: false
             referencedRelation: "hotels"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      support_ticket_messages: {
+        Row: {
+          author_id: string | null
+          body: string
+          created_at: string
+          id: string
+          is_internal: boolean
+          ticket_id: string
+        }
+        Insert: {
+          author_id?: string | null
+          body: string
+          created_at?: string
+          id?: string
+          is_internal?: boolean
+          ticket_id: string
+        }
+        Update: {
+          author_id?: string | null
+          body?: string
+          created_at?: string
+          id?: string
+          is_internal?: boolean
+          ticket_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "support_ticket_messages_ticket_id_fkey"
+            columns: ["ticket_id"]
+            isOneToOne: false
+            referencedRelation: "support_tickets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      support_tickets: {
+        Row: {
+          assigned_to: string | null
+          category: string
+          channel: string
+          created_at: string
+          created_by: string | null
+          description: string | null
+          due_at: string | null
+          guest_contact: string | null
+          guest_id: string | null
+          guest_name: string | null
+          hotel_id: string | null
+          id: string
+          priority: Database["public"]["Enums"]["support_priority"]
+          reference: string
+          resolution: string | null
+          resolved_at: string | null
+          room_id: string | null
+          satisfaction: number | null
+          status: Database["public"]["Enums"]["support_status"]
+          subject: string
+          updated_at: string
+        }
+        Insert: {
+          assigned_to?: string | null
+          category?: string
+          channel?: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          due_at?: string | null
+          guest_contact?: string | null
+          guest_id?: string | null
+          guest_name?: string | null
+          hotel_id?: string | null
+          id?: string
+          priority?: Database["public"]["Enums"]["support_priority"]
+          reference?: string
+          resolution?: string | null
+          resolved_at?: string | null
+          room_id?: string | null
+          satisfaction?: number | null
+          status?: Database["public"]["Enums"]["support_status"]
+          subject: string
+          updated_at?: string
+        }
+        Update: {
+          assigned_to?: string | null
+          category?: string
+          channel?: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          due_at?: string | null
+          guest_contact?: string | null
+          guest_id?: string | null
+          guest_name?: string | null
+          hotel_id?: string | null
+          id?: string
+          priority?: Database["public"]["Enums"]["support_priority"]
+          reference?: string
+          resolution?: string | null
+          resolved_at?: string | null
+          room_id?: string | null
+          satisfaction?: number | null
+          status?: Database["public"]["Enums"]["support_status"]
+          subject?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "support_tickets_guest_id_fkey"
+            columns: ["guest_id"]
+            isOneToOne: false
+            referencedRelation: "guests"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "support_tickets_hotel_id_fkey"
+            columns: ["hotel_id"]
+            isOneToOne: false
+            referencedRelation: "hotels"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "support_tickets_room_id_fkey"
+            columns: ["room_id"]
+            isOneToOne: false
+            referencedRelation: "rooms"
             referencedColumns: ["id"]
           },
         ]
@@ -2521,6 +2864,13 @@ export type Database = {
         | "in_progress"
         | "completed"
         | "cancelled"
+      campaign_status:
+        | "draft"
+        | "scheduled"
+        | "active"
+        | "paused"
+        | "completed"
+        | "cancelled"
       hk_priority: "low" | "normal" | "high" | "urgent"
       hk_task_status:
         | "pending"
@@ -2528,6 +2878,13 @@ export type Database = {
         | "waiting_inspection"
         | "completed"
         | "skipped"
+      incident_severity: "low" | "moderate" | "high" | "critical"
+      incident_status:
+        | "reported"
+        | "investigating"
+        | "escalated"
+        | "resolved"
+        | "closed"
       inspection_result: "pass" | "fail" | "pending"
       kitchen_status: "new" | "preparing" | "ready" | "served" | "cancelled"
       laundry_kind: "linen" | "uniform" | "guest"
@@ -2631,6 +2988,13 @@ export type Database = {
         | "out_of_service"
         | "blocked"
       stock_move_type: "usage" | "waste" | "restock" | "adjustment"
+      support_priority: "low" | "normal" | "high" | "urgent"
+      support_status:
+        | "open"
+        | "in_progress"
+        | "waiting_guest"
+        | "resolved"
+        | "closed"
       task_priority: "low" | "normal" | "high" | "urgent"
       task_status: "todo" | "in_progress" | "blocked" | "done" | "cancelled"
     }
@@ -2789,6 +3153,14 @@ export const Constants = {
         "completed",
         "cancelled",
       ],
+      campaign_status: [
+        "draft",
+        "scheduled",
+        "active",
+        "paused",
+        "completed",
+        "cancelled",
+      ],
       hk_priority: ["low", "normal", "high", "urgent"],
       hk_task_status: [
         "pending",
@@ -2796,6 +3168,14 @@ export const Constants = {
         "waiting_inspection",
         "completed",
         "skipped",
+      ],
+      incident_severity: ["low", "moderate", "high", "critical"],
+      incident_status: [
+        "reported",
+        "investigating",
+        "escalated",
+        "resolved",
+        "closed",
       ],
       inspection_result: ["pass", "fail", "pending"],
       kitchen_status: ["new", "preparing", "ready", "served", "cancelled"],
@@ -2911,6 +3291,14 @@ export const Constants = {
         "blocked",
       ],
       stock_move_type: ["usage", "waste", "restock", "adjustment"],
+      support_priority: ["low", "normal", "high", "urgent"],
+      support_status: [
+        "open",
+        "in_progress",
+        "waiting_guest",
+        "resolved",
+        "closed",
+      ],
       task_priority: ["low", "normal", "high", "urgent"],
       task_status: ["todo", "in_progress", "blocked", "done", "cancelled"],
     },
