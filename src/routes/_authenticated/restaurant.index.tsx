@@ -10,6 +10,7 @@ import {
   BookOpen,
   Boxes,
 } from "lucide-react";
+import { RmsGuard } from "@/components/restaurant/RmsGuard";
 import { PageHeader } from "@/components/common/PageHeader";
 import { StatCard } from "@/components/common/StatCard";
 import { StatCardsSkeleton } from "@/components/common/LoadingState";
@@ -18,7 +19,7 @@ import { EmptyState } from "@/components/common/EmptyState";
 import { OutletSwitcher } from "@/components/restaurant/OutletSwitcher";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { useOutlets, useOrders } from "@/hooks/use-restaurant";
+import { useOutlets, useOrders, useRmsAccess } from "@/hooks/use-restaurant";
 import { formatCurrency, formatDateTime } from "@/lib/format";
 import {
   ORDER_STATUS_LABELS,
@@ -49,6 +50,7 @@ export const Route = createFileRoute("/_authenticated/restaurant/")({
 });
 
 function RestaurantOverview() {
+  const rmsAccess = useRmsAccess();
   const { outlet, outletId, select } = useOutlets();
   const { data: orders = [], isLoading } = useOrders({ outletId, refetchInterval: 30000 });
 
@@ -67,6 +69,7 @@ function RestaurantOverview() {
   const recent = orders.slice(0, 8);
 
   return (
+    <RmsGuard allowed={rmsAccess.canViewRestaurant} feature="the Restaurant module">
     <div className="space-y-6">
       <PageHeader
         title="Restaurant & POS"
@@ -147,6 +150,7 @@ function RestaurantOverview() {
         )}
       </Card>
     </div>
+    </RmsGuard>
   );
 }
 

@@ -4,6 +4,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { PartyPopper, Plus, Users, CalendarDays, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { RmsGuard } from "@/components/restaurant/RmsGuard";
 import { PageHeader } from "@/components/common/PageHeader";
 import { EmptyState } from "@/components/common/EmptyState";
 import { TonedBadge } from "@/components/common/TonedBadge";
@@ -91,6 +92,7 @@ function useBanquets() {
 }
 
 function BanquetsPage() {
+  const rmsAccess = useRmsAccess();
   const { outlet, outletId } = useOutlets();
   const { isManager } = useRmsAccess();
   const { data: events = [], isLoading } = useBanquets();
@@ -132,6 +134,7 @@ function BanquetsPage() {
   });
 
   return (
+    <RmsGuard allowed={rmsAccess.canViewBanquets} feature="Banquets">
     <div className="space-y-6">
       <PageHeader
         title="Banquets & Events"
@@ -275,6 +278,7 @@ function BanquetsPage() {
         outletId={outletId}
       />
     </div>
+    </RmsGuard>
   );
 }
 

@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ChefHat, Flame, CheckCircle2, Timer, Utensils } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { RmsGuard } from "@/components/restaurant/RmsGuard";
 import { PageHeader } from "@/components/common/PageHeader";
 import { EmptyState } from "@/components/common/EmptyState";
 import { TonedBadge } from "@/components/common/TonedBadge";
@@ -51,6 +52,7 @@ const COLUMNS: { key: string; label: string; next?: string; cta?: string }[] = [
 ];
 
 function KitchenPage() {
+  const rmsAccess = useRmsAccess();
   const { outletId, select } = useOutlets();
   const { canCook } = useRmsAccess();
   const qc = useQueryClient();
@@ -111,6 +113,7 @@ function KitchenPage() {
   });
 
   return (
+    <RmsGuard allowed={rmsAccess.canCook} feature="Kitchen Display">
     <div className="space-y-6">
       <PageHeader
         title="Kitchen Display"
@@ -178,6 +181,7 @@ function KitchenPage() {
         </div>
       )}
     </div>
+    </RmsGuard>
   );
 }
 
