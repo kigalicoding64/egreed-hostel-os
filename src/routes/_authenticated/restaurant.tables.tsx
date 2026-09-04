@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Table2, Plus, Users, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { RmsGuard } from "@/components/restaurant/RmsGuard";
 import { PageHeader } from "@/components/common/PageHeader";
 import { EmptyState } from "@/components/common/EmptyState";
 import { TonedBadge } from "@/components/common/TonedBadge";
@@ -64,6 +65,7 @@ export const Route = createFileRoute("/_authenticated/restaurant/tables")({
 const GRID = 20;
 
 function TablesPage() {
+  const rmsAccess = useRmsAccess();
   const { outlet, outletId, select } = useOutlets();
   const { canSell, isManager } = useRmsAccess();
   const { data: tables = [], isLoading } = useTables(outletId);
@@ -120,6 +122,7 @@ function TablesPage() {
   };
 
   return (
+    <RmsGuard allowed={rmsAccess.canViewTables} feature="the Floor Plan">
     <div className="space-y-6">
       <PageHeader
         title="Floor Plan"
@@ -265,6 +268,7 @@ function TablesPage() {
         </DialogContent>
       </Dialog>
     </div>
+    </RmsGuard>
   );
 }
 

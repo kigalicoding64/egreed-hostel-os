@@ -19,6 +19,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { RmsGuard } from "@/components/restaurant/RmsGuard";
 import { PageHeader } from "@/components/common/PageHeader";
 import { EmptyState } from "@/components/common/EmptyState";
 import { StatCard } from "@/components/common/StatCard";
@@ -43,7 +44,7 @@ import {
 } from "@/components/ui/table";
 import { formatCurrency } from "@/lib/format";
 import { ORDER_TYPE_LABELS } from "@/lib/restaurant-constants";
-import { useOrders, useOutlets } from "@/hooks/use-restaurant";
+import { useOrders, useOutlets, useRmsAccess } from "@/hooks/use-restaurant";
 
 export const Route = createFileRoute("/_authenticated/restaurant/reports")({
   head: () => ({
@@ -89,6 +90,7 @@ interface SellerRow {
 }
 
 function ReportsPage() {
+  const rmsAccess = useRmsAccess();
   const { outlet, outletId, select } = useOutlets();
   const [range, setRange] = useState("30");
   const { data: orders = [], isLoading } = useOrders({ outletId });
@@ -155,6 +157,7 @@ function ReportsPage() {
   }, [scoped]);
 
   return (
+    <RmsGuard allowed={rmsAccess.canViewReports} feature="Restaurant Reports">
     <div className="space-y-6">
       <PageHeader
         title="Restaurant Reports"
@@ -315,5 +318,6 @@ function ReportsPage() {
         </>
       )}
     </div>
+    </RmsGuard>
   );
 }

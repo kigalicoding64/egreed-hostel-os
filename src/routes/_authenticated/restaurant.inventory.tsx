@@ -39,6 +39,10 @@ import {
 import { formatCurrency } from "@/lib/format";
 import { STOCK_MOVE_TYPES, STOCK_MOVE_LABELS } from "@/lib/restaurant-constants";
 import { useInventory, useOutlets, useRmsAccess } from "@/hooks/use-restaurant";
+import { useInventoryAlerts } from "@/hooks/use-inventory-alerts";
+import { useHotelRef } from "@/hooks/use-hotel";
+import { InventoryAlertsPanel } from "@/components/restaurant/InventoryAlertsPanel";
+import { RmsGuard } from "@/components/restaurant/RmsGuard";
 
 export const Route = createFileRoute("/_authenticated/restaurant/inventory")({
   head: () => ({
@@ -75,7 +79,10 @@ interface StockRow {
 
 function InventoryPage() {
   const { outlet } = useOutlets();
-  const { canManageInventory } = useRmsAccess();
+  const access = useRmsAccess();
+  const { canManageInventory } = access;
+  const { data: hotelRef } = useHotelRef();
+  const { alerts } = useInventoryAlerts({ notify: access.canManageInventory });
   const { data, isLoading } = useInventory();
   const [search, setSearch] = useState("");
   const [moving, setMoving] = useState<StockRow | null>(null);
@@ -98,6 +105,7 @@ function InventoryPage() {
   }, [rows]);
 
   return (
+    <RmsGuard allowed={access.canViewInventory} feature="F&B Inventory">
     <div className="space-y-6">
       <PageHeader
         title="F&B Inventory"
@@ -133,6 +141,12 @@ function InventoryPage() {
           index={3}
         />
       </div>
+
+      <InventoryAlertsPanel
+        alerts={alerts}
+        canConfigure={access.canConfigureAlerts}
+        hotelId={hotelRef?.hotelId ?? null}
+      />
 
       <div className="relative max-w-sm">
         <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -204,6 +218,7 @@ function InventoryPage() {
 
       <MovementDialog item={moving} onClose={() => setMoving(null)} />
     </div>
+    </RmsGuard>
   );
 }
 

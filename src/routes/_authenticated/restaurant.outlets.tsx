@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Store, Plus, Loader2, Clock } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { RmsGuard } from "@/components/restaurant/RmsGuard";
 import { PageHeader } from "@/components/common/PageHeader";
 import { EmptyState } from "@/components/common/EmptyState";
 import { TonedBadge } from "@/components/common/TonedBadge";
@@ -53,6 +54,7 @@ export const Route = createFileRoute("/_authenticated/restaurant/outlets")({
 });
 
 function OutletsPage() {
+  const rmsAccess = useRmsAccess();
   const { outlets, isLoading } = useOutlets();
   const { isManager } = useRmsAccess();
   const qc = useQueryClient();
@@ -68,6 +70,7 @@ function OutletsPage() {
   });
 
   return (
+    <RmsGuard allowed={rmsAccess.canManageOutlets} feature="Outlet setup">
     <div className="space-y-6">
       <PageHeader
         title="Outlets"
@@ -144,6 +147,7 @@ function OutletsPage() {
 
       <OutletDialog open={creating} onOpenChange={setCreating} />
     </div>
+    </RmsGuard>
   );
 }
 
