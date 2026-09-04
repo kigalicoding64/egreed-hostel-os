@@ -126,18 +126,31 @@ export function useRmsAccess() {
   const isManager = hasAnyRole([...RMS_MANAGER_ROLES] as AppRole[]);
   const isService = hasAnyRole([...RMS_SERVICE_ROLES] as AppRole[]);
   const isKitchen = hasAnyRole([...RMS_KITCHEN_ROLES] as AppRole[]);
+  const canSell = isManager || isService;
+  const canCook = isManager || isKitchen;
   return {
     roles,
     isManager,
-    canSell: isManager || isService,
-    canCook: isManager || isKitchen,
+    canSell,
+    canCook,
     canVoid: isManager,
     canRefund: isManager,
     canDiscount: isManager || hasAnyRole(["cashier"]),
     canManageMenu: isManager || hasAnyRole(["chef"]),
     canManageInventory: isManager || hasAnyRole(["chef"]),
+    /** Any restaurant surface at all (overview page). */
+    canViewRestaurant: canSell || canCook || isManager,
+    canViewInventory: isManager || canCook || hasAnyRole(["cashier"]),
+    canViewTables: canSell,
+    canManageTables: isManager,
+    canManageOutlets: isManager,
+    canViewBanquets: isManager || hasAnyRole(["receptionist"]),
+    canManageBanquets: isManager,
+    canViewReports: isManager || hasAnyRole(["accountant"]),
+    canConfigureAlerts: isManager,
   };
 }
+
 
 /** Outlets + the currently selected outlet (persisted per browser). */
 export function useOutlets() {
