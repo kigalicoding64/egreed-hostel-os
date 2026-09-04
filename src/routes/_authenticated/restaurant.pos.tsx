@@ -11,6 +11,7 @@ import {
   Send,
   CreditCard,
   WifiOff,
+  Ban,
   Loader2,
   RefreshCw,
 } from "lucide-react";
@@ -652,6 +653,7 @@ function PosPage() {
         onOpenChange={(v) => !v && setPayOrder(null)}
       />
     </div>
+    </RmsGuard>
   );
 }
 
