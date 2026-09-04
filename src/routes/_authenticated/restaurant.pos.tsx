@@ -11,8 +11,8 @@ import {
   Send,
   CreditCard,
   WifiOff,
-  Ban,
   Loader2,
+  RefreshCw,
 } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
@@ -56,7 +56,9 @@ import {
   useTables,
   type MenuItem,
 } from "@/hooks/use-restaurant";
-import { enqueueOrder, queuedOrders, removeQueued } from "@/lib/offline-queue";
+import { enqueueOrder } from "@/lib/offline-queue";
+import { useOfflineOrders } from "@/hooks/use-offline-orders";
+import { RmsGuard } from "@/components/restaurant/RmsGuard";
 
 export const Route = createFileRoute("/_authenticated/restaurant/pos")({
   head: () => ({
@@ -114,8 +116,9 @@ function PosPage() {
   const [coupon, setCoupon] = useState("");
   const [notes, setNotes] = useState("");
   const [payOrder, setPayOrder] = useState<PayableOrder | null>(null);
-  const [online, setOnline] = useState(true);
   const searchRef = useRef<HTMLInputElement>(null);
+  const offline = useOfflineOrders();
+  const online = offline.online;
 
   const { data: rooms = [] } = useQuery({
     queryKey: ["rms-rooms"],
@@ -130,16 +133,6 @@ function PosPage() {
     },
   });
 
-  useEffect(() => {
-    const sync = () => setOnline(navigator.onLine);
-    sync();
-    window.addEventListener("online", sync);
-    window.addEventListener("offline", sync);
-    return () => {
-      window.removeEventListener("online", sync);
-      window.removeEventListener("offline", sync);
-    };
-  }, []);
 
   // Keyboard shortcuts: "/" focuses search, Ctrl+Enter sends the order.
   useEffect(() => {
@@ -254,7 +247,17 @@ function PosPage() {
       }));
 
       if (!navigator.onLine) {
-        enqueueOrder({ order: orderPayload, items: itemsPayload });
+        enqueueOrder({
+          order: orderPayload,
+          items: itemsPayload,
+          rates: {
+            taxRate: Number(outlet.tax_rate ?? 0),
+            serviceRate: orderType === "takeaway" ? 0 : Number(outlet.service_charge_rate ?? 0),
+            discount: parseFloat(discount) || 0,
+            tip: 0,
+          },
+        });
+        offline.refreshQueue();
         return { queued: true as const };
       }
 
@@ -295,28 +298,6 @@ function PosPage() {
     onError: (e: Error) => toast.error(e.message),
   });
 
-  // Flush any queued offline orders when connectivity returns.
-  useEffect(() => {
-    if (!online) return;
-    const pending = queuedOrders();
-    if (!pending.length) return;
-    (async () => {
-      for (const entry of pending) {
-        const { data, error } = await supabase
-          .from("pos_orders")
-          .insert(entry.order as never)
-          .select("id")
-          .single();
-        if (error) continue;
-        await supabase
-          .from("pos_order_items")
-          .insert(entry.items.map((i) => ({ ...i, order_id: data.id })) as never);
-        removeQueued(entry.id);
-      }
-      qc.invalidateQueries({ queryKey: ["rms-orders"] });
-      toast.success(`${pending.length} queued order(s) synced`);
-    })();
-  }, [online, qc]);
 
   const voidOrder = useMutation({
     mutationFn: async (id: string) => {
@@ -333,17 +314,8 @@ function PosPage() {
     onError: (e: Error) => toast.error(e.message),
   });
 
-  if (!access.canSell) {
-    return (
-      <EmptyState
-        icon={Ban}
-        title="No POS access"
-        description="Your role does not allow taking orders. Contact a manager if this is unexpected."
-      />
-    );
-  }
-
   return (
+    <RmsGuard allowed={access.canSell} feature="Point of Sale">
     <div className="space-y-5">
       <PageHeader
         title="Point of Sale"
@@ -355,6 +327,21 @@ function PosPage() {
               <TonedBadge tone="warning">
                 <WifiOff className="mr-1 inline h-3 w-3" /> Offline mode
               </TonedBadge>
+            )}
+            {offline.pending > 0 && (
+              <Button
+                variant="outline"
+                size="sm"
+                disabled={offline.syncing || !online}
+                onClick={() => void offline.sync()}
+              >
+                {offline.syncing ? (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                ) : (
+                  <RefreshCw className="mr-2 h-4 w-4" />
+                )}
+                Sync {offline.pending} queued
+              </Button>
             )}
             <OutletSwitcher value={outletId} onChange={select} />
           </div>
