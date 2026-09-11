@@ -503,13 +503,14 @@ function SupportPage() {
                 </Select>
               </div>
               <div>
-                <Label>Guest name</Label>
-                <Input value={form.guest_name} onChange={(e) => setForm({ ...form, guest_name: e.target.value })} />
+                <Label htmlFor="ticket-guest-name">Guest name</Label>
+                <Input id="ticket-guest-name" value={form.guest_name} onChange={(e) => setForm({ ...form, guest_name: e.target.value })} />
               </div>
               <div>
-                <Label>Contact</Label>
-                <Input value={form.guest_contact} onChange={(e) => setForm({ ...form, guest_contact: e.target.value })} />
+                <Label htmlFor="ticket-guest-contact">Contact</Label>
+                <Input id="ticket-guest-contact" value={form.guest_contact} onChange={(e) => setForm({ ...form, guest_contact: e.target.value })} />
               </div>
+
             </div>
             <DialogFooter>
               <Button variant="outline" onClick={() => setFormOpen(false)}>Cancel</Button>
