@@ -444,17 +444,19 @@ function SupportPage() {
             <DialogHeader><DialogTitle>Log support ticket</DialogTitle></DialogHeader>
             <div className="grid gap-3 sm:grid-cols-2">
               <div className="sm:col-span-2">
-                <Label>Subject</Label>
-                <Input value={form.subject} onChange={(e) => setForm({ ...form, subject: e.target.value })} />
+                <Label htmlFor="ticket-subject">Subject</Label>
+                <Input id="ticket-subject" value={form.subject} onChange={(e) => setForm({ ...form, subject: e.target.value })} />
               </div>
               <div className="sm:col-span-2">
-                <Label>Description</Label>
+                <Label htmlFor="ticket-description">Description</Label>
                 <Textarea
+                  id="ticket-description"
                   rows={3}
                   value={form.description}
                   onChange={(e) => setForm({ ...form, description: e.target.value })}
                 />
               </div>
+
               <div>
                 <Label>Category</Label>
                 <Select value={form.category} onValueChange={(v) => setForm({ ...form, category: v })}>
