@@ -413,6 +413,7 @@ export type Database = {
           photo_url: string | null
           preferences: string | null
           updated_at: string
+          user_id: string | null
           vehicle_info: string | null
           vip_status: boolean
         }
@@ -434,6 +435,7 @@ export type Database = {
           photo_url?: string | null
           preferences?: string | null
           updated_at?: string
+          user_id?: string | null
           vehicle_info?: string | null
           vip_status?: boolean
         }
@@ -455,6 +457,7 @@ export type Database = {
           photo_url?: string | null
           preferences?: string | null
           updated_at?: string
+          user_id?: string | null
           vehicle_info?: string | null
           vip_status?: boolean
         }
@@ -2820,6 +2823,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      current_guest_ids: { Args: never; Returns: string[] }
       has_any_role: {
         Args: {
           _roles: Database["public"]["Enums"]["app_role"][]
