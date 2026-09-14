@@ -413,6 +413,7 @@ export type Database = {
           photo_url: string | null
           preferences: string | null
           updated_at: string
+          user_id: string | null
           vehicle_info: string | null
           vip_status: boolean
         }
@@ -434,6 +435,7 @@ export type Database = {
           photo_url?: string | null
           preferences?: string | null
           updated_at?: string
+          user_id?: string | null
           vehicle_info?: string | null
           vip_status?: boolean
         }
@@ -455,6 +457,7 @@ export type Database = {
           photo_url?: string | null
           preferences?: string | null
           updated_at?: string
+          user_id?: string | null
           vehicle_info?: string | null
           vip_status?: boolean
         }
