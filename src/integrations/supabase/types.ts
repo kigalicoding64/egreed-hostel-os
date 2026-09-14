@@ -2823,7 +2823,6 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      current_guest_ids: { Args: never; Returns: string[] }
       has_any_role: {
         Args: {
           _roles: Database["public"]["Enums"]["app_role"][]
