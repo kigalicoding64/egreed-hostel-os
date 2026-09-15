@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as PortalRouteImport } from './routes/portal'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
@@ -44,6 +45,11 @@ import { Route as AuthenticatedRestaurantKitchenRouteImport } from './routes/_au
 import { Route as AuthenticatedRestaurantInventoryRouteImport } from './routes/_authenticated/restaurant.inventory'
 import { Route as AuthenticatedRestaurantBanquetsRouteImport } from './routes/_authenticated/restaurant.banquets'
 
+const PortalRoute = PortalRouteImport.update({
+  id: '/portal',
+  path: '/portal',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
@@ -229,6 +235,7 @@ const AuthenticatedRestaurantBanquetsRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/portal': typeof PortalRoute
   '/activity': typeof AuthenticatedActivityRoute
   '/assets': typeof AuthenticatedAssetsRoute
   '/calendar': typeof AuthenticatedCalendarRoute
@@ -264,6 +271,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/portal': typeof PortalRoute
   '/activity': typeof AuthenticatedActivityRoute
   '/assets': typeof AuthenticatedAssetsRoute
   '/calendar': typeof AuthenticatedCalendarRoute
@@ -300,6 +308,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
+  '/portal': typeof PortalRoute
   '/_authenticated/activity': typeof AuthenticatedActivityRoute
   '/_authenticated/assets': typeof AuthenticatedAssetsRoute
   '/_authenticated/calendar': typeof AuthenticatedCalendarRoute
@@ -337,6 +346,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth'
+    | '/portal'
     | '/activity'
     | '/assets'
     | '/calendar'
@@ -372,6 +382,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/portal'
     | '/activity'
     | '/assets'
     | '/calendar'
@@ -407,6 +418,7 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/auth'
+    | '/portal'
     | '/_authenticated/activity'
     | '/_authenticated/assets'
     | '/_authenticated/calendar'
@@ -444,10 +456,18 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
+  PortalRoute: typeof PortalRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/portal': {
+      id: '/portal'
+      path: '/portal'
+      fullPath: '/portal'
+      preLoaderRoute: typeof PortalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth': {
       id: '/auth'
       path: '/auth'
@@ -777,6 +797,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
+  PortalRoute: PortalRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
