@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Outlet, Link, useRouterState } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { Outlet, Link, useRouterState, useNavigate } from "@tanstack/react-router";
 import { Hotel } from "lucide-react";
 import { AppSidebar } from "./AppSidebar";
 import { Topbar } from "./Topbar";
@@ -13,8 +13,16 @@ export function AppShell() {
   const [collapsed, setCollapsed] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [mobileNav, setMobileNav] = useState(false);
-  const { roles } = useAuth();
+  const { roles, loading } = useAuth();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const navigate = useNavigate();
+
+  // Guests only ever see the guest portal, never the staff workspace.
+  const guestOnly = !loading && roles.length > 0 && roles.every((r) => r === "guest_portal");
+  useEffect(() => {
+    if (guestOnly) navigate({ to: "/portal", replace: true });
+  }, [guestOnly, navigate]);
+
 
   return (
     <div className="flex h-screen overflow-hidden bg-background">

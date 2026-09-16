@@ -2,6 +2,7 @@ import type { LucideIcon } from "lucide-react";
 import {
   LayoutDashboard,
   CalendarCheck,
+  CalendarRange,
   BedDouble,
   Users,
   Receipt,
@@ -100,7 +101,20 @@ export interface NavGroup {
 export const NAV_GROUPS: NavGroup[] = [
   {
     label: "Overview",
-    items: [{ title: "Dashboard", to: "/dashboard", icon: LayoutDashboard }],
+    items: [
+      { title: "Dashboard", to: "/dashboard", icon: LayoutDashboard },
+      {
+        title: "Room Calendar",
+        to: "/calendar",
+        icon: CalendarRange,
+        roles: [
+          ...MANAGEMENT_ROLES,
+          "receptionist",
+          "customer_support",
+          "housekeeping_manager",
+        ],
+      },
+    ],
   },
   {
     label: "Operations",
