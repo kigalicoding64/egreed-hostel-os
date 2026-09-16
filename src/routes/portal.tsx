@@ -88,7 +88,13 @@ function GuestPortal() {
         .select("id,full_name,email,hotel_id,user_id,loyalty_points")
         .limit(5);
       const guests = (guestRows ?? []) as GuestRow[];
-      const guest = guests.find((g) => g.user_id === user?.id) ?? guests[0] ?? null;
+      const email = (user?.email ?? "").toLowerCase();
+      const guest =
+        guests.find((g) => g.user_id === user?.id) ??
+        guests.find(
+          (g) => !g.user_id && !!g.email && g.email.toLowerCase() === email,
+        ) ??
+        null;
       if (!guest) return { guest: null };
 
       const [reservations, invoices, payments, orders] = await Promise.all([
