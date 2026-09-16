@@ -36,6 +36,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { formatCurrency, formatDate, initials, timeAgo } from "@/lib/format";
+import { RoomCalendar } from "@/components/reservations/RoomCalendar";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   component: DashboardPage,
@@ -113,7 +114,10 @@ async function loadDashboard() {
 }
 
 function DashboardPage() {
-  const { profile } = useAuth();
+  const { profile, roles, hasAnyRole } = useAuth();
+  const canEditBookings =
+    roles.includes("super_admin") ||
+    hasAnyRole(["hotel_owner", "general_manager", "receptionist"]);
   const { data, isLoading } = useQuery({
     queryKey: ["dashboard"],
     queryFn: loadDashboard,
@@ -194,7 +198,11 @@ function DashboardPage() {
             <StatCard index={7} label="Check-outs Today" value={data.checkouts} icon={LogOut} accent="warning" />
           </div>
 
+          {/* Room calendar */}
+          <RoomCalendar days={10} canEdit={canEditBookings} />
+
           {/* Charts */}
+
           <div className="grid gap-4 lg:grid-cols-3">
             <Card className="shadow-card lg:col-span-2">
               <CardHeader>
