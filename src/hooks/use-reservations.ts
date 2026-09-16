@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import type { ReservationStatus } from "@/lib/hotel-constants";
 
 const RELATED_KEYS = [
   "reservations",
@@ -59,7 +60,7 @@ export function useMoveReservation() {
 export function useSetReservationStatus() {
   const invalidate = useReservationInvalidate();
   return useMutation({
-    mutationFn: async (input: { id: string; status: string }) => {
+    mutationFn: async (input: { id: string; status: ReservationStatus }) => {
       const { error } = await supabase
         .from("reservations")
         .update({ status: input.status })
