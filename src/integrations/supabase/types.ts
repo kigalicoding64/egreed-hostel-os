@@ -2260,6 +2260,86 @@ export type Database = {
           },
         ]
       }
+      room_keys: {
+        Row: {
+          created_at: string
+          guest_id: string | null
+          hotel_id: string
+          id: string
+          issued_at: string
+          issued_by: string | null
+          key_code: string
+          key_type: string
+          notes: string | null
+          reservation_id: string | null
+          returned_at: string | null
+          room_id: string | null
+          status: Database["public"]["Enums"]["room_key_status"]
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          guest_id?: string | null
+          hotel_id: string
+          id?: string
+          issued_at?: string
+          issued_by?: string | null
+          key_code: string
+          key_type?: string
+          notes?: string | null
+          reservation_id?: string | null
+          returned_at?: string | null
+          room_id?: string | null
+          status?: Database["public"]["Enums"]["room_key_status"]
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          guest_id?: string | null
+          hotel_id?: string
+          id?: string
+          issued_at?: string
+          issued_by?: string | null
+          key_code?: string
+          key_type?: string
+          notes?: string | null
+          reservation_id?: string | null
+          returned_at?: string | null
+          room_id?: string | null
+          status?: Database["public"]["Enums"]["room_key_status"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "room_keys_guest_id_fkey"
+            columns: ["guest_id"]
+            isOneToOne: false
+            referencedRelation: "guests"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "room_keys_hotel_id_fkey"
+            columns: ["hotel_id"]
+            isOneToOne: false
+            referencedRelation: "hotels"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "room_keys_reservation_id_fkey"
+            columns: ["reservation_id"]
+            isOneToOne: false
+            referencedRelation: "reservations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "room_keys_room_id_fkey"
+            columns: ["room_id"]
+            isOneToOne: false
+            referencedRelation: "rooms"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       room_types: {
         Row: {
           base_rate: number
@@ -2979,6 +3059,7 @@ export type Database = {
         | "occupied"
         | "cleaning"
         | "out_of_service"
+      room_key_status: "active" | "returned" | "lost" | "deactivated"
       room_status:
         | "available"
         | "occupied"
@@ -3281,6 +3362,7 @@ export const Constants = {
         "cleaning",
         "out_of_service",
       ],
+      room_key_status: ["active", "returned", "lost", "deactivated"],
       room_status: [
         "available",
         "occupied",
