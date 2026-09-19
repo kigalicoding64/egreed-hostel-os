@@ -36,6 +36,7 @@ import { Route as AuthenticatedCalendarRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedAssetsRouteImport } from './routes/_authenticated/assets'
 import { Route as AuthenticatedActivityRouteImport } from './routes/_authenticated/activity'
 import { Route as AuthenticatedRestaurantIndexRouteImport } from './routes/_authenticated/restaurant.index'
+import { Route as ApiChatGuestRouteImport } from './routes/api/chat.guest'
 import { Route as AuthenticatedRestaurantTablesRouteImport } from './routes/_authenticated/restaurant.tables'
 import { Route as AuthenticatedRestaurantReportsRouteImport } from './routes/_authenticated/restaurant.reports'
 import { Route as AuthenticatedRestaurantPosRouteImport } from './routes/_authenticated/restaurant.pos'
@@ -183,6 +184,11 @@ const AuthenticatedRestaurantIndexRoute =
     path: '/',
     getParentRoute: () => AuthenticatedRestaurantRoute,
   } as any)
+const ApiChatGuestRoute = ApiChatGuestRouteImport.update({
+  id: '/api/chat/guest',
+  path: '/api/chat/guest',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedRestaurantTablesRoute =
   AuthenticatedRestaurantTablesRouteImport.update({
     id: '/tables',
@@ -266,6 +272,7 @@ export interface FileRoutesByFullPath {
   '/restaurant/pos': typeof AuthenticatedRestaurantPosRoute
   '/restaurant/reports': typeof AuthenticatedRestaurantReportsRoute
   '/restaurant/tables': typeof AuthenticatedRestaurantTablesRoute
+  '/api/chat/guest': typeof ApiChatGuestRoute
   '/restaurant/': typeof AuthenticatedRestaurantIndexRoute
 }
 export interface FileRoutesByTo {
@@ -301,6 +308,7 @@ export interface FileRoutesByTo {
   '/restaurant/pos': typeof AuthenticatedRestaurantPosRoute
   '/restaurant/reports': typeof AuthenticatedRestaurantReportsRoute
   '/restaurant/tables': typeof AuthenticatedRestaurantTablesRoute
+  '/api/chat/guest': typeof ApiChatGuestRoute
   '/restaurant': typeof AuthenticatedRestaurantIndexRoute
 }
 export interface FileRoutesById {
@@ -339,6 +347,7 @@ export interface FileRoutesById {
   '/_authenticated/restaurant/pos': typeof AuthenticatedRestaurantPosRoute
   '/_authenticated/restaurant/reports': typeof AuthenticatedRestaurantReportsRoute
   '/_authenticated/restaurant/tables': typeof AuthenticatedRestaurantTablesRoute
+  '/api/chat/guest': typeof ApiChatGuestRoute
   '/_authenticated/restaurant/': typeof AuthenticatedRestaurantIndexRoute
 }
 export interface FileRouteTypes {
@@ -377,6 +386,7 @@ export interface FileRouteTypes {
     | '/restaurant/pos'
     | '/restaurant/reports'
     | '/restaurant/tables'
+    | '/api/chat/guest'
     | '/restaurant/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -412,6 +422,7 @@ export interface FileRouteTypes {
     | '/restaurant/pos'
     | '/restaurant/reports'
     | '/restaurant/tables'
+    | '/api/chat/guest'
     | '/restaurant'
   id:
     | '__root__'
@@ -449,6 +460,7 @@ export interface FileRouteTypes {
     | '/_authenticated/restaurant/pos'
     | '/_authenticated/restaurant/reports'
     | '/_authenticated/restaurant/tables'
+    | '/api/chat/guest'
     | '/_authenticated/restaurant/'
   fileRoutesById: FileRoutesById
 }
@@ -457,6 +469,7 @@ export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
   PortalRoute: typeof PortalRoute
+  ApiChatGuestRoute: typeof ApiChatGuestRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -650,6 +663,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRestaurantIndexRouteImport
       parentRoute: typeof AuthenticatedRestaurantRoute
     }
+    '/api/chat/guest': {
+      id: '/api/chat/guest'
+      path: '/api/chat/guest'
+      fullPath: '/api/chat/guest'
+      preLoaderRoute: typeof ApiChatGuestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/restaurant/tables': {
       id: '/_authenticated/restaurant/tables'
       path: '/tables'
@@ -798,6 +818,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
   PortalRoute: PortalRoute,
+  ApiChatGuestRoute: ApiChatGuestRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
