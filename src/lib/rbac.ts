@@ -22,6 +22,8 @@ import {
   ListTodo,
   Package,
   ChefHat,
+  ConciergeBell,
+  Bot,
 
 } from "lucide-react";
 
@@ -112,6 +114,26 @@ export const NAV_GROUPS: NavGroup[] = [
           "receptionist",
           "customer_support",
           "housekeeping_manager",
+        ],
+      },
+      {
+        title: "Front Desk",
+        to: "/front-desk",
+        icon: ConciergeBell,
+        roles: [...MANAGEMENT_ROLES, "receptionist", "security_officer"],
+      },
+      {
+        title: "AI Assistant",
+        to: "/assistant",
+        icon: Bot,
+        roles: [
+          ...MANAGEMENT_ROLES,
+          "receptionist",
+          "housekeeping_manager",
+          "maintenance_manager",
+          "marketing_manager",
+          "restaurant_manager",
+          "customer_support",
         ],
       },
     ],
