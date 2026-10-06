@@ -31,6 +31,7 @@ import { Route as AuthenticatedLaundryRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedInvoicesRouteImport } from './routes/_authenticated/invoices'
 import { Route as AuthenticatedHousekeepingRouteImport } from './routes/_authenticated/housekeeping'
 import { Route as AuthenticatedGuestsRouteImport } from './routes/_authenticated/guests'
+import { Route as AuthenticatedFrontDeskRouteImport } from './routes/_authenticated/front-desk'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedCalendarRouteImport } from './routes/_authenticated/calendar'
 import { Route as AuthenticatedAssistantRouteImport } from './routes/_authenticated/assistant'
@@ -160,6 +161,11 @@ const AuthenticatedGuestsRoute = AuthenticatedGuestsRouteImport.update({
   path: '/guests',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedFrontDeskRoute = AuthenticatedFrontDeskRouteImport.update({
+  id: '/front-desk',
+  path: '/front-desk',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -259,6 +265,7 @@ export interface FileRoutesByFullPath {
   '/assistant': typeof AuthenticatedAssistantRoute
   '/calendar': typeof AuthenticatedCalendarRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/front-desk': typeof AuthenticatedFrontDeskRoute
   '/guests': typeof AuthenticatedGuestsRoute
   '/housekeeping': typeof AuthenticatedHousekeepingRoute
   '/invoices': typeof AuthenticatedInvoicesRoute
@@ -298,6 +305,7 @@ export interface FileRoutesByTo {
   '/assistant': typeof AuthenticatedAssistantRoute
   '/calendar': typeof AuthenticatedCalendarRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/front-desk': typeof AuthenticatedFrontDeskRoute
   '/guests': typeof AuthenticatedGuestsRoute
   '/housekeeping': typeof AuthenticatedHousekeepingRoute
   '/invoices': typeof AuthenticatedInvoicesRoute
@@ -338,6 +346,7 @@ export interface FileRoutesById {
   '/_authenticated/assistant': typeof AuthenticatedAssistantRoute
   '/_authenticated/calendar': typeof AuthenticatedCalendarRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/front-desk': typeof AuthenticatedFrontDeskRoute
   '/_authenticated/guests': typeof AuthenticatedGuestsRoute
   '/_authenticated/housekeeping': typeof AuthenticatedHousekeepingRoute
   '/_authenticated/invoices': typeof AuthenticatedInvoicesRoute
@@ -379,6 +388,7 @@ export interface FileRouteTypes {
     | '/assistant'
     | '/calendar'
     | '/dashboard'
+    | '/front-desk'
     | '/guests'
     | '/housekeeping'
     | '/invoices'
@@ -418,6 +428,7 @@ export interface FileRouteTypes {
     | '/assistant'
     | '/calendar'
     | '/dashboard'
+    | '/front-desk'
     | '/guests'
     | '/housekeeping'
     | '/invoices'
@@ -457,6 +468,7 @@ export interface FileRouteTypes {
     | '/_authenticated/assistant'
     | '/_authenticated/calendar'
     | '/_authenticated/dashboard'
+    | '/_authenticated/front-desk'
     | '/_authenticated/guests'
     | '/_authenticated/housekeeping'
     | '/_authenticated/invoices'
@@ -653,6 +665,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedGuestsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/front-desk': {
+      id: '/_authenticated/front-desk'
+      path: '/front-desk'
+      fullPath: '/front-desk'
+      preLoaderRoute: typeof AuthenticatedFrontDeskRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/dashboard': {
       id: '/_authenticated/dashboard'
       path: '/dashboard'
@@ -805,6 +824,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedAssistantRoute: typeof AuthenticatedAssistantRoute
   AuthenticatedCalendarRoute: typeof AuthenticatedCalendarRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedFrontDeskRoute: typeof AuthenticatedFrontDeskRoute
   AuthenticatedGuestsRoute: typeof AuthenticatedGuestsRoute
   AuthenticatedHousekeepingRoute: typeof AuthenticatedHousekeepingRoute
   AuthenticatedInvoicesRoute: typeof AuthenticatedInvoicesRoute
@@ -831,6 +851,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAssistantRoute: AuthenticatedAssistantRoute,
   AuthenticatedCalendarRoute: AuthenticatedCalendarRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedFrontDeskRoute: AuthenticatedFrontDeskRoute,
   AuthenticatedGuestsRoute: AuthenticatedGuestsRoute,
   AuthenticatedHousekeepingRoute: AuthenticatedHousekeepingRoute,
   AuthenticatedInvoicesRoute: AuthenticatedInvoicesRoute,
