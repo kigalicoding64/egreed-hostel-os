@@ -16,6 +16,7 @@ import {
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
+import { HotelChat } from "@/components/ai/HotelChat";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -273,7 +274,26 @@ function GuestPortal() {
                 <TabsTrigger value="stays">Bookings</TabsTrigger>
                 <TabsTrigger value="orders">Restaurant</TabsTrigger>
                 <TabsTrigger value="billing">Billing</TabsTrigger>
+                <TabsTrigger value="concierge">Ask us</TabsTrigger>
               </TabsList>
+
+              <TabsContent value="concierge" className="mt-4">
+                <div className="h-[560px]">
+                  <HotelChat
+                    api="/api/chat/guest"
+                    storageKey={`egreed.ai.guest.${user?.id ?? "anon"}`}
+                    title="Virtual concierge"
+                    subtitle="Ask about your stay, the hotel or send a message to reception."
+                    placeholder="e.g. Can I get extra towels in my room?"
+                    suggestions={[
+                      "What time is check-out?",
+                      "What's my room number?",
+                      "What do I owe so far?",
+                      "Please send extra towels to my room",
+                    ]}
+                  />
+                </div>
+              </TabsContent>
 
               <TabsContent value="stays" className="mt-4 space-y-3">
                 {reservations.length === 0 ? (

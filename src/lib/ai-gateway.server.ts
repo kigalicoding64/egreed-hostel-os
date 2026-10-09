@@ -162,4 +162,4 @@ export const HOTEL_AI_PROVIDER_OPTIONS = {
     store: false,
     include: ["reasoning.encrypted_content"],
   },
-} as const;
+};
