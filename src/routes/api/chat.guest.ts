@@ -11,6 +11,7 @@ import {
   withLovableAiGatewayRunIdHeader,
 } from "@/lib/ai-gateway.server";
 import { money, requireUser } from "@/lib/ai-hotel.server";
+import { GUEST_INFO_KEY, guestInfoToPrompt, parseGuestInfo } from "@/lib/guest-info";
 
 export const Route = createFileRoute("/api/chat/guest")({
   server: {
@@ -47,6 +48,16 @@ export const Route = createFileRoute("/api/chat/guest")({
           .select("name,type,location,opens_at,closes_at,is_active")
           .eq("is_active", true);
 
+        // Guest-facing facts configured in Settings (staff-only table, read server-side).
+        const { supabaseAdmin: settingsAdmin } = await import("@/integrations/supabase/client.server");
+        const { data: infoRow } = await settingsAdmin
+          .from("settings")
+          .select("value")
+          .eq("key", GUEST_INFO_KEY)
+          .limit(1)
+          .maybeSingle();
+        const guestInfo = parseGuestInfo(infoRow?.value);
+
         const runIdFetch = createLovableAiGatewayRunIdFetch(getLovableAiGatewayRunId(request));
         const lovable = createHotelAiProvider(key, runIdFetch);
 
@@ -73,7 +84,7 @@ export const Route = createFileRoute("/api/chat/guest")({
                   )
                   .join("; ")}.`
               : "",
-            "Standard information: check-in from 14:00, check-out by 11:00, free Wi-Fi throughout, housekeeping daily, luggage storage and airport transfers available on request via reception.",
+            guestInfoToPrompt(guestInfo),
           ]
             .filter(Boolean)
             .join("\n"),
