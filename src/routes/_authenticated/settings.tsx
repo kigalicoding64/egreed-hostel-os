@@ -7,14 +7,27 @@ import { RoleBadge } from "@/components/common/RoleBadge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { isManagement } from "@/lib/rbac";
+import { GuestInfoCard } from "@/components/settings/GuestInfoCard";
 
 export const Route = createFileRoute("/_authenticated/settings")({
+  head: () => ({
+    meta: [
+      { title: "Settings | EGREED Hospitality" },
+      { name: "description", content: "Appearance, access and guest information settings." },
+      { property: "og:title", content: "Settings | EGREED Hospitality" },
+      { property: "og:description", content: "Personalise your workspace and set what guests are told." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
+    ],
+  }),
   component: SettingsPage,
 });
 
 function SettingsPage() {
   const { theme, setTheme } = useTheme();
   const { roles, profile } = useAuth();
+  const canEditGuestInfo = isManagement(roles);
 
   const options = [
     { value: "light" as const, label: "Light", icon: Sun },
@@ -72,6 +85,8 @@ function SettingsPage() {
           </p>
         </CardContent>
       </Card>
+
+      {canEditGuestInfo && <GuestInfoCard />}
 
       <Card className="shadow-card">
         <CardHeader>
