@@ -32,6 +32,8 @@ import { useAuth } from "@/hooks/use-auth";
 import { useReservationInvalidate } from "@/hooks/use-reservations";
 import { todayISO } from "@/lib/booking";
 import type { Tables } from "@/integrations/supabase/types";
+import { QrButton } from "@/components/qr/QrCode";
+import { qrLink } from "@/lib/qr";
 
 export const Route = createFileRoute("/_authenticated/front-desk")({
   head: () => ({
@@ -271,6 +273,7 @@ function FrontDeskPage() {
                         <Badge variant={k.status === "active" ? "default" : k.status === "lost" ? "destructive" : "secondary"}>{k.status}</Badge>
                       </td>
                       <td className="space-x-1 p-3 text-right">
+                        <QrButton card={{ value: qrLink("key", k.key_code), title: `Key ${k.key_code}`, subtitle: k.rooms?.room_number ? `Room ${k.rooms.room_number}` : undefined, callToAction: "Scan at reception to look up this key" }} />
                         {k.status === "active" && canAct && (
                           <>
                             <Button size="sm" variant="outline" onClick={() => keyStatus.mutate({ id: k.id, status: "returned" })}>Returned</Button>

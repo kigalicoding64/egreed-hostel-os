@@ -18,9 +18,11 @@ import { Route as AuthenticatedSupportRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedStaffRouteImport } from './routes/_authenticated/staff'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
 import { Route as AuthenticatedSecurityRouteImport } from './routes/_authenticated/security'
+import { Route as AuthenticatedScanRouteImport } from './routes/_authenticated/scan'
 import { Route as AuthenticatedRoomsRouteImport } from './routes/_authenticated/rooms'
 import { Route as AuthenticatedRestaurantRouteImport } from './routes/_authenticated/restaurant'
 import { Route as AuthenticatedReservationsRouteImport } from './routes/_authenticated/reservations'
+import { Route as AuthenticatedQrCodesRouteImport } from './routes/_authenticated/qr-codes'
 import { Route as AuthenticatedPropertiesRouteImport } from './routes/_authenticated/properties'
 import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
 import { Route as AuthenticatedPaymentsRouteImport } from './routes/_authenticated/payments'
@@ -38,6 +40,7 @@ import { Route as AuthenticatedAssistantRouteImport } from './routes/_authentica
 import { Route as AuthenticatedAssetsRouteImport } from './routes/_authenticated/assets'
 import { Route as AuthenticatedActivityRouteImport } from './routes/_authenticated/activity'
 import { Route as AuthenticatedRestaurantIndexRouteImport } from './routes/_authenticated/restaurant.index'
+import { Route as QKindIdRouteImport } from './routes/q.$kind.$id'
 import { Route as ApiChatStaffRouteImport } from './routes/api/chat.staff'
 import { Route as ApiChatGuestRouteImport } from './routes/api/chat.guest'
 import { Route as AuthenticatedRestaurantTablesRouteImport } from './routes/_authenticated/restaurant.tables'
@@ -93,6 +96,11 @@ const AuthenticatedSecurityRoute = AuthenticatedSecurityRouteImport.update({
   path: '/security',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedScanRoute = AuthenticatedScanRouteImport.update({
+  id: '/scan',
+  path: '/scan',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedRoomsRoute = AuthenticatedRoomsRouteImport.update({
   id: '/rooms',
   path: '/rooms',
@@ -109,6 +117,11 @@ const AuthenticatedReservationsRoute =
     path: '/reservations',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedQrCodesRoute = AuthenticatedQrCodesRouteImport.update({
+  id: '/qr-codes',
+  path: '/qr-codes',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedPropertiesRoute = AuthenticatedPropertiesRouteImport.update({
   id: '/properties',
   path: '/properties',
@@ -197,6 +210,11 @@ const AuthenticatedRestaurantIndexRoute =
     path: '/',
     getParentRoute: () => AuthenticatedRestaurantRoute,
   } as any)
+const QKindIdRoute = QKindIdRouteImport.update({
+  id: '/q/$kind/$id',
+  path: '/q/$kind/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiChatStaffRoute = ApiChatStaffRouteImport.update({
   id: '/api/chat/staff',
   path: '/api/chat/staff',
@@ -276,9 +294,11 @@ export interface FileRoutesByFullPath {
   '/payments': typeof AuthenticatedPaymentsRoute
   '/profile': typeof AuthenticatedProfileRoute
   '/properties': typeof AuthenticatedPropertiesRoute
+  '/qr-codes': typeof AuthenticatedQrCodesRoute
   '/reservations': typeof AuthenticatedReservationsRoute
   '/restaurant': typeof AuthenticatedRestaurantRouteWithChildren
   '/rooms': typeof AuthenticatedRoomsRoute
+  '/scan': typeof AuthenticatedScanRoute
   '/security': typeof AuthenticatedSecurityRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/staff': typeof AuthenticatedStaffRoute
@@ -294,6 +314,7 @@ export interface FileRoutesByFullPath {
   '/restaurant/tables': typeof AuthenticatedRestaurantTablesRoute
   '/api/chat/guest': typeof ApiChatGuestRoute
   '/api/chat/staff': typeof ApiChatStaffRoute
+  '/q/$kind/$id': typeof QKindIdRoute
   '/restaurant/': typeof AuthenticatedRestaurantIndexRoute
 }
 export interface FileRoutesByTo {
@@ -316,8 +337,10 @@ export interface FileRoutesByTo {
   '/payments': typeof AuthenticatedPaymentsRoute
   '/profile': typeof AuthenticatedProfileRoute
   '/properties': typeof AuthenticatedPropertiesRoute
+  '/qr-codes': typeof AuthenticatedQrCodesRoute
   '/reservations': typeof AuthenticatedReservationsRoute
   '/rooms': typeof AuthenticatedRoomsRoute
+  '/scan': typeof AuthenticatedScanRoute
   '/security': typeof AuthenticatedSecurityRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/staff': typeof AuthenticatedStaffRoute
@@ -333,6 +356,7 @@ export interface FileRoutesByTo {
   '/restaurant/tables': typeof AuthenticatedRestaurantTablesRoute
   '/api/chat/guest': typeof ApiChatGuestRoute
   '/api/chat/staff': typeof ApiChatStaffRoute
+  '/q/$kind/$id': typeof QKindIdRoute
   '/restaurant': typeof AuthenticatedRestaurantIndexRoute
 }
 export interface FileRoutesById {
@@ -357,9 +381,11 @@ export interface FileRoutesById {
   '/_authenticated/payments': typeof AuthenticatedPaymentsRoute
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
   '/_authenticated/properties': typeof AuthenticatedPropertiesRoute
+  '/_authenticated/qr-codes': typeof AuthenticatedQrCodesRoute
   '/_authenticated/reservations': typeof AuthenticatedReservationsRoute
   '/_authenticated/restaurant': typeof AuthenticatedRestaurantRouteWithChildren
   '/_authenticated/rooms': typeof AuthenticatedRoomsRoute
+  '/_authenticated/scan': typeof AuthenticatedScanRoute
   '/_authenticated/security': typeof AuthenticatedSecurityRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/_authenticated/staff': typeof AuthenticatedStaffRoute
@@ -375,6 +401,7 @@ export interface FileRoutesById {
   '/_authenticated/restaurant/tables': typeof AuthenticatedRestaurantTablesRoute
   '/api/chat/guest': typeof ApiChatGuestRoute
   '/api/chat/staff': typeof ApiChatStaffRoute
+  '/q/$kind/$id': typeof QKindIdRoute
   '/_authenticated/restaurant/': typeof AuthenticatedRestaurantIndexRoute
 }
 export interface FileRouteTypes {
@@ -399,9 +426,11 @@ export interface FileRouteTypes {
     | '/payments'
     | '/profile'
     | '/properties'
+    | '/qr-codes'
     | '/reservations'
     | '/restaurant'
     | '/rooms'
+    | '/scan'
     | '/security'
     | '/settings'
     | '/staff'
@@ -417,6 +446,7 @@ export interface FileRouteTypes {
     | '/restaurant/tables'
     | '/api/chat/guest'
     | '/api/chat/staff'
+    | '/q/$kind/$id'
     | '/restaurant/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -439,8 +469,10 @@ export interface FileRouteTypes {
     | '/payments'
     | '/profile'
     | '/properties'
+    | '/qr-codes'
     | '/reservations'
     | '/rooms'
+    | '/scan'
     | '/security'
     | '/settings'
     | '/staff'
@@ -456,6 +488,7 @@ export interface FileRouteTypes {
     | '/restaurant/tables'
     | '/api/chat/guest'
     | '/api/chat/staff'
+    | '/q/$kind/$id'
     | '/restaurant'
   id:
     | '__root__'
@@ -479,9 +512,11 @@ export interface FileRouteTypes {
     | '/_authenticated/payments'
     | '/_authenticated/profile'
     | '/_authenticated/properties'
+    | '/_authenticated/qr-codes'
     | '/_authenticated/reservations'
     | '/_authenticated/restaurant'
     | '/_authenticated/rooms'
+    | '/_authenticated/scan'
     | '/_authenticated/security'
     | '/_authenticated/settings'
     | '/_authenticated/staff'
@@ -497,6 +532,7 @@ export interface FileRouteTypes {
     | '/_authenticated/restaurant/tables'
     | '/api/chat/guest'
     | '/api/chat/staff'
+    | '/q/$kind/$id'
     | '/_authenticated/restaurant/'
   fileRoutesById: FileRoutesById
 }
@@ -507,6 +543,7 @@ export interface RootRouteChildren {
   PortalRoute: typeof PortalRoute
   ApiChatGuestRoute: typeof ApiChatGuestRoute
   ApiChatStaffRoute: typeof ApiChatStaffRoute
+  QKindIdRoute: typeof QKindIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -574,6 +611,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSecurityRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/scan': {
+      id: '/_authenticated/scan'
+      path: '/scan'
+      fullPath: '/scan'
+      preLoaderRoute: typeof AuthenticatedScanRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/rooms': {
       id: '/_authenticated/rooms'
       path: '/rooms'
@@ -593,6 +637,13 @@ declare module '@tanstack/react-router' {
       path: '/reservations'
       fullPath: '/reservations'
       preLoaderRoute: typeof AuthenticatedReservationsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/qr-codes': {
+      id: '/_authenticated/qr-codes'
+      path: '/qr-codes'
+      fullPath: '/qr-codes'
+      preLoaderRoute: typeof AuthenticatedQrCodesRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/properties': {
@@ -713,6 +764,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/restaurant/'
       preLoaderRoute: typeof AuthenticatedRestaurantIndexRouteImport
       parentRoute: typeof AuthenticatedRestaurantRoute
+    }
+    '/q/$kind/$id': {
+      id: '/q/$kind/$id'
+      path: '/q/$kind/$id'
+      fullPath: '/q/$kind/$id'
+      preLoaderRoute: typeof QKindIdRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/api/chat/staff': {
       id: '/api/chat/staff'
@@ -835,9 +893,11 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedPaymentsRoute: typeof AuthenticatedPaymentsRoute
   AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
   AuthenticatedPropertiesRoute: typeof AuthenticatedPropertiesRoute
+  AuthenticatedQrCodesRoute: typeof AuthenticatedQrCodesRoute
   AuthenticatedReservationsRoute: typeof AuthenticatedReservationsRoute
   AuthenticatedRestaurantRoute: typeof AuthenticatedRestaurantRouteWithChildren
   AuthenticatedRoomsRoute: typeof AuthenticatedRoomsRoute
+  AuthenticatedScanRoute: typeof AuthenticatedScanRoute
   AuthenticatedSecurityRoute: typeof AuthenticatedSecurityRoute
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
   AuthenticatedStaffRoute: typeof AuthenticatedStaffRoute
@@ -862,9 +922,11 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedPaymentsRoute: AuthenticatedPaymentsRoute,
   AuthenticatedProfileRoute: AuthenticatedProfileRoute,
   AuthenticatedPropertiesRoute: AuthenticatedPropertiesRoute,
+  AuthenticatedQrCodesRoute: AuthenticatedQrCodesRoute,
   AuthenticatedReservationsRoute: AuthenticatedReservationsRoute,
   AuthenticatedRestaurantRoute: AuthenticatedRestaurantRouteWithChildren,
   AuthenticatedRoomsRoute: AuthenticatedRoomsRoute,
+  AuthenticatedScanRoute: AuthenticatedScanRoute,
   AuthenticatedSecurityRoute: AuthenticatedSecurityRoute,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
   AuthenticatedStaffRoute: AuthenticatedStaffRoute,
@@ -882,6 +944,7 @@ const rootRouteChildren: RootRouteChildren = {
   PortalRoute: PortalRoute,
   ApiChatGuestRoute: ApiChatGuestRoute,
   ApiChatStaffRoute: ApiChatStaffRoute,
+  QKindIdRoute: QKindIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
