@@ -8,7 +8,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { parseQrPayload, QR_KIND_LABEL } from "@/lib/qr";
-import { staffDestination } from "@/lib/qr-resolve";
 
 export const Route = createFileRoute("/_authenticated/scan")({
   head: () => ({
@@ -34,10 +33,8 @@ function ScanPage() {
   const handle = (raw: string) => {
     const hit = parseQrPayload(raw);
     if (!hit) return toast.error("That isn't an EGREED code.");
-    const dest = staffDestination(hit.kind);
     toast.success(`${QR_KIND_LABEL[hit.kind]} found`);
     navigate({ to: "/q/$kind/$id", params: { kind: hit.kind, id: hit.id } });
-    void dest;
   };
 
   useEffect(() => {
