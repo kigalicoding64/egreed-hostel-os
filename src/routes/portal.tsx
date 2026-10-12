@@ -36,6 +36,8 @@ import { PageSkeleton } from "@/components/common/LoadingState";
 import { formatCurrency, formatDate, formatDateTime } from "@/lib/format";
 import { addDays, todayISO } from "@/lib/booking";
 import { generateConfirmation, nightsBetween } from "@/lib/hotel-constants";
+import { QrButton } from "@/components/qr/QrCode";
+import { qrLink } from "@/lib/qr";
 
 export const Route = createFileRoute("/portal")({
   ssr: false,
@@ -315,6 +317,7 @@ function GuestPortal() {
                         <div className="flex items-center gap-3">
                           <span className="font-medium">{formatCurrency(r.total_amount)}</span>
                           <StatusBadge status={r.status} />
+                          <QrButton card={{ value: qrLink("booking", r.reference), title: `Booking ${r.reference}`, subtitle: `${formatDate(r.check_in)} → ${formatDate(r.check_out)}`, callToAction: "Show this at reception for a quick check-in" }} />
                         </div>
                       </CardContent>
                     </Card>

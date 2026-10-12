@@ -24,6 +24,8 @@ import {
   ChefHat,
   ConciergeBell,
   Bot,
+  QrCode,
+  ScanLine,
 
 } from "lucide-react";
 
@@ -121,6 +123,28 @@ export const NAV_GROUPS: NavGroup[] = [
         to: "/front-desk",
         icon: ConciergeBell,
         roles: [...MANAGEMENT_ROLES, "receptionist", "security_officer"],
+      },
+      {
+        title: "QR Codes",
+        to: "/qr-codes",
+        icon: QrCode,
+        roles: [...MANAGEMENT_ROLES, "receptionist", "restaurant_manager", "maintenance_manager", "housekeeping_manager"],
+      },
+      {
+        title: "Scan",
+        to: "/scan",
+        icon: ScanLine,
+        roles: [
+          ...MANAGEMENT_ROLES,
+          "receptionist",
+          "restaurant_manager",
+          "waiter",
+          "maintenance_manager",
+          "maintenance_staff",
+          "housekeeping_manager",
+          "housekeeping_staff",
+          "security_officer",
+        ],
       },
       {
         title: "AI Assistant",

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Download, FileImage, Printer } from "lucide-react";
+import { Download, FileImage, Printer, QrCode as QrCodeIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -74,5 +74,19 @@ export function QrDialog({
         )}
       </DialogContent>
     </Dialog>
+  );
+}
+
+/** Small icon button that opens a QR pop-up for one record. */
+export function QrButton({ card, label }: { card: QrCard; label?: string }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button size="sm" variant="outline" onClick={() => setOpen(true)} aria-label={`QR code for ${card.title}`}>
+        <QrCodeIcon className="h-3.5 w-3.5" />
+        {label && <span className="ml-1">{label}</span>}
+      </Button>
+      <QrDialog open={open} onOpenChange={setOpen} card={card} />
+    </>
   );
 }
