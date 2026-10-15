@@ -26,6 +26,7 @@ import { Route as AuthenticatedLaundryRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedLostFoundRouteImport } from './routes/_authenticated/lost-found'
 import { Route as AuthenticatedMaintenanceRouteImport } from './routes/_authenticated/maintenance'
 import { Route as AuthenticatedMarketingRouteImport } from './routes/_authenticated/marketing'
+import { Route as AuthenticatedMobileRouteImport } from './routes/_authenticated/mobile'
 import { Route as AuthenticatedPaymentsRouteImport } from './routes/_authenticated/payments'
 import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
 import { Route as AuthenticatedPropertiesRouteImport } from './routes/_authenticated/properties'
@@ -136,6 +137,11 @@ const AuthenticatedMaintenanceRoute =
 const AuthenticatedMarketingRoute = AuthenticatedMarketingRouteImport.update({
   id: '/marketing',
   path: '/marketing',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedMobileRoute = AuthenticatedMobileRouteImport.update({
+  id: '/mobile',
+  path: '/mobile',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedPaymentsRoute = AuthenticatedPaymentsRouteImport.update({
@@ -291,6 +297,7 @@ export interface FileRoutesByFullPath {
   '/lost-found': typeof AuthenticatedLostFoundRoute
   '/maintenance': typeof AuthenticatedMaintenanceRoute
   '/marketing': typeof AuthenticatedMarketingRoute
+  '/mobile': typeof AuthenticatedMobileRoute
   '/payments': typeof AuthenticatedPaymentsRoute
   '/profile': typeof AuthenticatedProfileRoute
   '/properties': typeof AuthenticatedPropertiesRoute
@@ -334,6 +341,7 @@ export interface FileRoutesByTo {
   '/lost-found': typeof AuthenticatedLostFoundRoute
   '/maintenance': typeof AuthenticatedMaintenanceRoute
   '/marketing': typeof AuthenticatedMarketingRoute
+  '/mobile': typeof AuthenticatedMobileRoute
   '/payments': typeof AuthenticatedPaymentsRoute
   '/profile': typeof AuthenticatedProfileRoute
   '/properties': typeof AuthenticatedPropertiesRoute
@@ -378,6 +386,7 @@ export interface FileRoutesById {
   '/_authenticated/lost-found': typeof AuthenticatedLostFoundRoute
   '/_authenticated/maintenance': typeof AuthenticatedMaintenanceRoute
   '/_authenticated/marketing': typeof AuthenticatedMarketingRoute
+  '/_authenticated/mobile': typeof AuthenticatedMobileRoute
   '/_authenticated/payments': typeof AuthenticatedPaymentsRoute
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
   '/_authenticated/properties': typeof AuthenticatedPropertiesRoute
@@ -423,6 +432,7 @@ export interface FileRouteTypes {
     | '/lost-found'
     | '/maintenance'
     | '/marketing'
+    | '/mobile'
     | '/payments'
     | '/profile'
     | '/properties'
@@ -466,6 +476,7 @@ export interface FileRouteTypes {
     | '/lost-found'
     | '/maintenance'
     | '/marketing'
+    | '/mobile'
     | '/payments'
     | '/profile'
     | '/properties'
@@ -509,6 +520,7 @@ export interface FileRouteTypes {
     | '/_authenticated/lost-found'
     | '/_authenticated/maintenance'
     | '/_authenticated/marketing'
+    | '/_authenticated/mobile'
     | '/_authenticated/payments'
     | '/_authenticated/profile'
     | '/_authenticated/properties'
@@ -665,6 +677,13 @@ declare module '@tanstack/react-router' {
       path: '/marketing'
       fullPath: '/marketing'
       preLoaderRoute: typeof AuthenticatedMarketingRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/mobile': {
+      id: '/_authenticated/mobile'
+      path: '/mobile'
+      fullPath: '/mobile'
+      preLoaderRoute: typeof AuthenticatedMobileRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/payments': {
@@ -890,6 +909,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedLostFoundRoute: typeof AuthenticatedLostFoundRoute
   AuthenticatedMaintenanceRoute: typeof AuthenticatedMaintenanceRoute
   AuthenticatedMarketingRoute: typeof AuthenticatedMarketingRoute
+  AuthenticatedMobileRoute: typeof AuthenticatedMobileRoute
   AuthenticatedPaymentsRoute: typeof AuthenticatedPaymentsRoute
   AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
   AuthenticatedPropertiesRoute: typeof AuthenticatedPropertiesRoute
@@ -919,6 +939,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedLostFoundRoute: AuthenticatedLostFoundRoute,
   AuthenticatedMaintenanceRoute: AuthenticatedMaintenanceRoute,
   AuthenticatedMarketingRoute: AuthenticatedMarketingRoute,
+  AuthenticatedMobileRoute: AuthenticatedMobileRoute,
   AuthenticatedPaymentsRoute: AuthenticatedPaymentsRoute,
   AuthenticatedProfileRoute: AuthenticatedProfileRoute,
   AuthenticatedPropertiesRoute: AuthenticatedPropertiesRoute,
