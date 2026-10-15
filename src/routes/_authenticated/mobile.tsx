@@ -216,11 +216,11 @@ function OrdersTab() {
     queryFn: async () => {
       const { data, error } = await supabase
         .from("pos_orders")
-        .select("id, order_number, kitchen_status, opened_at, special_requests, rooms(room_number), restaurant_tables(table_number), pos_order_items(id, name, quantity, voided)")
+        .select("id, order_number, kitchen_status, opened_at, special_requests, rooms(room_number), restaurant_tables(name), pos_order_items(id, name, quantity, voided)")
         .in("kitchen_status", ["new", "preparing", "ready"])
         .order("opened_at");
       if (error) throw error;
-      return data as unknown as { id: string; order_number: string; kitchen_status: string; opened_at: string; special_requests: string | null; rooms: { room_number: string } | null; restaurant_tables: { table_number: string } | null; pos_order_items: { id: string; name: string; quantity: number; voided: boolean }[] }[];
+      return data as unknown as { id: string; order_number: string; kitchen_status: string; opened_at: string; special_requests: string | null; rooms: { room_number: string } | null; restaurant_tables: { name: string } | null; pos_order_items: { id: string; name: string; quantity: number; voided: boolean }[] }[];
     },
   });
   const advance = useMutation({
@@ -239,7 +239,7 @@ function OrdersTab() {
       {data.map((o) => {
         const mins = Math.round((Date.now() - new Date(o.opened_at).getTime()) / 60000);
         const next = NEXT_KITCHEN[o.kitchen_status];
-        const where = o.rooms ? `Room ${o.rooms.room_number}` : o.restaurant_tables ? `Table ${o.restaurant_tables.table_number}` : "Takeaway";
+        const where = o.rooms ? `Room ${o.rooms.room_number}` : o.restaurant_tables ? `Table ${o.restaurant_tables.name}` : "Takeaway";
         return (
           <Card key={o.id}>
             <div className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-2">
