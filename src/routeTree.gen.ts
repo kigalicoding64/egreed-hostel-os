@@ -9,52 +9,56 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as PortalRouteImport } from './routes/portal'
-import { Route as AuthRouteImport } from './routes/auth'
-import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AuthenticatedTasksRouteImport } from './routes/_authenticated/tasks'
-import { Route as AuthenticatedSupportRouteImport } from './routes/_authenticated/support'
-import { Route as AuthenticatedStaffRouteImport } from './routes/_authenticated/staff'
-import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
-import { Route as AuthenticatedSecurityRouteImport } from './routes/_authenticated/security'
-import { Route as AuthenticatedScanRouteImport } from './routes/_authenticated/scan'
-import { Route as AuthenticatedRoomsRouteImport } from './routes/_authenticated/rooms'
-import { Route as AuthenticatedRestaurantRouteImport } from './routes/_authenticated/restaurant'
-import { Route as AuthenticatedReservationsRouteImport } from './routes/_authenticated/reservations'
-import { Route as AuthenticatedQrCodesRouteImport } from './routes/_authenticated/qr-codes'
-import { Route as AuthenticatedPropertiesRouteImport } from './routes/_authenticated/properties'
-import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
-import { Route as AuthenticatedPaymentsRouteImport } from './routes/_authenticated/payments'
-import { Route as AuthenticatedMarketingRouteImport } from './routes/_authenticated/marketing'
-import { Route as AuthenticatedMaintenanceRouteImport } from './routes/_authenticated/maintenance'
-import { Route as AuthenticatedLostFoundRouteImport } from './routes/_authenticated/lost-found'
-import { Route as AuthenticatedLaundryRouteImport } from './routes/_authenticated/laundry'
-import { Route as AuthenticatedInvoicesRouteImport } from './routes/_authenticated/invoices'
-import { Route as AuthenticatedHousekeepingRouteImport } from './routes/_authenticated/housekeeping'
-import { Route as AuthenticatedGuestsRouteImport } from './routes/_authenticated/guests'
-import { Route as AuthenticatedFrontDeskRouteImport } from './routes/_authenticated/front-desk'
-import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
-import { Route as AuthenticatedCalendarRouteImport } from './routes/_authenticated/calendar'
-import { Route as AuthenticatedAssistantRouteImport } from './routes/_authenticated/assistant'
-import { Route as AuthenticatedAssetsRouteImport } from './routes/_authenticated/assets'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as PortalRouteImport } from './routes/portal'
 import { Route as AuthenticatedActivityRouteImport } from './routes/_authenticated/activity'
+import { Route as AuthenticatedAssetsRouteImport } from './routes/_authenticated/assets'
+import { Route as AuthenticatedAssistantRouteImport } from './routes/_authenticated/assistant'
+import { Route as AuthenticatedCalendarRouteImport } from './routes/_authenticated/calendar'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedFrontDeskRouteImport } from './routes/_authenticated/front-desk'
+import { Route as AuthenticatedGuestsRouteImport } from './routes/_authenticated/guests'
+import { Route as AuthenticatedHousekeepingRouteImport } from './routes/_authenticated/housekeeping'
+import { Route as AuthenticatedInvoicesRouteImport } from './routes/_authenticated/invoices'
+import { Route as AuthenticatedLaundryRouteImport } from './routes/_authenticated/laundry'
+import { Route as AuthenticatedLostFoundRouteImport } from './routes/_authenticated/lost-found'
+import { Route as AuthenticatedMaintenanceRouteImport } from './routes/_authenticated/maintenance'
+import { Route as AuthenticatedMarketingRouteImport } from './routes/_authenticated/marketing'
+import { Route as AuthenticatedPaymentsRouteImport } from './routes/_authenticated/payments'
+import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
+import { Route as AuthenticatedPropertiesRouteImport } from './routes/_authenticated/properties'
+import { Route as AuthenticatedQrCodesRouteImport } from './routes/_authenticated/qr-codes'
+import { Route as AuthenticatedReservationsRouteImport } from './routes/_authenticated/reservations'
+import { Route as AuthenticatedRestaurantRouteImport } from './routes/_authenticated/restaurant'
+import { Route as AuthenticatedRoomsRouteImport } from './routes/_authenticated/rooms'
+import { Route as AuthenticatedScanRouteImport } from './routes/_authenticated/scan'
+import { Route as AuthenticatedSecurityRouteImport } from './routes/_authenticated/security'
+import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
+import { Route as AuthenticatedStaffRouteImport } from './routes/_authenticated/staff'
+import { Route as AuthenticatedSupportRouteImport } from './routes/_authenticated/support'
+import { Route as AuthenticatedTasksRouteImport } from './routes/_authenticated/tasks'
 import { Route as AuthenticatedRestaurantIndexRouteImport } from './routes/_authenticated/restaurant.index'
-import { Route as QKindIdRouteImport } from './routes/q.$kind.$id'
-import { Route as ApiChatStaffRouteImport } from './routes/api/chat.staff'
-import { Route as ApiChatGuestRouteImport } from './routes/api/chat.guest'
-import { Route as AuthenticatedRestaurantTablesRouteImport } from './routes/_authenticated/restaurant.tables'
-import { Route as AuthenticatedRestaurantReportsRouteImport } from './routes/_authenticated/restaurant.reports'
-import { Route as AuthenticatedRestaurantPosRouteImport } from './routes/_authenticated/restaurant.pos'
-import { Route as AuthenticatedRestaurantOutletsRouteImport } from './routes/_authenticated/restaurant.outlets'
-import { Route as AuthenticatedRestaurantMenuRouteImport } from './routes/_authenticated/restaurant.menu'
-import { Route as AuthenticatedRestaurantKitchenRouteImport } from './routes/_authenticated/restaurant.kitchen'
-import { Route as AuthenticatedRestaurantInventoryRouteImport } from './routes/_authenticated/restaurant.inventory'
 import { Route as AuthenticatedRestaurantBanquetsRouteImport } from './routes/_authenticated/restaurant.banquets'
+import { Route as AuthenticatedRestaurantInventoryRouteImport } from './routes/_authenticated/restaurant.inventory'
+import { Route as AuthenticatedRestaurantKitchenRouteImport } from './routes/_authenticated/restaurant.kitchen'
+import { Route as AuthenticatedRestaurantMenuRouteImport } from './routes/_authenticated/restaurant.menu'
+import { Route as AuthenticatedRestaurantOutletsRouteImport } from './routes/_authenticated/restaurant.outlets'
+import { Route as AuthenticatedRestaurantPosRouteImport } from './routes/_authenticated/restaurant.pos'
+import { Route as AuthenticatedRestaurantReportsRouteImport } from './routes/_authenticated/restaurant.reports'
+import { Route as AuthenticatedRestaurantTablesRouteImport } from './routes/_authenticated/restaurant.tables'
+import { Route as ApiChatGuestRouteImport } from './routes/api/chat.guest'
+import { Route as ApiChatStaffRouteImport } from './routes/api/chat.staff'
+import { Route as QKindIdRouteImport } from './routes/q.$kind.$id'
 
-const PortalRoute = PortalRouteImport.update({
-  id: '/portal',
-  path: '/portal',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -62,105 +66,44 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
-  id: '/_authenticated',
+const PortalRoute = PortalRouteImport.update({
+  id: '/portal',
+  path: '/portal',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthenticatedTasksRoute = AuthenticatedTasksRouteImport.update({
-  id: '/tasks',
-  path: '/tasks',
+const AuthenticatedActivityRoute = AuthenticatedActivityRouteImport.update({
+  id: '/activity',
+  path: '/activity',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedSupportRoute = AuthenticatedSupportRouteImport.update({
-  id: '/support',
-  path: '/support',
+const AuthenticatedAssetsRoute = AuthenticatedAssetsRouteImport.update({
+  id: '/assets',
+  path: '/assets',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedStaffRoute = AuthenticatedStaffRouteImport.update({
-  id: '/staff',
-  path: '/staff',
+const AuthenticatedAssistantRoute = AuthenticatedAssistantRouteImport.update({
+  id: '/assistant',
+  path: '/assistant',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
+const AuthenticatedCalendarRoute = AuthenticatedCalendarRouteImport.update({
+  id: '/calendar',
+  path: '/calendar',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedSecurityRoute = AuthenticatedSecurityRouteImport.update({
-  id: '/security',
-  path: '/security',
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedScanRoute = AuthenticatedScanRouteImport.update({
-  id: '/scan',
-  path: '/scan',
+const AuthenticatedFrontDeskRoute = AuthenticatedFrontDeskRouteImport.update({
+  id: '/front-desk',
+  path: '/front-desk',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedRoomsRoute = AuthenticatedRoomsRouteImport.update({
-  id: '/rooms',
-  path: '/rooms',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedRestaurantRoute = AuthenticatedRestaurantRouteImport.update({
-  id: '/restaurant',
-  path: '/restaurant',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedReservationsRoute =
-  AuthenticatedReservationsRouteImport.update({
-    id: '/reservations',
-    path: '/reservations',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
-const AuthenticatedQrCodesRoute = AuthenticatedQrCodesRouteImport.update({
-  id: '/qr-codes',
-  path: '/qr-codes',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedPropertiesRoute = AuthenticatedPropertiesRouteImport.update({
-  id: '/properties',
-  path: '/properties',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
-  id: '/profile',
-  path: '/profile',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedPaymentsRoute = AuthenticatedPaymentsRouteImport.update({
-  id: '/payments',
-  path: '/payments',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedMarketingRoute = AuthenticatedMarketingRouteImport.update({
-  id: '/marketing',
-  path: '/marketing',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedMaintenanceRoute =
-  AuthenticatedMaintenanceRouteImport.update({
-    id: '/maintenance',
-    path: '/maintenance',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
-const AuthenticatedLostFoundRoute = AuthenticatedLostFoundRouteImport.update({
-  id: '/lost-found',
-  path: '/lost-found',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedLaundryRoute = AuthenticatedLaundryRouteImport.update({
-  id: '/laundry',
-  path: '/laundry',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedInvoicesRoute = AuthenticatedInvoicesRouteImport.update({
-  id: '/invoices',
-  path: '/invoices',
+const AuthenticatedGuestsRoute = AuthenticatedGuestsRouteImport.update({
+  id: '/guests',
+  path: '/guests',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedHousekeepingRoute =
@@ -169,39 +112,96 @@ const AuthenticatedHousekeepingRoute =
     path: '/housekeeping',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
-const AuthenticatedGuestsRoute = AuthenticatedGuestsRouteImport.update({
-  id: '/guests',
-  path: '/guests',
+const AuthenticatedInvoicesRoute = AuthenticatedInvoicesRouteImport.update({
+  id: '/invoices',
+  path: '/invoices',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedFrontDeskRoute = AuthenticatedFrontDeskRouteImport.update({
-  id: '/front-desk',
-  path: '/front-desk',
+const AuthenticatedLaundryRoute = AuthenticatedLaundryRouteImport.update({
+  id: '/laundry',
+  path: '/laundry',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
+const AuthenticatedLostFoundRoute = AuthenticatedLostFoundRouteImport.update({
+  id: '/lost-found',
+  path: '/lost-found',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedCalendarRoute = AuthenticatedCalendarRouteImport.update({
-  id: '/calendar',
-  path: '/calendar',
+const AuthenticatedMaintenanceRoute =
+  AuthenticatedMaintenanceRouteImport.update({
+    id: '/maintenance',
+    path: '/maintenance',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedMarketingRoute = AuthenticatedMarketingRouteImport.update({
+  id: '/marketing',
+  path: '/marketing',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedAssistantRoute = AuthenticatedAssistantRouteImport.update({
-  id: '/assistant',
-  path: '/assistant',
+const AuthenticatedPaymentsRoute = AuthenticatedPaymentsRouteImport.update({
+  id: '/payments',
+  path: '/payments',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedAssetsRoute = AuthenticatedAssetsRouteImport.update({
-  id: '/assets',
-  path: '/assets',
+const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedActivityRoute = AuthenticatedActivityRouteImport.update({
-  id: '/activity',
-  path: '/activity',
+const AuthenticatedPropertiesRoute = AuthenticatedPropertiesRouteImport.update({
+  id: '/properties',
+  path: '/properties',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedQrCodesRoute = AuthenticatedQrCodesRouteImport.update({
+  id: '/qr-codes',
+  path: '/qr-codes',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedReservationsRoute =
+  AuthenticatedReservationsRouteImport.update({
+    id: '/reservations',
+    path: '/reservations',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedRestaurantRoute = AuthenticatedRestaurantRouteImport.update({
+  id: '/restaurant',
+  path: '/restaurant',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedRoomsRoute = AuthenticatedRoomsRouteImport.update({
+  id: '/rooms',
+  path: '/rooms',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedScanRoute = AuthenticatedScanRouteImport.update({
+  id: '/scan',
+  path: '/scan',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedSecurityRoute = AuthenticatedSecurityRouteImport.update({
+  id: '/security',
+  path: '/security',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedStaffRoute = AuthenticatedStaffRouteImport.update({
+  id: '/staff',
+  path: '/staff',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedSupportRoute = AuthenticatedSupportRouteImport.update({
+  id: '/support',
+  path: '/support',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedTasksRoute = AuthenticatedTasksRouteImport.update({
+  id: '/tasks',
+  path: '/tasks',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedRestaurantIndexRoute =
@@ -210,55 +210,10 @@ const AuthenticatedRestaurantIndexRoute =
     path: '/',
     getParentRoute: () => AuthenticatedRestaurantRoute,
   } as any)
-const QKindIdRoute = QKindIdRouteImport.update({
-  id: '/q/$kind/$id',
-  path: '/q/$kind/$id',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiChatStaffRoute = ApiChatStaffRouteImport.update({
-  id: '/api/chat/staff',
-  path: '/api/chat/staff',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiChatGuestRoute = ApiChatGuestRouteImport.update({
-  id: '/api/chat/guest',
-  path: '/api/chat/guest',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthenticatedRestaurantTablesRoute =
-  AuthenticatedRestaurantTablesRouteImport.update({
-    id: '/tables',
-    path: '/tables',
-    getParentRoute: () => AuthenticatedRestaurantRoute,
-  } as any)
-const AuthenticatedRestaurantReportsRoute =
-  AuthenticatedRestaurantReportsRouteImport.update({
-    id: '/reports',
-    path: '/reports',
-    getParentRoute: () => AuthenticatedRestaurantRoute,
-  } as any)
-const AuthenticatedRestaurantPosRoute =
-  AuthenticatedRestaurantPosRouteImport.update({
-    id: '/pos',
-    path: '/pos',
-    getParentRoute: () => AuthenticatedRestaurantRoute,
-  } as any)
-const AuthenticatedRestaurantOutletsRoute =
-  AuthenticatedRestaurantOutletsRouteImport.update({
-    id: '/outlets',
-    path: '/outlets',
-    getParentRoute: () => AuthenticatedRestaurantRoute,
-  } as any)
-const AuthenticatedRestaurantMenuRoute =
-  AuthenticatedRestaurantMenuRouteImport.update({
-    id: '/menu',
-    path: '/menu',
-    getParentRoute: () => AuthenticatedRestaurantRoute,
-  } as any)
-const AuthenticatedRestaurantKitchenRoute =
-  AuthenticatedRestaurantKitchenRouteImport.update({
-    id: '/kitchen',
-    path: '/kitchen',
+const AuthenticatedRestaurantBanquetsRoute =
+  AuthenticatedRestaurantBanquetsRouteImport.update({
+    id: '/banquets',
+    path: '/banquets',
     getParentRoute: () => AuthenticatedRestaurantRoute,
   } as any)
 const AuthenticatedRestaurantInventoryRoute =
@@ -267,12 +222,57 @@ const AuthenticatedRestaurantInventoryRoute =
     path: '/inventory',
     getParentRoute: () => AuthenticatedRestaurantRoute,
   } as any)
-const AuthenticatedRestaurantBanquetsRoute =
-  AuthenticatedRestaurantBanquetsRouteImport.update({
-    id: '/banquets',
-    path: '/banquets',
+const AuthenticatedRestaurantKitchenRoute =
+  AuthenticatedRestaurantKitchenRouteImport.update({
+    id: '/kitchen',
+    path: '/kitchen',
     getParentRoute: () => AuthenticatedRestaurantRoute,
   } as any)
+const AuthenticatedRestaurantMenuRoute =
+  AuthenticatedRestaurantMenuRouteImport.update({
+    id: '/menu',
+    path: '/menu',
+    getParentRoute: () => AuthenticatedRestaurantRoute,
+  } as any)
+const AuthenticatedRestaurantOutletsRoute =
+  AuthenticatedRestaurantOutletsRouteImport.update({
+    id: '/outlets',
+    path: '/outlets',
+    getParentRoute: () => AuthenticatedRestaurantRoute,
+  } as any)
+const AuthenticatedRestaurantPosRoute =
+  AuthenticatedRestaurantPosRouteImport.update({
+    id: '/pos',
+    path: '/pos',
+    getParentRoute: () => AuthenticatedRestaurantRoute,
+  } as any)
+const AuthenticatedRestaurantReportsRoute =
+  AuthenticatedRestaurantReportsRouteImport.update({
+    id: '/reports',
+    path: '/reports',
+    getParentRoute: () => AuthenticatedRestaurantRoute,
+  } as any)
+const AuthenticatedRestaurantTablesRoute =
+  AuthenticatedRestaurantTablesRouteImport.update({
+    id: '/tables',
+    path: '/tables',
+    getParentRoute: () => AuthenticatedRestaurantRoute,
+  } as any)
+const ApiChatGuestRoute = ApiChatGuestRouteImport.update({
+  id: '/api/chat/guest',
+  path: '/api/chat/guest',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiChatStaffRoute = ApiChatStaffRouteImport.update({
+  id: '/api/chat/staff',
+  path: '/api/chat/staff',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QKindIdRoute = QKindIdRouteImport.update({
+  id: '/q/$kind/$id',
+  path: '/q/$kind/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -548,18 +548,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/portal': {
-      id: '/portal'
-      path: '/portal'
-      fullPath: '/portal'
-      preLoaderRoute: typeof PortalRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated': {
@@ -569,179 +562,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/tasks': {
-      id: '/_authenticated/tasks'
-      path: '/tasks'
-      fullPath: '/tasks'
-      preLoaderRoute: typeof AuthenticatedTasksRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
+    '/portal': {
+      id: '/portal'
+      path: '/portal'
+      fullPath: '/portal'
+      preLoaderRoute: typeof PortalRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/support': {
-      id: '/_authenticated/support'
-      path: '/support'
-      fullPath: '/support'
-      preLoaderRoute: typeof AuthenticatedSupportRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/staff': {
-      id: '/_authenticated/staff'
-      path: '/staff'
-      fullPath: '/staff'
-      preLoaderRoute: typeof AuthenticatedStaffRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/settings': {
-      id: '/_authenticated/settings'
-      path: '/settings'
-      fullPath: '/settings'
-      preLoaderRoute: typeof AuthenticatedSettingsRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/security': {
-      id: '/_authenticated/security'
-      path: '/security'
-      fullPath: '/security'
-      preLoaderRoute: typeof AuthenticatedSecurityRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/scan': {
-      id: '/_authenticated/scan'
-      path: '/scan'
-      fullPath: '/scan'
-      preLoaderRoute: typeof AuthenticatedScanRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/rooms': {
-      id: '/_authenticated/rooms'
-      path: '/rooms'
-      fullPath: '/rooms'
-      preLoaderRoute: typeof AuthenticatedRoomsRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/restaurant': {
-      id: '/_authenticated/restaurant'
-      path: '/restaurant'
-      fullPath: '/restaurant'
-      preLoaderRoute: typeof AuthenticatedRestaurantRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/reservations': {
-      id: '/_authenticated/reservations'
-      path: '/reservations'
-      fullPath: '/reservations'
-      preLoaderRoute: typeof AuthenticatedReservationsRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/qr-codes': {
-      id: '/_authenticated/qr-codes'
-      path: '/qr-codes'
-      fullPath: '/qr-codes'
-      preLoaderRoute: typeof AuthenticatedQrCodesRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/properties': {
-      id: '/_authenticated/properties'
-      path: '/properties'
-      fullPath: '/properties'
-      preLoaderRoute: typeof AuthenticatedPropertiesRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/profile': {
-      id: '/_authenticated/profile'
-      path: '/profile'
-      fullPath: '/profile'
-      preLoaderRoute: typeof AuthenticatedProfileRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/payments': {
-      id: '/_authenticated/payments'
-      path: '/payments'
-      fullPath: '/payments'
-      preLoaderRoute: typeof AuthenticatedPaymentsRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/marketing': {
-      id: '/_authenticated/marketing'
-      path: '/marketing'
-      fullPath: '/marketing'
-      preLoaderRoute: typeof AuthenticatedMarketingRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/maintenance': {
-      id: '/_authenticated/maintenance'
-      path: '/maintenance'
-      fullPath: '/maintenance'
-      preLoaderRoute: typeof AuthenticatedMaintenanceRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/lost-found': {
-      id: '/_authenticated/lost-found'
-      path: '/lost-found'
-      fullPath: '/lost-found'
-      preLoaderRoute: typeof AuthenticatedLostFoundRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/laundry': {
-      id: '/_authenticated/laundry'
-      path: '/laundry'
-      fullPath: '/laundry'
-      preLoaderRoute: typeof AuthenticatedLaundryRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/invoices': {
-      id: '/_authenticated/invoices'
-      path: '/invoices'
-      fullPath: '/invoices'
-      preLoaderRoute: typeof AuthenticatedInvoicesRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/housekeeping': {
-      id: '/_authenticated/housekeeping'
-      path: '/housekeeping'
-      fullPath: '/housekeeping'
-      preLoaderRoute: typeof AuthenticatedHousekeepingRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/guests': {
-      id: '/_authenticated/guests'
-      path: '/guests'
-      fullPath: '/guests'
-      preLoaderRoute: typeof AuthenticatedGuestsRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/front-desk': {
-      id: '/_authenticated/front-desk'
-      path: '/front-desk'
-      fullPath: '/front-desk'
-      preLoaderRoute: typeof AuthenticatedFrontDeskRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/dashboard': {
-      id: '/_authenticated/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/calendar': {
-      id: '/_authenticated/calendar'
-      path: '/calendar'
-      fullPath: '/calendar'
-      preLoaderRoute: typeof AuthenticatedCalendarRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/assistant': {
-      id: '/_authenticated/assistant'
-      path: '/assistant'
-      fullPath: '/assistant'
-      preLoaderRoute: typeof AuthenticatedAssistantRouteImport
+    '/_authenticated/activity': {
+      id: '/_authenticated/activity'
+      path: '/activity'
+      fullPath: '/activity'
+      preLoaderRoute: typeof AuthenticatedActivityRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/assets': {
@@ -751,11 +590,172 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAssetsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/activity': {
-      id: '/_authenticated/activity'
-      path: '/activity'
-      fullPath: '/activity'
-      preLoaderRoute: typeof AuthenticatedActivityRouteImport
+    '/_authenticated/assistant': {
+      id: '/_authenticated/assistant'
+      path: '/assistant'
+      fullPath: '/assistant'
+      preLoaderRoute: typeof AuthenticatedAssistantRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/calendar': {
+      id: '/_authenticated/calendar'
+      path: '/calendar'
+      fullPath: '/calendar'
+      preLoaderRoute: typeof AuthenticatedCalendarRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/front-desk': {
+      id: '/_authenticated/front-desk'
+      path: '/front-desk'
+      fullPath: '/front-desk'
+      preLoaderRoute: typeof AuthenticatedFrontDeskRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/guests': {
+      id: '/_authenticated/guests'
+      path: '/guests'
+      fullPath: '/guests'
+      preLoaderRoute: typeof AuthenticatedGuestsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/housekeeping': {
+      id: '/_authenticated/housekeeping'
+      path: '/housekeeping'
+      fullPath: '/housekeeping'
+      preLoaderRoute: typeof AuthenticatedHousekeepingRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/invoices': {
+      id: '/_authenticated/invoices'
+      path: '/invoices'
+      fullPath: '/invoices'
+      preLoaderRoute: typeof AuthenticatedInvoicesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/laundry': {
+      id: '/_authenticated/laundry'
+      path: '/laundry'
+      fullPath: '/laundry'
+      preLoaderRoute: typeof AuthenticatedLaundryRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/lost-found': {
+      id: '/_authenticated/lost-found'
+      path: '/lost-found'
+      fullPath: '/lost-found'
+      preLoaderRoute: typeof AuthenticatedLostFoundRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/maintenance': {
+      id: '/_authenticated/maintenance'
+      path: '/maintenance'
+      fullPath: '/maintenance'
+      preLoaderRoute: typeof AuthenticatedMaintenanceRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/marketing': {
+      id: '/_authenticated/marketing'
+      path: '/marketing'
+      fullPath: '/marketing'
+      preLoaderRoute: typeof AuthenticatedMarketingRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/payments': {
+      id: '/_authenticated/payments'
+      path: '/payments'
+      fullPath: '/payments'
+      preLoaderRoute: typeof AuthenticatedPaymentsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/profile': {
+      id: '/_authenticated/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof AuthenticatedProfileRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/properties': {
+      id: '/_authenticated/properties'
+      path: '/properties'
+      fullPath: '/properties'
+      preLoaderRoute: typeof AuthenticatedPropertiesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/qr-codes': {
+      id: '/_authenticated/qr-codes'
+      path: '/qr-codes'
+      fullPath: '/qr-codes'
+      preLoaderRoute: typeof AuthenticatedQrCodesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/reservations': {
+      id: '/_authenticated/reservations'
+      path: '/reservations'
+      fullPath: '/reservations'
+      preLoaderRoute: typeof AuthenticatedReservationsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/restaurant': {
+      id: '/_authenticated/restaurant'
+      path: '/restaurant'
+      fullPath: '/restaurant'
+      preLoaderRoute: typeof AuthenticatedRestaurantRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/rooms': {
+      id: '/_authenticated/rooms'
+      path: '/rooms'
+      fullPath: '/rooms'
+      preLoaderRoute: typeof AuthenticatedRoomsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/scan': {
+      id: '/_authenticated/scan'
+      path: '/scan'
+      fullPath: '/scan'
+      preLoaderRoute: typeof AuthenticatedScanRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/security': {
+      id: '/_authenticated/security'
+      path: '/security'
+      fullPath: '/security'
+      preLoaderRoute: typeof AuthenticatedSecurityRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/settings': {
+      id: '/_authenticated/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AuthenticatedSettingsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/staff': {
+      id: '/_authenticated/staff'
+      path: '/staff'
+      fullPath: '/staff'
+      preLoaderRoute: typeof AuthenticatedStaffRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/support': {
+      id: '/_authenticated/support'
+      path: '/support'
+      fullPath: '/support'
+      preLoaderRoute: typeof AuthenticatedSupportRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/tasks': {
+      id: '/_authenticated/tasks'
+      path: '/tasks'
+      fullPath: '/tasks'
+      preLoaderRoute: typeof AuthenticatedTasksRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/restaurant/': {
@@ -765,67 +765,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRestaurantIndexRouteImport
       parentRoute: typeof AuthenticatedRestaurantRoute
     }
-    '/q/$kind/$id': {
-      id: '/q/$kind/$id'
-      path: '/q/$kind/$id'
-      fullPath: '/q/$kind/$id'
-      preLoaderRoute: typeof QKindIdRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/chat/staff': {
-      id: '/api/chat/staff'
-      path: '/api/chat/staff'
-      fullPath: '/api/chat/staff'
-      preLoaderRoute: typeof ApiChatStaffRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/chat/guest': {
-      id: '/api/chat/guest'
-      path: '/api/chat/guest'
-      fullPath: '/api/chat/guest'
-      preLoaderRoute: typeof ApiChatGuestRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/restaurant/tables': {
-      id: '/_authenticated/restaurant/tables'
-      path: '/tables'
-      fullPath: '/restaurant/tables'
-      preLoaderRoute: typeof AuthenticatedRestaurantTablesRouteImport
-      parentRoute: typeof AuthenticatedRestaurantRoute
-    }
-    '/_authenticated/restaurant/reports': {
-      id: '/_authenticated/restaurant/reports'
-      path: '/reports'
-      fullPath: '/restaurant/reports'
-      preLoaderRoute: typeof AuthenticatedRestaurantReportsRouteImport
-      parentRoute: typeof AuthenticatedRestaurantRoute
-    }
-    '/_authenticated/restaurant/pos': {
-      id: '/_authenticated/restaurant/pos'
-      path: '/pos'
-      fullPath: '/restaurant/pos'
-      preLoaderRoute: typeof AuthenticatedRestaurantPosRouteImport
-      parentRoute: typeof AuthenticatedRestaurantRoute
-    }
-    '/_authenticated/restaurant/outlets': {
-      id: '/_authenticated/restaurant/outlets'
-      path: '/outlets'
-      fullPath: '/restaurant/outlets'
-      preLoaderRoute: typeof AuthenticatedRestaurantOutletsRouteImport
-      parentRoute: typeof AuthenticatedRestaurantRoute
-    }
-    '/_authenticated/restaurant/menu': {
-      id: '/_authenticated/restaurant/menu'
-      path: '/menu'
-      fullPath: '/restaurant/menu'
-      preLoaderRoute: typeof AuthenticatedRestaurantMenuRouteImport
-      parentRoute: typeof AuthenticatedRestaurantRoute
-    }
-    '/_authenticated/restaurant/kitchen': {
-      id: '/_authenticated/restaurant/kitchen'
-      path: '/kitchen'
-      fullPath: '/restaurant/kitchen'
-      preLoaderRoute: typeof AuthenticatedRestaurantKitchenRouteImport
+    '/_authenticated/restaurant/banquets': {
+      id: '/_authenticated/restaurant/banquets'
+      path: '/banquets'
+      fullPath: '/restaurant/banquets'
+      preLoaderRoute: typeof AuthenticatedRestaurantBanquetsRouteImport
       parentRoute: typeof AuthenticatedRestaurantRoute
     }
     '/_authenticated/restaurant/inventory': {
@@ -835,12 +779,68 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRestaurantInventoryRouteImport
       parentRoute: typeof AuthenticatedRestaurantRoute
     }
-    '/_authenticated/restaurant/banquets': {
-      id: '/_authenticated/restaurant/banquets'
-      path: '/banquets'
-      fullPath: '/restaurant/banquets'
-      preLoaderRoute: typeof AuthenticatedRestaurantBanquetsRouteImport
+    '/_authenticated/restaurant/kitchen': {
+      id: '/_authenticated/restaurant/kitchen'
+      path: '/kitchen'
+      fullPath: '/restaurant/kitchen'
+      preLoaderRoute: typeof AuthenticatedRestaurantKitchenRouteImport
       parentRoute: typeof AuthenticatedRestaurantRoute
+    }
+    '/_authenticated/restaurant/menu': {
+      id: '/_authenticated/restaurant/menu'
+      path: '/menu'
+      fullPath: '/restaurant/menu'
+      preLoaderRoute: typeof AuthenticatedRestaurantMenuRouteImport
+      parentRoute: typeof AuthenticatedRestaurantRoute
+    }
+    '/_authenticated/restaurant/outlets': {
+      id: '/_authenticated/restaurant/outlets'
+      path: '/outlets'
+      fullPath: '/restaurant/outlets'
+      preLoaderRoute: typeof AuthenticatedRestaurantOutletsRouteImport
+      parentRoute: typeof AuthenticatedRestaurantRoute
+    }
+    '/_authenticated/restaurant/pos': {
+      id: '/_authenticated/restaurant/pos'
+      path: '/pos'
+      fullPath: '/restaurant/pos'
+      preLoaderRoute: typeof AuthenticatedRestaurantPosRouteImport
+      parentRoute: typeof AuthenticatedRestaurantRoute
+    }
+    '/_authenticated/restaurant/reports': {
+      id: '/_authenticated/restaurant/reports'
+      path: '/reports'
+      fullPath: '/restaurant/reports'
+      preLoaderRoute: typeof AuthenticatedRestaurantReportsRouteImport
+      parentRoute: typeof AuthenticatedRestaurantRoute
+    }
+    '/_authenticated/restaurant/tables': {
+      id: '/_authenticated/restaurant/tables'
+      path: '/tables'
+      fullPath: '/restaurant/tables'
+      preLoaderRoute: typeof AuthenticatedRestaurantTablesRouteImport
+      parentRoute: typeof AuthenticatedRestaurantRoute
+    }
+    '/api/chat/guest': {
+      id: '/api/chat/guest'
+      path: '/api/chat/guest'
+      fullPath: '/api/chat/guest'
+      preLoaderRoute: typeof ApiChatGuestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/chat/staff': {
+      id: '/api/chat/staff'
+      path: '/api/chat/staff'
+      fullPath: '/api/chat/staff'
+      preLoaderRoute: typeof ApiChatStaffRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/q/$kind/$id': {
+      id: '/q/$kind/$id'
+      path: '/q/$kind/$id'
+      fullPath: '/q/$kind/$id'
+      preLoaderRoute: typeof QKindIdRouteImport
+      parentRoute: typeof rootRouteImport
     }
   }
 }
