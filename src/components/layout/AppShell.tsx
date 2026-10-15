@@ -24,6 +24,9 @@ export function AppShell() {
   }, [guestOnly, navigate]);
 
 
+  // The staff mobile app is full-screen with its own bottom navigation.
+  if (pathname === "/mobile") return <Outlet />;
+
   return (
     <div className="flex h-screen overflow-hidden bg-background">
       <AppSidebar collapsed={collapsed} onToggle={() => setCollapsed((c) => !c)} />
