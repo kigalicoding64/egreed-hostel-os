@@ -26,6 +26,7 @@ import {
   Bot,
   QrCode,
   ScanLine,
+  Smartphone,
 
 } from "lucide-react";
 
@@ -83,6 +84,8 @@ export const MANAGEMENT_ROLES: AppRole[] = [
   "general_manager",
 ];
 
+const ALL_ROLES_EXCEPT_GUEST: AppRole[] = ALL_ROLES.filter((r) => r !== "guest_portal");
+
 export interface NavItem {
   title: string;
   to: string;
@@ -107,6 +110,12 @@ export const NAV_GROUPS: NavGroup[] = [
     label: "Overview",
     items: [
       { title: "Dashboard", to: "/dashboard", icon: LayoutDashboard },
+      {
+        title: "Staff Mobile",
+        to: "/mobile",
+        icon: Smartphone,
+        roles: ALL_ROLES_EXCEPT_GUEST,
+      },
       {
         title: "Room Calendar",
         to: "/calendar",
