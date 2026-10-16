@@ -152,7 +152,7 @@ export async function handleStaffMessage(admin: Admin, phone: string, raw: strin
     }
     case "ROOM": {
       if (!has(roles, "rooms")) return deny;
-      const { data: room } = await admin.from("rooms").select("id,room_number,status,floor").eq("room_number", arg).maybeSingle();
+      const { data: room } = await admin.from("rooms").select("id,room_number,status").eq("room_number", arg).maybeSingle();
       if (!room) return `Room ${arg} not found.`;
       const { data: res } = await admin
         .from("reservations")
