@@ -2898,6 +2898,120 @@ export type Database = {
         }
         Relationships: []
       }
+      whatsapp_messages: {
+        Row: {
+          body: string
+          channel: string
+          created_at: string
+          direction: string
+          error: string | null
+          id: string
+          phone: string
+          reply_to: string | null
+          status: string
+          status_at: string | null
+          user_id: string | null
+          wa_message_id: string | null
+        }
+        Insert: {
+          body?: string
+          channel?: string
+          created_at?: string
+          direction: string
+          error?: string | null
+          id?: string
+          phone: string
+          reply_to?: string | null
+          status?: string
+          status_at?: string | null
+          user_id?: string | null
+          wa_message_id?: string | null
+        }
+        Update: {
+          body?: string
+          channel?: string
+          created_at?: string
+          direction?: string
+          error?: string | null
+          id?: string
+          phone?: string
+          reply_to?: string | null
+          status?: string
+          status_at?: string | null
+          user_id?: string | null
+          wa_message_id?: string | null
+        }
+        Relationships: []
+      }
+      whatsapp_sessions: {
+        Row: {
+          created_at: string
+          email: string | null
+          expires_at: string | null
+          failed_attempts: number
+          id: string
+          last_active_at: string
+          locked_until: string | null
+          phone: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          expires_at?: string | null
+          failed_attempts?: number
+          id?: string
+          last_active_at?: string
+          locked_until?: string | null
+          phone: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          expires_at?: string | null
+          failed_attempts?: number
+          id?: string
+          last_active_at?: string
+          locked_until?: string | null
+          phone?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      whatsapp_webhook_events: {
+        Row: {
+          attempts: number
+          delivery_id: string
+          event: string
+          id: string
+          payload: Json
+          processed_at: string | null
+          processing_error: string | null
+          received_at: string
+        }
+        Insert: {
+          attempts?: number
+          delivery_id: string
+          event: string
+          id?: string
+          payload: Json
+          processed_at?: string | null
+          processing_error?: string | null
+          received_at?: string
+        }
+        Update: {
+          attempts?: number
+          delivery_id?: string
+          event?: string
+          id?: string
+          payload?: Json
+          processed_at?: string | null
+          processing_error?: string | null
+          received_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
