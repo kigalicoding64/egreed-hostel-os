@@ -51,7 +51,9 @@ import { Route as AuthenticatedRestaurantReportsRouteImport } from './routes/_au
 import { Route as AuthenticatedRestaurantTablesRouteImport } from './routes/_authenticated/restaurant.tables'
 import { Route as ApiChatGuestRouteImport } from './routes/api/chat.guest'
 import { Route as ApiChatStaffRouteImport } from './routes/api/chat.staff'
+import { Route as ApiWhatsappSimulateRouteImport } from './routes/api/whatsapp.simulate'
 import { Route as QKindIdRouteImport } from './routes/q.$kind.$id'
+import { Route as ApiPublicWhatsappWebhookRouteImport } from './routes/api/public/whatsapp/webhook'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -274,11 +276,22 @@ const ApiChatStaffRoute = ApiChatStaffRouteImport.update({
   path: '/api/chat/staff',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiWhatsappSimulateRoute = ApiWhatsappSimulateRouteImport.update({
+  id: '/api/whatsapp/simulate',
+  path: '/api/whatsapp/simulate',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const QKindIdRoute = QKindIdRouteImport.update({
   id: '/q/$kind/$id',
   path: '/q/$kind/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicWhatsappWebhookRoute =
+  ApiPublicWhatsappWebhookRouteImport.update({
+    id: '/api/public/whatsapp/webhook',
+    path: '/api/public/whatsapp/webhook',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -321,8 +334,10 @@ export interface FileRoutesByFullPath {
   '/restaurant/tables': typeof AuthenticatedRestaurantTablesRoute
   '/api/chat/guest': typeof ApiChatGuestRoute
   '/api/chat/staff': typeof ApiChatStaffRoute
+  '/api/whatsapp/simulate': typeof ApiWhatsappSimulateRoute
   '/q/$kind/$id': typeof QKindIdRoute
   '/restaurant/': typeof AuthenticatedRestaurantIndexRoute
+  '/api/public/whatsapp/webhook': typeof ApiPublicWhatsappWebhookRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -364,8 +379,10 @@ export interface FileRoutesByTo {
   '/restaurant/tables': typeof AuthenticatedRestaurantTablesRoute
   '/api/chat/guest': typeof ApiChatGuestRoute
   '/api/chat/staff': typeof ApiChatStaffRoute
+  '/api/whatsapp/simulate': typeof ApiWhatsappSimulateRoute
   '/q/$kind/$id': typeof QKindIdRoute
   '/restaurant': typeof AuthenticatedRestaurantIndexRoute
+  '/api/public/whatsapp/webhook': typeof ApiPublicWhatsappWebhookRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -410,8 +427,10 @@ export interface FileRoutesById {
   '/_authenticated/restaurant/tables': typeof AuthenticatedRestaurantTablesRoute
   '/api/chat/guest': typeof ApiChatGuestRoute
   '/api/chat/staff': typeof ApiChatStaffRoute
+  '/api/whatsapp/simulate': typeof ApiWhatsappSimulateRoute
   '/q/$kind/$id': typeof QKindIdRoute
   '/_authenticated/restaurant/': typeof AuthenticatedRestaurantIndexRoute
+  '/api/public/whatsapp/webhook': typeof ApiPublicWhatsappWebhookRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -456,8 +475,10 @@ export interface FileRouteTypes {
     | '/restaurant/tables'
     | '/api/chat/guest'
     | '/api/chat/staff'
+    | '/api/whatsapp/simulate'
     | '/q/$kind/$id'
     | '/restaurant/'
+    | '/api/public/whatsapp/webhook'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -499,8 +520,10 @@ export interface FileRouteTypes {
     | '/restaurant/tables'
     | '/api/chat/guest'
     | '/api/chat/staff'
+    | '/api/whatsapp/simulate'
     | '/q/$kind/$id'
     | '/restaurant'
+    | '/api/public/whatsapp/webhook'
   id:
     | '__root__'
     | '/'
@@ -544,8 +567,10 @@ export interface FileRouteTypes {
     | '/_authenticated/restaurant/tables'
     | '/api/chat/guest'
     | '/api/chat/staff'
+    | '/api/whatsapp/simulate'
     | '/q/$kind/$id'
     | '/_authenticated/restaurant/'
+    | '/api/public/whatsapp/webhook'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -555,7 +580,9 @@ export interface RootRouteChildren {
   PortalRoute: typeof PortalRoute
   ApiChatGuestRoute: typeof ApiChatGuestRoute
   ApiChatStaffRoute: typeof ApiChatStaffRoute
+  ApiWhatsappSimulateRoute: typeof ApiWhatsappSimulateRoute
   QKindIdRoute: typeof QKindIdRoute
+  ApiPublicWhatsappWebhookRoute: typeof ApiPublicWhatsappWebhookRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -854,11 +881,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiChatStaffRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/whatsapp/simulate': {
+      id: '/api/whatsapp/simulate'
+      path: '/api/whatsapp/simulate'
+      fullPath: '/api/whatsapp/simulate'
+      preLoaderRoute: typeof ApiWhatsappSimulateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/q/$kind/$id': {
       id: '/q/$kind/$id'
       path: '/q/$kind/$id'
       fullPath: '/q/$kind/$id'
       preLoaderRoute: typeof QKindIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/whatsapp/webhook': {
+      id: '/api/public/whatsapp/webhook'
+      path: '/api/public/whatsapp/webhook'
+      fullPath: '/api/public/whatsapp/webhook'
+      preLoaderRoute: typeof ApiPublicWhatsappWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -965,7 +1006,9 @@ const rootRouteChildren: RootRouteChildren = {
   PortalRoute: PortalRoute,
   ApiChatGuestRoute: ApiChatGuestRoute,
   ApiChatStaffRoute: ApiChatStaffRoute,
+  ApiWhatsappSimulateRoute: ApiWhatsappSimulateRoute,
   QKindIdRoute: QKindIdRoute,
+  ApiPublicWhatsappWebhookRoute: ApiPublicWhatsappWebhookRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
