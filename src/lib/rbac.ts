@@ -27,6 +27,7 @@ import {
   QrCode,
   ScanLine,
   Smartphone,
+  MessageCircle,
 
 } from "lucide-react";
 
@@ -110,6 +111,12 @@ export const NAV_GROUPS: NavGroup[] = [
     label: "Overview",
     items: [
       { title: "Dashboard", to: "/dashboard", icon: LayoutDashboard },
+      {
+        title: "WhatsApp",
+        to: "/whatsapp",
+        icon: MessageCircle,
+        roles: ALL_ROLES_EXCEPT_GUEST,
+      },
       {
         title: "Staff Mobile",
         to: "/mobile",

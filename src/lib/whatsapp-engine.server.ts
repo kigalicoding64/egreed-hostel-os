@@ -64,16 +64,25 @@ function helpFor(roles: Role[]) {
   return ["📋 *What you can do:*", ...lines, "*WHOAMI* – your account\n*LOGOUT* – sign out"].join("\n");
 }
 
-export async function handleStaffMessage(admin: Admin, phone: string, raw: string): Promise<string> {
+export async function handleStaffMessage(admin: Admin, phone: string, raw: string, actor?: { userId: string; email: string | null }): Promise<string> {
   const text = raw.trim().replace(/\s+/g, " ");
   const [cmdRaw, ...rest] = text.split(" ");
   const cmd = (cmdRaw ?? "").toUpperCase();
   const arg = rest.join(" ");
 
-  const { data: session } = await admin.from("whatsapp_sessions").select("*").eq("phone", phone).maybeSingle();
+  const { data: session } = actor
+    ? { data: { user_id: actor.userId, email: actor.email, expires_at: new Date(Date.now() + SESSION_HOURS * 3600_000).toISOString(), locked_until: null, failed_attempts: 0 } }
+    : await admin.from("whatsapp_sessions").select("*").eq("phone", phone).maybeSingle();
 
   // ---------- LOGIN ----------
   if (cmd === "LOGIN") {
+    if (actor) {
+      const { data: rows, error } = await admin.from("user_roles").select("role").eq("user_id", actor.userId);
+      if (error) throw new Error(error.message);
+      const roles = (rows ?? []).map((row) => row.role).filter((role) => role !== "guest_portal");
+      if (!roles.length) return "⛔ This account has no staff access.";
+      return `✅ Signed in as ${actor.email ?? "staff"}\n\n${helpFor(roles)}`;
+    }
     if (session?.locked_until && new Date(session.locked_until) > new Date()) {
       return "🔒 Too many wrong attempts. Try again in a few minutes.";
     }
@@ -117,14 +126,15 @@ export async function handleStaffMessage(admin: Admin, phone: string, raw: strin
   if (!active) {
     return "👋 Welcome to EGREED staff WhatsApp.\nTo start, send:\n*LOGIN your@email.com yourpassword*";
   }
-  const userId = session!.user_id!;
+  const userId = session?.user_id;
+  if (!userId) return "Please sign in first.";
 
   if (cmd === "LOGOUT") {
-    await admin.from("whatsapp_sessions").update({ user_id: null, expires_at: null }).eq("phone", phone);
+    if (!actor) await admin.from("whatsapp_sessions").update({ user_id: null, expires_at: null }).eq("phone", phone);
     return "👋 Signed out.";
   }
 
-  await admin.from("whatsapp_sessions").update({ last_active_at: new Date().toISOString() }).eq("phone", phone);
+  if (!actor) await admin.from("whatsapp_sessions").update({ last_active_at: new Date().toISOString() }).eq("phone", phone);
   const { data: roleRows } = await admin.from("user_roles").select("role").eq("user_id", userId);
   const roles = (roleRows ?? []).map((r) => r.role as Role);
   const deny = "⛔ Your role can't do that. Send *HELP* to see your options.";
@@ -138,7 +148,7 @@ export async function handleStaffMessage(admin: Admin, phone: string, raw: strin
     case "HELLO":
       return helpFor(roles);
     case "WHOAMI":
-      return `👤 ${session!.email}\nRoles: ${roles.join(", ")}\nSession ends ${new Date(session!.expires_at!).toUTCString()}`;
+      return `👤 ${session?.email}\nRoles: ${roles.join(", ")}\n${actor ? "Signed-in workspace account" : `Session ends ${new Date(session?.expires_at ?? "").toUTCString()}`}`;
 
     case "ROOMS": {
       if (!has(roles, "rooms")) return deny;
@@ -255,7 +265,7 @@ export async function handleStaffMessage(admin: Admin, phone: string, raw: strin
         .ilike("order_number", arg)
         .select("order_number");
       if (error || !data?.length) return `Order ${arg} not found.`;
-      return `✅ Order ${data[0]!.order_number} is now *${ks}*.`;
+      return `✅ Order ${data[0]?.order_number} is now *${ks}*.`;
     }
     case "STOCK": {
       if (!has(roles, "stock")) return deny;
@@ -273,13 +283,15 @@ export async function handleStaffMessage(admin: Admin, phone: string, raw: strin
       if (!has(roles, "stockWrite")) return deny;
       const m = arg.match(/^(\d+(?:[.,]\d+)?)\s*([a-zA-Z]*)\s+(.+)$/);
       if (!m) return `Send: *${cmd} 5 rice* (amount then item)`;
-      const qty = Number(m[1]!.replace(",", "."));
-      const term = m[3]!.trim();
+      const qty = Number(m[1]?.replace(",", "."));
+      const term = m[3]?.trim() ?? "";
+      if (!Number.isFinite(qty) || qty <= 0 || !term) return "Enter a positive amount and an item name.";
       const { data: items } = await admin.from("inventory_items").select("id,hotel_id,name,unit,stock_on_hand,unit_cost,reorder_level").ilike("name", `%${term}%`).limit(5);
       if (!items?.length) return `No stock item matches "${term}". Send *STOCK* to see names.`;
       if (items.length > 1 && !items.some((i) => i.name.toLowerCase() === term.toLowerCase()))
         return `Which one?\n${items.map((i) => `• ${i.name}`).join("\n")}\nSend the full name.`;
-      const item = items.find((i) => i.name.toLowerCase() === term.toLowerCase()) ?? items[0]!;
+      const item = items.find((i) => i.name.toLowerCase() === term.toLowerCase()) ?? items[0];
+      if (!item) return "No matching stock item.";
       const type = cmd === "USED" ? "usage" : cmd === "WASTE" ? "waste" : "restock";
       const delta = type === "restock" ? qty : -qty;
       const newStock = Number(item.stock_on_hand) + delta;
