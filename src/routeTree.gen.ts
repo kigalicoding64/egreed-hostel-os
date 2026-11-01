@@ -40,6 +40,7 @@ import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedStaffRouteImport } from './routes/_authenticated/staff'
 import { Route as AuthenticatedSupportRouteImport } from './routes/_authenticated/support'
 import { Route as AuthenticatedTasksRouteImport } from './routes/_authenticated/tasks'
+import { Route as AuthenticatedWhatsappRouteImport } from './routes/_authenticated/whatsapp'
 import { Route as AuthenticatedRestaurantIndexRouteImport } from './routes/_authenticated/restaurant.index'
 import { Route as AuthenticatedRestaurantBanquetsRouteImport } from './routes/_authenticated/restaurant.banquets'
 import { Route as AuthenticatedRestaurantInventoryRouteImport } from './routes/_authenticated/restaurant.inventory'
@@ -212,6 +213,11 @@ const AuthenticatedTasksRoute = AuthenticatedTasksRouteImport.update({
   path: '/tasks',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedWhatsappRoute = AuthenticatedWhatsappRouteImport.update({
+  id: '/whatsapp',
+  path: '/whatsapp',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedRestaurantIndexRoute =
   AuthenticatedRestaurantIndexRouteImport.update({
     id: '/',
@@ -324,6 +330,7 @@ export interface FileRoutesByFullPath {
   '/staff': typeof AuthenticatedStaffRoute
   '/support': typeof AuthenticatedSupportRoute
   '/tasks': typeof AuthenticatedTasksRoute
+  '/whatsapp': typeof AuthenticatedWhatsappRoute
   '/restaurant/banquets': typeof AuthenticatedRestaurantBanquetsRoute
   '/restaurant/inventory': typeof AuthenticatedRestaurantInventoryRoute
   '/restaurant/kitchen': typeof AuthenticatedRestaurantKitchenRoute
@@ -369,6 +376,7 @@ export interface FileRoutesByTo {
   '/staff': typeof AuthenticatedStaffRoute
   '/support': typeof AuthenticatedSupportRoute
   '/tasks': typeof AuthenticatedTasksRoute
+  '/whatsapp': typeof AuthenticatedWhatsappRoute
   '/restaurant/banquets': typeof AuthenticatedRestaurantBanquetsRoute
   '/restaurant/inventory': typeof AuthenticatedRestaurantInventoryRoute
   '/restaurant/kitchen': typeof AuthenticatedRestaurantKitchenRoute
@@ -417,6 +425,7 @@ export interface FileRoutesById {
   '/_authenticated/staff': typeof AuthenticatedStaffRoute
   '/_authenticated/support': typeof AuthenticatedSupportRoute
   '/_authenticated/tasks': typeof AuthenticatedTasksRoute
+  '/_authenticated/whatsapp': typeof AuthenticatedWhatsappRoute
   '/_authenticated/restaurant/banquets': typeof AuthenticatedRestaurantBanquetsRoute
   '/_authenticated/restaurant/inventory': typeof AuthenticatedRestaurantInventoryRoute
   '/_authenticated/restaurant/kitchen': typeof AuthenticatedRestaurantKitchenRoute
@@ -465,6 +474,7 @@ export interface FileRouteTypes {
     | '/staff'
     | '/support'
     | '/tasks'
+    | '/whatsapp'
     | '/restaurant/banquets'
     | '/restaurant/inventory'
     | '/restaurant/kitchen'
@@ -510,6 +520,7 @@ export interface FileRouteTypes {
     | '/staff'
     | '/support'
     | '/tasks'
+    | '/whatsapp'
     | '/restaurant/banquets'
     | '/restaurant/inventory'
     | '/restaurant/kitchen'
@@ -557,6 +568,7 @@ export interface FileRouteTypes {
     | '/_authenticated/staff'
     | '/_authenticated/support'
     | '/_authenticated/tasks'
+    | '/_authenticated/whatsapp'
     | '/_authenticated/restaurant/banquets'
     | '/_authenticated/restaurant/inventory'
     | '/_authenticated/restaurant/kitchen'
@@ -804,6 +816,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedTasksRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/whatsapp': {
+      id: '/_authenticated/whatsapp'
+      path: '/whatsapp'
+      fullPath: '/whatsapp'
+      preLoaderRoute: typeof AuthenticatedWhatsappRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/restaurant/': {
       id: '/_authenticated/restaurant/'
       path: '/'
@@ -964,6 +983,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedStaffRoute: typeof AuthenticatedStaffRoute
   AuthenticatedSupportRoute: typeof AuthenticatedSupportRoute
   AuthenticatedTasksRoute: typeof AuthenticatedTasksRoute
+  AuthenticatedWhatsappRoute: typeof AuthenticatedWhatsappRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -994,6 +1014,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedStaffRoute: AuthenticatedStaffRoute,
   AuthenticatedSupportRoute: AuthenticatedSupportRoute,
   AuthenticatedTasksRoute: AuthenticatedTasksRoute,
+  AuthenticatedWhatsappRoute: AuthenticatedWhatsappRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
