@@ -8,6 +8,7 @@ import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { NAV_GROUPS, canAccess } from "@/lib/rbac";
 import { useAuth } from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
+import { MobileTabBar } from "./MobileTabBar";
 
 export function AppShell() {
   const [collapsed, setCollapsed] = useState(false);
@@ -37,17 +38,19 @@ export function AppShell() {
           onOpenMobileNav={() => setMobileNav(true)}
         />
         <main className="flex-1 overflow-y-auto">
-          <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl px-3 pb-28 pt-4 sm:px-6 md:py-6 lg:px-8">
             <Outlet />
           </div>
         </main>
       </div>
 
+      <MobileTabBar onMore={() => setMobileNav(true)} />
+
       <CommandPalette open={searchOpen} onOpenChange={setSearchOpen} />
 
       {/* Mobile navigation */}
       <Sheet open={mobileNav} onOpenChange={setMobileNav}>
-        <SheetContent side="left" className="w-72 bg-sidebar p-0 text-sidebar-foreground">
+        <SheetContent side="left" className="w-[85vw] max-w-80 overflow-y-auto bg-sidebar p-0 text-sidebar-foreground">
           <div className="flex h-16 items-center gap-2.5 border-b border-sidebar-border px-4">
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
               <Hotel className="h-5 w-5" />

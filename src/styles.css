@@ -185,3 +185,20 @@
 @utility shadow-card {
   box-shadow: var(--shadow-card);
 }
+
+/* Frosted glass surfaces (mobile app experience) */
+@utility glass {
+  background-color: color-mix(in oklab, var(--color-card) 72%, transparent);
+  backdrop-filter: blur(20px) saturate(160%);
+  border-color: color-mix(in oklab, var(--color-border) 60%, transparent);
+}
+@utility glass-strong {
+  background-color: color-mix(in oklab, var(--color-card) 86%, transparent);
+  backdrop-filter: blur(28px) saturate(180%);
+  border-color: color-mix(in oklab, var(--color-border) 55%, transparent);
+}
+
+@media (max-width: 767px) {
+  input, select, textarea { font-size: 16px; }
+  html { -webkit-tap-highlight-color: transparent; }
+}
