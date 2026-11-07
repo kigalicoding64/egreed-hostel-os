@@ -54,6 +54,7 @@ import { Route as ApiChatGuestRouteImport } from './routes/api/chat.guest'
 import { Route as ApiChatStaffRouteImport } from './routes/api/chat.staff'
 import { Route as ApiWhatsappSimulateRouteImport } from './routes/api/whatsapp.simulate'
 import { Route as QKindIdRouteImport } from './routes/q.$kind.$id'
+import { Route as ApiPublicWhatsappRelayRouteImport } from './routes/api/public/whatsapp/relay'
 import { Route as ApiPublicWhatsappWebhookRouteImport } from './routes/api/public/whatsapp/webhook'
 
 const IndexRoute = IndexRouteImport.update({
@@ -292,6 +293,11 @@ const QKindIdRoute = QKindIdRouteImport.update({
   path: '/q/$kind/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicWhatsappRelayRoute = ApiPublicWhatsappRelayRouteImport.update({
+  id: '/api/public/whatsapp/relay',
+  path: '/api/public/whatsapp/relay',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicWhatsappWebhookRoute =
   ApiPublicWhatsappWebhookRouteImport.update({
     id: '/api/public/whatsapp/webhook',
@@ -344,6 +350,7 @@ export interface FileRoutesByFullPath {
   '/api/whatsapp/simulate': typeof ApiWhatsappSimulateRoute
   '/q/$kind/$id': typeof QKindIdRoute
   '/restaurant/': typeof AuthenticatedRestaurantIndexRoute
+  '/api/public/whatsapp/relay': typeof ApiPublicWhatsappRelayRoute
   '/api/public/whatsapp/webhook': typeof ApiPublicWhatsappWebhookRoute
 }
 export interface FileRoutesByTo {
@@ -390,6 +397,7 @@ export interface FileRoutesByTo {
   '/api/whatsapp/simulate': typeof ApiWhatsappSimulateRoute
   '/q/$kind/$id': typeof QKindIdRoute
   '/restaurant': typeof AuthenticatedRestaurantIndexRoute
+  '/api/public/whatsapp/relay': typeof ApiPublicWhatsappRelayRoute
   '/api/public/whatsapp/webhook': typeof ApiPublicWhatsappWebhookRoute
 }
 export interface FileRoutesById {
@@ -439,6 +447,7 @@ export interface FileRoutesById {
   '/api/whatsapp/simulate': typeof ApiWhatsappSimulateRoute
   '/q/$kind/$id': typeof QKindIdRoute
   '/_authenticated/restaurant/': typeof AuthenticatedRestaurantIndexRoute
+  '/api/public/whatsapp/relay': typeof ApiPublicWhatsappRelayRoute
   '/api/public/whatsapp/webhook': typeof ApiPublicWhatsappWebhookRoute
 }
 export interface FileRouteTypes {
@@ -488,6 +497,7 @@ export interface FileRouteTypes {
     | '/api/whatsapp/simulate'
     | '/q/$kind/$id'
     | '/restaurant/'
+    | '/api/public/whatsapp/relay'
     | '/api/public/whatsapp/webhook'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -534,6 +544,7 @@ export interface FileRouteTypes {
     | '/api/whatsapp/simulate'
     | '/q/$kind/$id'
     | '/restaurant'
+    | '/api/public/whatsapp/relay'
     | '/api/public/whatsapp/webhook'
   id:
     | '__root__'
@@ -582,6 +593,7 @@ export interface FileRouteTypes {
     | '/api/whatsapp/simulate'
     | '/q/$kind/$id'
     | '/_authenticated/restaurant/'
+    | '/api/public/whatsapp/relay'
     | '/api/public/whatsapp/webhook'
   fileRoutesById: FileRoutesById
 }
@@ -594,6 +606,7 @@ export interface RootRouteChildren {
   ApiChatStaffRoute: typeof ApiChatStaffRoute
   ApiWhatsappSimulateRoute: typeof ApiWhatsappSimulateRoute
   QKindIdRoute: typeof QKindIdRoute
+  ApiPublicWhatsappRelayRoute: typeof ApiPublicWhatsappRelayRoute
   ApiPublicWhatsappWebhookRoute: typeof ApiPublicWhatsappWebhookRoute
 }
 
@@ -914,6 +927,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof QKindIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/whatsapp/relay': {
+      id: '/api/public/whatsapp/relay'
+      path: '/api/public/whatsapp/relay'
+      fullPath: '/api/public/whatsapp/relay'
+      preLoaderRoute: typeof ApiPublicWhatsappRelayRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/whatsapp/webhook': {
       id: '/api/public/whatsapp/webhook'
       path: '/api/public/whatsapp/webhook'
@@ -1029,6 +1049,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiChatStaffRoute: ApiChatStaffRoute,
   ApiWhatsappSimulateRoute: ApiWhatsappSimulateRoute,
   QKindIdRoute: QKindIdRoute,
+  ApiPublicWhatsappRelayRoute: ApiPublicWhatsappRelayRoute,
   ApiPublicWhatsappWebhookRoute: ApiPublicWhatsappWebhookRoute,
 }
 export const routeTree = rootRouteImport
