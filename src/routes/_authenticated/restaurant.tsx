@@ -69,10 +69,10 @@ function RestaurantLayout() {
   );
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6">
       <nav
         aria-label="Restaurant sections"
-        className="-mx-1 flex gap-1 overflow-x-auto rounded-xl border bg-card/60 p-1"
+        className="sticky top-14 z-20 -mx-1 flex snap-x gap-1 overflow-x-auto rounded-xl border border-border/50 bg-card/80 p-1 backdrop-blur-xl [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         {visible.map((t) => {
           const active = t.to === "/restaurant" ? path === t.to : path.startsWith(t.to);
@@ -80,8 +80,11 @@ function RestaurantLayout() {
             <Link
               key={t.to}
               to={t.to}
+              ref={(el) => {
+                if (active && el) el.scrollIntoView({ block: "nearest", inline: "center" });
+              }}
               className={cn(
-                "flex shrink-0 items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+                "flex shrink-0 snap-start items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
                 active
                   ? "bg-primary text-primary-foreground"
                   : "text-muted-foreground hover:bg-muted hover:text-foreground",
