@@ -36,21 +36,24 @@ export function Topbar({
   };
 
   return (
-    <header className="sticky top-0 z-30 flex h-16 items-center gap-3 border-b border-border bg-card/80 px-4 backdrop-blur-md">
+    <header className="sticky top-0 z-30 flex h-14 items-center gap-2 border-b glass px-3 pt-[env(safe-area-inset-top)] sm:gap-3 md:h-16 md:px-4">
       <Button
         variant="ghost"
         size="icon"
-        className="md:hidden"
+        className="hidden"
         onClick={onOpenMobileNav}
         aria-label="Open menu"
       >
         <Menu className="h-5 w-5" />
       </Button>
+      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground md:hidden">
+        <span className="text-sm font-bold">E</span>
+      </div>
 
       {/* Global search */}
       <button
         onClick={onOpenSearch}
-        className="flex h-9 w-full max-w-sm items-center gap-2 rounded-lg border border-border bg-background px-3 text-sm text-muted-foreground transition-colors hover:bg-muted/50"
+        className="flex h-9 min-w-0 w-full max-w-sm items-center gap-2 rounded-full border border-border bg-background/60 px-3 md:rounded-lg text-sm text-muted-foreground transition-colors hover:bg-muted/50"
       >
         <Search className="h-4 w-4" />
         <span className="hidden sm:inline">Search…</span>
