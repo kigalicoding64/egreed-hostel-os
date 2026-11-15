@@ -46,14 +46,15 @@ function WhatsAppPage() {
         </section>
         <section className="border-b pb-6">
           <h2 className="mb-3 font-semibold">WhatsApp Business</h2>
-          <span className="inline-flex items-center gap-2 text-sm text-warning"><span className="h-2 w-2 rounded-full bg-warning" />Setup pending</span>
+          <span className="inline-flex items-center gap-2 text-sm text-success"><span className="h-2 w-2 rounded-full bg-success" />Active via AI relay</span>
+          <p className="mt-2 text-xs text-muted-foreground">Your business number reaches EGREED through your WhatsApp AI. Staff send LOGIN there to start.</p>
         </section>
         <section>
           <h2 className="mb-3 font-semibold">Channel</h2>
           <dl className="space-y-3 text-sm">
             <div className="flex justify-between gap-4"><dt className="text-muted-foreground">Mode</dt><dd>Test phone</dd></div>
             <div className="flex justify-between gap-4"><dt className="text-muted-foreground">Data</dt><dd>Live hotel records</dd></div>
-            <div className="flex justify-between gap-4"><dt className="text-muted-foreground">Recipient</dt><dd>No external recipient</dd></div>
+            <div className="flex justify-between gap-4"><dt className="text-muted-foreground">Recipient</dt><dd>This screen only (no messages sent)</dd></div>
           </dl>
         </section>
       </aside>

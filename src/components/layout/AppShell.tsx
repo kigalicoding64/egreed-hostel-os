@@ -9,6 +9,7 @@ import { NAV_GROUPS, canAccess } from "@/lib/rbac";
 import { useAuth } from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
 import { MobileTabBar } from "./MobileTabBar";
+import { InstallPrompt } from "./InstallPrompt";
 
 export function AppShell() {
   const [collapsed, setCollapsed] = useState(false);
@@ -45,6 +46,7 @@ export function AppShell() {
       </div>
 
       <MobileTabBar onMore={() => setMobileNav(true)} />
+      <InstallPrompt />
 
       <CommandPalette open={searchOpen} onOpenChange={setSearchOpen} />
 
