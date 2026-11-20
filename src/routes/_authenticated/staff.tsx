@@ -200,7 +200,7 @@ function StaffDialog({ allowed, member, onClose }: { allowed: AppRole[]; member?
         )}
         <div>
           <Label>Roles you can assign</Label>
-          <div className="mt-2 grid grid-cols-2 gap-2">
+          <div className="mt-2 grid grid-cols-1 gap-2 min-[400px]:grid-cols-2">
             {allowed.map((r) => (
               <label key={r} className="flex items-center gap-2 rounded-md border p-2 text-sm">
                 <Checkbox checked={roles.includes(r)} onCheckedChange={() => toggle(r)} />{ROLE_LABELS[r]}
