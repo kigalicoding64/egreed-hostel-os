@@ -4,6 +4,25 @@ import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { ALL_ROLES, type AppRole } from "./rbac";
 import { checkRoleChange } from "./role-policy";
 
+/** Turn internal server errors into messages staff can understand. */
+function friendly(e: unknown): Error {
+  const msg = e instanceof Error ? e.message : String(e);
+  console.error("[staff]", msg);
+  if (/environment variable|SERVICE_ROLE|SUPABASE_/i.test(msg)) return new Error("This action is temporarily unavailable on this website. Please try again later or contact your administrator.");
+  if (/already (been )?registered|already exists/i.test(msg)) return new Error("An account with this email already exists.");
+  if (/password/i.test(msg) && /weak|short|least/i.test(msg)) return new Error("Password is too weak. Use at least 8 characters with letters and numbers.");
+  if (/jwt|token|unauthori[sz]ed/i.test(msg)) return new Error("Your session has expired. Please sign in again.");
+  return new Error(msg.length > 140 || /relation|column|violates|PGRST|sql/i.test(msg) ? "Something went wrong. Please try again." : msg);
+}
+
+async function loadAdmin(): Promise<typeof import("@/integrations/supabase/client.server")["supabaseAdmin"]> {
+  try {
+    const supabaseAdmin = await loadAdmin();
+    void supabaseAdmin.auth; // force initialisation so missing config is caught here
+    return supabaseAdmin;
+  } catch (e) { throw friendly(e); }
+}
+
 const roleEnum = z.enum(ALL_ROLES as [AppRole, ...AppRole[]]);
 
 async function actorRoles(supabase: any, userId: string): Promise<AppRole[]> {
@@ -25,17 +44,17 @@ export const createStaffAccount = createServerFn({ method: "POST" })
     const actor = await actorRoles(context.supabase, context.userId);
     const err = checkRoleChange(actor, context.userId, "new", [], data.roles);
     if (err) throw new Error(err);
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const supabaseAdmin = await loadAdmin();
     const { data: created, error } = await supabaseAdmin.auth.admin.createUser({
       email: data.email, password: data.password, email_confirm: true,
       user_metadata: { full_name: data.fullName },
     });
-    if (error || !created.user) throw new Error(error?.message ?? "Could not create account");
+    if (error || !created.user) throw friendly(error ?? new Error("Could not create account"));
     const id = created.user.id;
     await supabaseAdmin.from("profiles").upsert({ id, full_name: data.fullName, email: data.email, job_title: data.jobTitle ?? null, is_active: true });
     await supabaseAdmin.from("user_roles").delete().eq("user_id", id);
     const { error: rErr } = await supabaseAdmin.from("user_roles").insert(data.roles.map((role) => ({ user_id: id, role })));
-    if (rErr) throw new Error(rErr.message);
+    if (rErr) throw friendly(rErr);
     await supabaseAdmin.from("audit_logs").insert({
       user_id: context.userId, action: "staff_user_created", entity: "user_roles", entity_id: id,
       metadata: { target_email: data.email, granted_roles: data.roles },
@@ -48,7 +67,7 @@ export const updateStaffRoles = createServerFn({ method: "POST" })
   .inputValidator(z.object({ userId: z.string().uuid(), roles: z.array(roleEnum).max(5) }))
   .handler(async ({ data, context }) => {
     const actor = await actorRoles(context.supabase, context.userId);
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const supabaseAdmin = await loadAdmin();
     const { data: cur } = await supabaseAdmin.from("user_roles").select("role").eq("user_id", data.userId);
     const current = (cur ?? []).map((r) => r.role as AppRole);
     const err = checkRoleChange(actor, context.userId, data.userId, current, data.roles);
@@ -58,7 +77,7 @@ export const updateStaffRoles = createServerFn({ method: "POST" })
     if (removed.length) await supabaseAdmin.from("user_roles").delete().eq("user_id", data.userId).in("role", removed);
     if (added.length) {
       const { error } = await supabaseAdmin.from("user_roles").insert(added.map((role) => ({ user_id: data.userId, role })));
-      if (error) throw new Error(error.message);
+      if (error) throw friendly(error);
     }
     if (added.length || removed.length) {
       await supabaseAdmin.from("audit_logs").insert({
@@ -74,7 +93,7 @@ export const listRoleAudit = createServerFn({ method: "GET" })
   .handler(async ({ context }) => {
     const actor = await actorRoles(context.supabase, context.userId);
     if (!actor.some((r) => ["super_admin", "hotel_owner", "general_manager"].includes(r))) return [];
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const supabaseAdmin = await loadAdmin();
     const { data } = await supabaseAdmin.from("audit_logs").select("id,action,user_id,entity_id,metadata,created_at")
       .eq("entity", "user_roles").order("created_at", { ascending: false }).limit(30);
     const arr = (v: unknown): string[] => (Array.isArray(v) ? v.map(String) : []);
@@ -85,4 +104,20 @@ export const listRoleAudit = createServerFn({ method: "GET" })
         metadata: { target_email: String(m.target_email ?? ""), granted_roles: arr(m.granted_roles), granted: arr(m.granted), revoked: arr(m.revoked) },
       };
     });
+  });
+
+export const resetStaffPassword = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator(z.object({ userId: z.string().uuid(), password: z.string().min(8).max(72) }))
+  .handler(async ({ data, context }) => {
+    const actor = await actorRoles(context.supabase, context.userId);
+    if (!actor.includes("super_admin")) throw new Error("Only a Super Admin can reset passwords.");
+    if (data.userId === context.userId) throw new Error("Change your own password from your Profile page.");
+    const supabaseAdmin = await loadAdmin();
+    const { error } = await supabaseAdmin.auth.admin.updateUserById(data.userId, { password: data.password });
+    if (error) throw friendly(error);
+    await supabaseAdmin.from("audit_logs").insert({
+      user_id: context.userId, action: "password_reset_by_admin", entity: "auth_users", entity_id: data.userId, metadata: {},
+    });
+    return { ok: true };
   });

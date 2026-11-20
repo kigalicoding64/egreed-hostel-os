@@ -208,7 +208,7 @@ export const Route = createFileRoute("/api/chat/guest")({
                   guest_name: guestFull.full_name,
                   guest_contact: guestFull.email ?? guestFull.phone,
                 });
-                if (error) return { ok: false, note: error.message };
+                if (error) return { ok: false, note: "Could not complete that request right now." };
 
                 // Alert reception and duty managers in the notification centre.
                 const { data: staff } = await supabaseAdmin

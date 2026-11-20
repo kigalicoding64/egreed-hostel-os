@@ -31,7 +31,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { useAuth } from "@/hooks/use-auth";
 import { grantableRoles } from "@/lib/role-policy";
-import { createStaffAccount, updateStaffRoles, listRoleAudit } from "@/lib/staff.functions";
+import { createStaffAccount, updateStaffRoles, listRoleAudit, resetStaffPassword } from "@/lib/staff.functions";
 
 export const Route = createFileRoute("/_authenticated/staff")({
   component: StaffPage,
@@ -54,6 +54,8 @@ function StaffPage() {
   const isExec = myRoles.some((r) => ["super_admin", "hotel_owner", "general_manager"].includes(r));
   const [adding, setAdding] = useState(false);
   const [editing, setEditing] = useState<StaffMember | null>(null);
+  const [resetting, setResetting] = useState<StaffMember | null>(null);
+  const isSuper = myRoles.includes("super_admin");
   const { data = [], isLoading } = useQuery({
     queryKey: ["staff"],
     queryFn: async () => {
@@ -134,6 +136,9 @@ function StaffPage() {
                         <Button size="sm" variant="outline" disabled={m.id === user?.id} onClick={() => setEditing(m)}>
                           {m.id === user?.id ? "You" : "Manage roles"}
                         </Button>
+                        {isSuper && m.id !== user?.id && (
+                          <Button size="sm" variant="ghost" className="ml-1" onClick={() => setResetting(m)}>Reset password</Button>
+                        )}
                       </TableCell>
                     )}
                   </TableRow>
@@ -145,6 +150,7 @@ function StaffPage() {
       </Card>
       {isExec && <AuditCard staff={data} />}
       {adding && <StaffDialog allowed={allowed} onClose={() => setAdding(false)} />}
+      {resetting && <ResetPasswordDialog member={resetting} onClose={() => setResetting(null)} />}
       {editing && <StaffDialog allowed={allowed} member={editing} onClose={() => setEditing(null)} />}
     </div>
   );
@@ -241,5 +247,47 @@ function AuditCard({ staff }: { staff: StaffMember[] }) {
         ))}
       </CardContent>
     </Card>
+  );
+}
+
+function makePassword() {
+  const words = ["Sun", "Lake", "Star", "Palm", "Hill", "Moon", "Rose", "Wave"];
+  const pick = (n: number) => Math.floor((crypto.getRandomValues(new Uint32Array(1))[0] ?? 0) % n);
+  return `Hotel-${words[pick(words.length)]}-${1000 + pick(9000)}`;
+}
+
+function ResetPasswordDialog({ member, onClose }: { member: StaffMember; onClose: () => void }) {
+  const reset = useServerFn(resetStaffPassword);
+  const [password, setPassword] = useState(makePassword);
+  const [busy, setBusy] = useState(false);
+  const submit = async () => {
+    setBusy(true);
+    try {
+      await reset({ data: { userId: member.id, password } });
+      await navigator.clipboard?.writeText(password).catch(() => undefined);
+      toast.success("New password set and copied. Share it privately with the staff member.");
+      onClose();
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Something went wrong");
+    } finally { setBusy(false); }
+  };
+  return (
+    <Dialog open onOpenChange={(o) => !o && onClose()}>
+      <DialogContent className="max-w-md">
+        <DialogHeader><DialogTitle>Reset password for {member.full_name || member.email}</DialogTitle></DialogHeader>
+        <div className="space-y-2">
+          <Label htmlFor="rp-pass">New password (min 8)</Label>
+          <div className="flex gap-2">
+            <Input id="rp-pass" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <Button type="button" variant="outline" onClick={() => setPassword(makePassword())}>Generate</Button>
+          </div>
+          <p className="text-xs text-muted-foreground">They can sign in right away with this password. The change is recorded in the activity log.</p>
+        </div>
+        <DialogFooter>
+          <Button variant="outline" onClick={onClose}>Cancel</Button>
+          <Button disabled={busy || password.length < 8} onClick={submit}>{busy ? "Saving..." : "Set & copy password"}</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }
