@@ -4,20 +4,22 @@ import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { ALL_ROLES, type AppRole } from "./rbac";
 import { checkRoleChange } from "./role-policy";
 
+const CONTACT = "This feature is temporarily unavailable. Please contact the developer, EGREED Technology, at program@egreedtech.org to get it back online.";
+
 /** Turn internal server errors into messages staff can understand. */
 function friendly(e: unknown): Error {
   const msg = e instanceof Error ? e.message : String(e);
   console.error("[staff]", msg);
-  if (/environment variable|SERVICE_ROLE|SUPABASE_/i.test(msg)) return new Error("This action is temporarily unavailable on this website. Please try again later or contact your administrator.");
+  if (/environment variable|SERVICE_ROLE|SUPABASE_/i.test(msg)) return new Error(CONTACT);
   if (/already (been )?registered|already exists/i.test(msg)) return new Error("An account with this email already exists.");
   if (/password/i.test(msg) && /weak|short|least/i.test(msg)) return new Error("Password is too weak. Use at least 8 characters with letters and numbers.");
   if (/jwt|token|unauthori[sz]ed/i.test(msg)) return new Error("Your session has expired. Please sign in again.");
-  return new Error(msg.length > 140 || /relation|column|violates|PGRST|sql/i.test(msg) ? "Something went wrong. Please try again." : msg);
+  return new Error(msg.length > 140 || /relation|column|violates|PGRST|sql/i.test(msg) ? "Something went wrong. Please try again, or contact EGREED Technology at program@egreedtech.org if it keeps happening." : msg);
 }
 
 async function loadAdmin(): Promise<typeof import("@/integrations/supabase/client.server")["supabaseAdmin"]> {
   try {
-    const supabaseAdmin = await loadAdmin();
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     void supabaseAdmin.auth; // force initialisation so missing config is caught here
     return supabaseAdmin;
   } catch (e) { throw friendly(e); }

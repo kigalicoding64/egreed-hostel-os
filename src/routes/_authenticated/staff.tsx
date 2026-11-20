@@ -188,7 +188,7 @@ function StaffDialog({ allowed, member, onClose }: { allowed: AppRole[]; member?
       qc.invalidateQueries({ queryKey: ["role-audit"] });
       onClose();
     } catch (e) {
-      toast.error(e instanceof Error ? e.message : "Something went wrong");
+      toast.error(e instanceof Error ? e.message : "Something went wrong. Please contact EGREED Technology at program@egreedtech.org.");
     } finally { setBusy(false); }
   };
   const valid = member ? true : form.email && form.password.length >= 8 && form.fullName && roles.length > 0;
@@ -268,7 +268,7 @@ function ResetPasswordDialog({ member, onClose }: { member: StaffMember; onClose
       toast.success("New password set and copied. Share it privately with the staff member.");
       onClose();
     } catch (e) {
-      toast.error(e instanceof Error ? e.message : "Something went wrong");
+      toast.error(e instanceof Error ? e.message : "Something went wrong. Please contact EGREED Technology at program@egreedtech.org.");
     } finally { setBusy(false); }
   };
   return (
